@@ -10,17 +10,18 @@
   :root { --silver:#d8d8df; --muted:#777780; --line:#3b3b42; --bg:#050506; }
   * { box-sizing:border-box; }
   html,body { margin:0; min-height:100%; background:var(--bg); color:#eee; font-family:'Space Mono',monospace; }
-  body { overflow-x:hidden; background:
-    radial-gradient(ellipse at 70% 45%,rgba(93,93,110,.16),transparent 38%),
-    radial-gradient(ellipse at 10% 90%,rgba(90,90,100,.10),transparent 35%), #050506; }
+  #cyber-bg { position:fixed; inset:0; width:100%; height:100%; z-index:0; pointer-events:none; opacity:.82; }
+  .wrap { z-index:1; }
+  body { overflow-x:hidden; background:radial-gradient(ellipse at 70% 45%,rgba(93,93,110,.13),transparent 38%),radial-gradient(ellipse at 10% 90%,rgba(90,90,100,.08),transparent 35%),#050506; }
   body:before { content:""; position:fixed; inset:0; pointer-events:none; z-index:5; opacity:.14;
     background:repeating-linear-gradient(0deg,transparent 0 3px,rgba(255,255,255,.06) 4px); }
   .wrap { width:min(1120px,94vw); margin:auto; padding:22px 0 30px; position:relative; }
-  .topbar { display:flex; justify-content:space-between; align-items:center; border:1px solid var(--line); padding:10px 14px; background:#080809c9; font-size:10px; letter-spacing:2px; }
+  .topbar { display:flex; justify-content:space-between; align-items:center; border:1px solid rgba(170,170,190,.32); padding:10px 14px; background:rgba(8,8,12,.28); backdrop-filter:blur(7px); font-size:10px; letter-spacing:2px; }
   .brand { font-family:Orbitron,sans-serif; font-weight:800; letter-spacing:4px; }
   .status { color:#a9a9b2; } .dot { display:inline-block; width:6px;height:6px;border-radius:50%;background:#d9d9e0;box-shadow:0 0 10px #fff;margin-right:7px; }
   .main { display:grid; grid-template-columns:1fr 1.05fr; gap:16px; margin-top:16px; }
-  .panel { border:1px solid var(--line); background:linear-gradient(145deg,rgba(18,18,21,.96),rgba(5,5,7,.95)); position:relative; overflow:hidden; }
+  .panel { border:1px solid rgba(180,180,200,.28); background:linear-gradient(145deg,rgba(18,18,24,.20),rgba(5,5,9,.13)); backdrop-filter:blur(2px); position:relative; overflow:hidden; transition:border-color .25s,background .25s; }
+  .panel:hover { border-color:rgba(210,210,230,.52); background:linear-gradient(145deg,rgba(30,30,40,.24),rgba(5,5,9,.16)); }
   .panel-head { padding:10px 13px; border-bottom:1px solid var(--line); color:#9999a3; font-size:9px; letter-spacing:2px; display:flex;justify-content:space-between; }
   .intro { padding:clamp(22px,4vw,44px) 24px 26px; min-height:420px; display:flex; flex-direction:column; justify-content:center; }
   .eyebrow { color:#8b8b95; font-size:10px; letter-spacing:3px; margin-bottom:18px; }
@@ -29,7 +30,7 @@
   .sigil { font-size:32px; letter-spacing:8px; margin:25px 0 17px; color:#c7c7cf; text-shadow:0 0 15px #aaa; }
   .desc { max-width:350px; color:#a0a0a9; font-size:11px; line-height:1.9; }
   .links { display:flex; flex-wrap:wrap; gap:8px; margin-top:25px; }
-  .links a,.fakebutton { color:#e5e5e9; text-decoration:none; font:10px 'Space Mono',monospace; letter-spacing:1px; padding:11px 13px; border:1px solid #55555f; background:#101013; transition:.2s; cursor:pointer; }
+  .links a,.fakebutton { color:#e5e5e9; text-decoration:none; font:10px 'Space Mono',monospace; letter-spacing:1px; padding:11px 13px; border:1px solid #55555f; background:rgba(16,16,19,.38); backdrop-filter:blur(4px); transition:.2s; cursor:pointer; }
   .links a:hover,.fakebutton:hover { color:#050506; background:#dddde3; box-shadow:0 0 18px #aaa5; }
   .head-panel { min-height:420px; }
   #scene { position:absolute; inset:24px 0 0; width:100%; height:calc(100% - 24px); display:block; }
@@ -46,7 +47,7 @@
   .track strong {font-size:10px;display:block}.track small {font-size:9px;color:#85858f}
   .bar {height:2px;background:#38383e;margin-top:10px}.bar:after{content:"";display:block;width:38%;height:2px;background:#ddd}
   .footer {display:flex;justify-content:space-between;gap:10px;margin-top:15px;color:#62626b;font-size:9px;letter-spacing:1px}
-  .popup {position:fixed;right:18px;bottom:18px;z-index:10;width:min(280px,calc(100vw - 36px));background:#0b0b0e;border:1px solid #85858d;box-shadow:0 10px 40px #000;padding:12px 14px;font-size:10px;line-height:1.7;color:#bdbdc5;animation:pop 1s ease both}
+  .popup {position:fixed;right:18px;bottom:18px;z-index:10;width:min(280px,calc(100vw - 36px));background:rgba(11,11,14,.9);backdrop-filter:blur(8px);border:1px solid #85858d;box-shadow:0 10px 40px #000;padding:12px 14px;font-size:10px;line-height:1.7;color:#bdbdc5;animation:pop 1s ease both}
   .popup b {color:#f0f0f4;letter-spacing:1px}.popup button {float:right;background:none;border:0;color:#aaa;font:inherit;cursor:pointer}
   @keyframes pop {from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
   @media(max-width:720px) {
@@ -57,6 +58,7 @@
 </style>
 </head>
 <body>
+<canvas id="cyber-bg" aria-hidden="true"></canvas>
 <div class="wrap">
   <header class="topbar">
     <div class="brand">_THATSONME</div>
@@ -111,17 +113,17 @@ import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.m
 const canvas = document.querySelector('#scene');
 const host = canvas.parentElement;
 const scene = new THREE.Scene();
-scene.background = new THREE.Color(0x08080a);
-scene.fog = new THREE.Fog(0x08080a, 7, 17);
+scene.background = null; // let the interactive cyber background show through the 3D frame
 const camera = new THREE.PerspectiveCamera(36, 1, 0.1, 100);
 camera.position.set(0, 0.02, 7.0);
 let renderer;
-try { renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:false}); } catch (err) {
+try { renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:true}); } catch (err) {
   const label=document.createElement('div'); label.textContent='3D RENDER UNAVAILABLE — OPEN IN CHROME';
   label.style.cssText='position:absolute;inset:45% 12px auto;text-align:center;color:#aaa;font:10px monospace;letter-spacing:2px';
   host.appendChild(label); throw err;
 }
 renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.6));
+renderer.setClearColor(0x000000, 0);
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.toneMappingExposure = 1.4;
@@ -226,6 +228,10 @@ for(let i=0;i<18;i++){
 }
 
 let targetX=0, targetY=0, dragging=false, lastX=0,lastY=0;
+let parallaxX=0, parallaxY=0;
+// Mouse/touch tilt gives the mask a subtle parallax response; drag still rotates it directly.
+window.addEventListener('pointermove', e => { if (dragging) return; parallaxY=((e.clientX/window.innerWidth)-.5)*.20; parallaxX=((e.clientY/window.innerHeight)-.5)*-.12; }, {passive:true});
+window.addEventListener('deviceorientation', e => { if (e.gamma !== null && e.beta !== null) { parallaxY=Math.max(-.22,Math.min(.22,e.gamma/180)); parallaxX=Math.max(-.14,Math.min(.14,(e.beta-35)/240)); } }, {passive:true});
 canvas.style.touchAction='pan-y';
 canvas.addEventListener('pointerdown',e=>{dragging=true;lastX=e.clientX;lastY=e.clientY;canvas.setPointerCapture(e.pointerId);});
 canvas.addEventListener('pointermove',e=>{if(!dragging)return;targetY+=(e.clientX-lastX)*.008;targetX+=(e.clientY-lastY)*.006;lastX=e.clientX;lastY=e.clientY;});
@@ -243,14 +249,53 @@ function animate(){
  requestAnimationFrame(animate);
  const t=clock.getElapsedTime();
  // The head rotates on its own; pointer dragging temporarily steers it.
- entity.rotation.y += (targetY + Math.sin(t*.35)*.16 - entity.rotation.y)*.025;
- entity.rotation.x += (targetX + Math.sin(t*.5)*.05 - entity.rotation.x)*.025;
+ entity.rotation.y += (targetY + parallaxY + Math.sin(t*.35)*.16 - entity.rotation.y)*.025;
+ entity.rotation.x += (targetX + parallaxX + Math.sin(t*.5)*.05 - entity.rotation.x)*.025;
  entity.position.y = Math.sin(t*.8)*.055;
  ring.rotation.z = t*.12;
  ring2.rotation.z = -t*.09;
  renderer.render(scene,camera);
 }
 animate();
+</script>
+<script>
+(() => {
+  const c = document.getElementById('cyber-bg');
+  const ctx = c.getContext('2d');
+  let w=0,h=0,dpr=1, mx=.5,my=.5, t=0;
+  const nodes=[];
+  function resize(){
+    dpr=Math.min(window.devicePixelRatio||1,1.5); w=window.innerWidth; h=window.innerHeight;
+    c.width=Math.floor(w*dpr); c.height=Math.floor(h*dpr); c.style.width=w+'px'; c.style.height=h+'px';
+    ctx.setTransform(dpr,0,0,dpr,0,0); nodes.length=0;
+    const count=Math.min(72,Math.max(28,Math.floor(w*h/18000)));
+    for(let i=0;i<count;i++) nodes.push({x:Math.random()*w,y:Math.random()*h,vx:(Math.random()-.5)*.22,vy:(Math.random()-.5)*.22,r:Math.random()*1.5+.5});
+  }
+  window.addEventListener('resize',resize,{passive:true});
+  window.addEventListener('pointermove',e=>{mx=e.clientX/w;my=e.clientY/h;},{passive:true});
+  function path(points,alpha=1){ctx.beginPath();ctx.moveTo(points[0][0],points[0][1]);for(let i=1;i<points.length;i++)ctx.lineTo(points[i][0],points[i][1]);ctx.strokeStyle=`rgba(170,177,205,${alpha})`;ctx.stroke();}
+  function draw(){
+    t+=.006; ctx.clearRect(0,0,w,h); ctx.lineWidth=.8;
+    // drifting technical grid, gently warped toward the pointer
+    const gx=70,gy=70, ox=(mx-.5)*18,oy=(my-.5)*18;
+    for(let x=-gx;x<w+gx;x+=gx){let xx=x+ox+Math.sin(t+x*.01)*5;ctx.beginPath();ctx.moveTo(xx,0);ctx.lineTo(xx+Math.sin(t+x*.015)*9,h);ctx.strokeStyle='rgba(130,138,164,.075)';ctx.stroke();}
+    for(let y=-gy;y<h+gy;y+=gy){let yy=y+oy+Math.cos(t+y*.01)*4;ctx.beginPath();ctx.moveTo(0,yy);ctx.lineTo(w,yy+Math.sin(t+y*.02)*8);ctx.strokeStyle='rgba(130,138,164,.065)';ctx.stroke();}
+    // abstract angular cyber sigils / circuit traces around the edges
+    const corners=[[24,28,1,1],[w-24,28,-1,1],[24,h-28,1,-1],[w-24,h-28,-1,-1]];
+    corners.forEach(([x,y,sx,sy],i)=>{ctx.save();ctx.translate(x+(mx-.5)*12,y+(my-.5)*12);ctx.scale(sx,sy);ctx.strokeStyle='rgba(198,201,220,.36)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(48,0);ctx.lineTo(48,10);ctx.lineTo(65,10);ctx.moveTo(8,0);ctx.lineTo(8,26);ctx.lineTo(20,26);ctx.moveTo(35,10);ctx.lineTo(35,20);ctx.lineTo(28,27);ctx.stroke();ctx.beginPath();ctx.arc(48,34+Math.sin(t+i)*3,5,0,Math.PI*2);ctx.stroke();ctx.restore();});
+    // floating nodes and connections
+    for(let i=0;i<nodes.length;i++){
+      const a=nodes[i];a.x+=a.vx;a.y+=a.vy;if(a.x<0||a.x>w)a.vx*=-1;if(a.y<0||a.y>h)a.vy*=-1;
+      for(let j=i+1;j<nodes.length;j++){const b=nodes[j],dx=a.x-b.x,dy=a.y-b.y,dist=Math.hypot(dx,dy);if(dist<125){ctx.strokeStyle=`rgba(154,164,195,${(1-dist/125)*.16})`;ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();}}
+      ctx.fillStyle='rgba(220,224,240,.55)';ctx.fillRect(a.x-a.r/2,a.y-a.r/2,a.r,a.r);
+    }
+    // small rotating sigil ring, deliberately subtle behind the content
+    const cx=w*(.5+(mx-.5)*.035),cy=h*(.5+(my-.5)*.035),r=Math.min(w,h)*.18;
+    ctx.save();ctx.translate(cx,cy);ctx.rotate(t*.12);ctx.strokeStyle='rgba(150,158,190,.10)';ctx.beginPath();ctx.arc(0,0,r,0,Math.PI*2);ctx.stroke();ctx.beginPath();for(let i=0;i<8;i++){const a=i*Math.PI/4;ctx.moveTo(Math.cos(a)*r*.82,Math.sin(a)*r*.82);ctx.lineTo(Math.cos(a)*r*1.08,Math.sin(a)*r*1.08);}ctx.stroke();ctx.restore();
+    requestAnimationFrame(draw);
+  }
+  resize();draw();
+})();
 </script>
 <script>
 function tick(){document.getElementById('clock').textContent=new Date().toLocaleTimeString('en-GB');}
