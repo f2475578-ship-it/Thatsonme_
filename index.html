@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#050505">
-<title>EC1PSED.exe — personal archive</title>
+<title>_thatsonme — personal archive</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Orbitron:wght@400;600;800&display=swap');
   :root { --silver:#d8d8df; --muted:#777780; --line:#3b3b42; --bg:#050506; }
@@ -59,7 +59,7 @@
 <body>
 <div class="wrap">
   <header class="topbar">
-    <div class="brand">EC1PSED<span style="color:#777">.EXE</span></div>
+    <div class="brand">_THATSONME</div>
     <div class="status"><span class="dot"></span> SYSTEM ONLINE</div>
     <div id="clock">00:00:00</div>
   </header>
@@ -71,9 +71,9 @@
       <div class="sigil">† 𖤐 ⛧ 𖤐 †</div>
       <p class="desc">A little corner of the internet. Chrome dreams, corrupted memories, and things that don't belong in the real world.</p>
       <div class="links">
-        <a href="https://instagram.com/" target="_blank" rel="noopener">INSTAGRAM ↗</a>
-        <a href="https://open.spotify.com/" target="_blank" rel="noopener">MUSIC ↗</a>
-        <a href="mailto:you@example.com">CONTACT ↗</a>
+        <a href="https://www.instagram.com/_thatsonme/" target="_blank" rel="noopener">INSTAGRAM ↗</a>
+        <a href="https://open.spotify.com/track/1dbcQERW1gOh0G557OoAXe" target="_blank" rel="noopener">MUSIC ↗</a>
+        <a href="https://ig.me/m/_thatsonme" target="_blank" rel="noopener">CONTACT / DM ↗</a>
       </div>
     </section>
 
@@ -92,15 +92,15 @@
     </div>
     <div class="panel small">
       <h3>02 / NOW PLAYING</h3>
-      <div class="track"><div class="disc"></div><div><strong>YOUR TRACK HERE</strong><small>replace with your favourite song</small></div></div>
-      <div class="bar"></div>
+      <a class="track" href="https://open.spotify.com/track/1dbcQERW1gOh0G557OoAXe" target="_blank" rel="noopener" style="color:inherit;text-decoration:none"><div class="disc"></div><div><strong>PLAY MY FREQUENCY ↗</strong><small>OPEN TRACK IN SPOTIFY</small></div></a>
+      <iframe title="Spotify track player" style="border-radius:8px;margin-top:10px" src="https://open.spotify.com/embed/track/1dbcQERW1gOh0G557OoAXe?utm_source=generator&theme=0" width="100%" height="80" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
     </div>
     <div class="panel small">
       <h3>03 / SYSTEM LOG</h3>
       <p id="log">[ OK ] visual interface loaded<br>[ OK ] entity animation active<br>[ .. ] awaiting user signal</p>
     </div>
   </section>
-  <footer class="footer"><span>© 2026 EC1PSED ARCHIVE</span><span>MADE OF STATIC & SILVER</span><span>V.1.0.0</span></footer>
+  <footer class="footer"><span>© 2026 _THATSONME ARCHIVE</span><span>MADE OF STATIC & SILVER</span><span>V.1.0.0</span></footer>
 </div>
 
 <div class="popup" id="popup"><button onclick="document.getElementById('popup').remove()">[ X ]</button><b>INCOMING TRANSMISSION</b><br>Welcome to the void. The entity is awake.</div>
@@ -149,35 +149,34 @@ function spike(parent, start, end, radius, material=chrome) {
   parent.add(mesh); return mesh;
 }
 // Stylised sculptural head, built from metallic geometry so no external model is needed.
-ellipsoid(entity,0,0,0,1.02,1.28,.78,chrome,48);             // skull
-ellipsoid(entity,0,-.82,.08,.66,.48,.62,chrome,36);          // jaw
-ellipsoid(entity,0,-.18,.68,.20,.40,.18,darkChrome,24);      // nose bridge
-ellipsoid(entity,0,-.48,.70,.24,.12,.19,chrome,24);          // nose tip
+ellipsoid(entity,0,.02,0,.88,1.22,.68,darkChrome,48);       // narrow dark skull
+ellipsoid(entity,0,-.80,.10,.58,.43,.55,chrome,36);          // tapered jaw
+ellipsoid(entity,0,-.18,.61,.14,.39,.16,darkChrome,24);      // blade-like nose bridge
+ellipsoid(entity,0,-.48,.64,.18,.09,.14,chrome,24);          // nose tip
 // cheek plates
 for (const s of [-1,1]) {
-  ellipsoid(entity,s*.60,-.34,.47,.35,.25,.28,darkChrome,28);
-  ellipsoid(entity,s*.43,.23,.63,.30,.16,.12,chrome,28);    // brow
-  ellipsoid(entity,s*.42,.08,.67,.23,.105,.075,black,24);   // eye socket
-  ellipsoid(entity,s*.42,.08,.735,.11,.045,.025,chrome,20);// eye glint
+  ellipsoid(entity,s*.58,-.32,.44,.32,.20,.24,darkChrome,28);
+  ellipsoid(entity,s*.42,.22,.59,.32,.12,.14,chrome,28);    // blade brow
+  ellipsoid(entity,s*.42,.055,.635,.23,.115,.07,black,24);   // deep hollow eye socket
   // ears
-  ellipsoid(entity,s*.98,-.03,.02,.16,.29,.20,darkChrome,24);
+  ellipsoid(entity,s*.88,-.03,.02,.12,.25,.15,darkChrome,24);
   // crown and temple thorns
-  spike(entity,[s*.35,.88,.05],[s*.80,1.65,.0],.14,chrome);
-  spike(entity,[s*.70,.65,.0],[s*1.42,1.06,-.05],.12,darkChrome);
-  spike(entity,[s*.86,.25,.0],[s*1.60,.38,-.15],.10,chrome);
+  spike(entity,[s*.30,.86,.03],[s*.66,1.72,-.04],.12,chrome);
+  spike(entity,[s*.62,.62,.0],[s*1.38,1.12,-.05],.10,darkChrome);
+  spike(entity,[s*.80,.18,.0],[s*1.55,.28,-.15],.085,chrome);
   spike(entity,[s*.84,-.30,.0],[s*1.48,-.65,-.05],.11,darkChrome);
   spike(entity,[s*.60,-.76,.02],[s*1.0,-1.30,-.05],.10,chrome);
   // cheek sigils / sharp fins
-  spike(entity,[s*.48,-.20,.62],[s*.95,-.45,.72],.07,chrome);
-  spike(entity,[s*.52,-.42,.57],[s*.88,-.75,.45],.07,darkChrome);
+  spike(entity,[s*.46,-.20,.58],[s*.96,-.40,.64],.08,chrome);
+  spike(entity,[s*.50,-.40,.52],[s*.90,-.76,.42],.08,darkChrome);
 }
 // forehead central ornament and chin point
-spike(entity,[0,.82,.42],[0,1.42,.5],.13,chrome);
-spike(entity,[0,-.95,.38],[0,-1.52,.34],.12,chrome);
+spike(entity,[0,.82,.34],[0,1.48,.38],.11,chrome);
+spike(entity,[0,-.90,.34],[0,-1.48,.30],.10,chrome);
 // mouth grille
 for(let i=-2;i<=2;i++) {
   const tooth = new THREE.Mesh(new THREE.BoxGeometry(.12,.035,.035),darkChrome);
-  tooth.position.set(i*.12,-.66,.68); entity.add(tooth);
+  tooth.position.set(i*.11,-.64,.61); entity.add(tooth);
 }
 // floating ring and sigil-like orbital details
 const ring = new THREE.Mesh(new THREE.TorusGeometry(1.62,.012,8,120),new THREE.MeshStandardMaterial({color:0x777984,metalness:1,roughness:.22}));
