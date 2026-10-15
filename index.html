@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -229,9 +229,17 @@ for(let i=0;i<18;i++){
 
 let targetX=0, targetY=0, dragging=false, lastX=0,lastY=0;
 let parallaxX=0, parallaxY=0;
-// Mouse/touch tilt gives the mask a subtle parallax response; drag still rotates it directly.
-window.addEventListener('pointermove', e => { if (dragging) return; parallaxY=((e.clientX/window.innerWidth)-.5)*.20; parallaxX=((e.clientY/window.innerHeight)-.5)*-.12; }, {passive:true});
-window.addEventListener('deviceorientation', e => { if (e.gamma !== null && e.beta !== null) { parallaxY=Math.max(-.22,Math.min(.22,e.gamma/180)); parallaxX=Math.max(-.14,Math.min(.14,(e.beta-35)/240)); } }, {passive:true});
+let gyroBaseBeta=null, gyroBaseGamma=null, gyroActive=false;
+// Stronger motion parallax: calibrate to the phone's starting position, then amplify tilt.
+window.addEventListener('pointermove', e => { if (dragging || gyroActive) return; parallaxY=((e.clientX/window.innerWidth)-.5)*.42; parallaxX=((e.clientY/window.innerHeight)-.5)*-.30; }, {passive:true});
+window.addEventListener('deviceorientation', e => {
+  if (e.gamma === null || e.beta === null) return;
+  if (gyroBaseBeta === null) { gyroBaseBeta=e.beta; gyroBaseGamma=e.gamma; }
+  gyroActive=true;
+  const dx=(e.gamma-gyroBaseGamma), dy=(e.beta-gyroBaseBeta);
+  parallaxY=Math.max(-.68,Math.min(.68,dx/48));
+  parallaxX=Math.max(-.48,Math.min(.48,-dy/55));
+}, {passive:true});
 canvas.style.touchAction='pan-y';
 canvas.addEventListener('pointerdown',e=>{dragging=true;lastX=e.clientX;lastY=e.clientY;canvas.setPointerCapture(e.pointerId);});
 canvas.addEventListener('pointermove',e=>{if(!dragging)return;targetY+=(e.clientX-lastX)*.008;targetX+=(e.clientY-lastY)*.006;lastX=e.clientX;lastY=e.clientY;});
@@ -249,8 +257,8 @@ function animate(){
  requestAnimationFrame(animate);
  const t=clock.getElapsedTime();
  // The head rotates on its own; pointer dragging temporarily steers it.
- entity.rotation.y += (targetY + parallaxY + Math.sin(t*.35)*.16 - entity.rotation.y)*.025;
- entity.rotation.x += (targetX + parallaxX + Math.sin(t*.5)*.05 - entity.rotation.x)*.025;
+ entity.rotation.y += (targetY + parallaxY + Math.sin(t*.35)*.16 - entity.rotation.y)*.075;
+ entity.rotation.x += (targetX + parallaxX + Math.sin(t*.5)*.05 - entity.rotation.x)*.075;
  entity.position.y = Math.sin(t*.8)*.055;
  ring.rotation.z = t*.12;
  ring2.rotation.z = -t*.09;
@@ -276,6 +284,27 @@ animate();
   function path(points,alpha=1){ctx.beginPath();ctx.moveTo(points[0][0],points[0][1]);for(let i=1;i<points.length;i++)ctx.lineTo(points[i][0],points[i][1]);ctx.strokeStyle=`rgba(170,177,205,${alpha})`;ctx.stroke();}
   function draw(){
     t+=.006; ctx.clearRect(0,0,w,h); ctx.lineWidth=.8;
+    // Chrome cybersigilism: thorned crosses and ornamental blade-like line art.
+    function chromeCross(x,y,size,rot,alpha){
+      ctx.save(); ctx.translate(x+(mx-.5)*22,y+(my-.5)*22); ctx.rotate(rot+Math.sin(t*.7+x*.002)*.035);
+      const g=ctx.createLinearGradient(-size*.55,-size*.6,size*.55,size*.6);
+      g.addColorStop(0,`rgba(70,72,82,${alpha})`); g.addColorStop(.22,`rgba(240,242,250,${alpha})`); g.addColorStop(.48,`rgba(112,116,130,${alpha})`); g.addColorStop(.7,`rgba(248,248,255,${alpha})`); g.addColorStop(1,`rgba(78,80,92,${alpha})`);
+      ctx.strokeStyle=g; ctx.lineWidth=1.35; ctx.shadowColor='rgba(220,225,245,.28)'; ctx.shadowBlur=7;
+      // elongated cross with barbed, sigil-like terminals
+      ctx.beginPath();
+      ctx.moveTo(0,-size); ctx.lineTo(size*.10,-size*.42); ctx.lineTo(size*.30,-size*.56); ctx.lineTo(size*.20,-size*.22);
+      ctx.lineTo(size*.62,-size*.12); ctx.lineTo(size*.30,size*.02); ctx.lineTo(size*.19,size*.36);
+      ctx.lineTo(size*.08,size*.19); ctx.lineTo(0,size); ctx.lineTo(-size*.08,size*.19);
+      ctx.lineTo(-size*.19,size*.36); ctx.lineTo(-size*.30,size*.02); ctx.lineTo(-size*.62,-size*.12);
+      ctx.lineTo(-size*.20,-size*.22); ctx.lineTo(-size*.30,-size*.56); ctx.lineTo(-size*.10,-size*.42); ctx.closePath(); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(-size*.78,0);ctx.lineTo(-size*.24,0);ctx.lineTo(0,-size*.18);ctx.lineTo(size*.24,0);ctx.lineTo(size*.78,0);
+      ctx.moveTo(0,-size*.42);ctx.lineTo(0,size*.42);ctx.moveTo(-size*.3,-size*.56);ctx.lineTo(-size*.48,-size*.78);ctx.moveTo(size*.3,-size*.56);ctx.lineTo(size*.48,-size*.78);ctx.stroke();
+      ctx.shadowBlur=0; ctx.strokeStyle=`rgba(245,246,255,${alpha*.55})`;ctx.lineWidth=.55;ctx.beginPath();ctx.moveTo(0,-size*.75);ctx.lineTo(0,size*.75);ctx.moveTo(-size*.48,-size*.12);ctx.lineTo(size*.48,-size*.12);ctx.stroke();
+      ctx.restore();
+    }
+    chromeCross(w*.12,h*.34,Math.min(w,h)*.105,-.22,.23);
+    chromeCross(w*.88,h*.66,Math.min(w,h)*.12,.24,.20);
+    chromeCross(w*.79,h*.16,Math.min(w,h)*.055,-.38,.14);
     // drifting technical grid, gently warped toward the pointer
     const gx=70,gy=70, ox=(mx-.5)*18,oy=(my-.5)*18;
     for(let x=-gx;x<w+gx;x+=gx){let xx=x+ox+Math.sin(t+x*.01)*5;ctx.beginPath();ctx.moveTo(xx,0);ctx.lineTo(xx+Math.sin(t+x*.015)*9,h);ctx.strokeStyle='rgba(130,138,164,.075)';ctx.stroke();}
