@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#050505">
-<title>_thatsonme — personal archive</title>
+<title>_.thatsonme — personal archive</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Orbitron:wght@400;600;800&display=swap');
   :root { --silver:#d8d8df; --muted:#777780; --line:#3b3b42; --bg:#050506; }
@@ -41,7 +41,7 @@
   .small h3 { font:600 11px Orbitron,sans-serif; letter-spacing:2px; margin:0 0 12px; color:#d6d6de; }
   .small p { font-size:10px; line-height:1.8; color:#8f8f99; margin:0; }
   .track { display:flex;align-items:center;gap:12px;margin-top:12px; }
-  .disc { width:38px;height:38px;border-radius:50%;border:1px solid #888;background:repeating-radial-gradient(circle,#161619 0 3px,#777 4px,#17171a 5px 7px); animation:spin 7s linear infinite; }
+  .disc { width:62px;height:62px;flex:0 0 62px;border-radius:50%;border:2px solid #d2d2dc;background:radial-gradient(circle at 50% 50%,#e8e8ed 0 3px,#24242b 3.5px 6px,transparent 6.5px),repeating-radial-gradient(circle at 50% 50%,#101014 0 2px,#858590 2.7px 3.4px,#202027 4px 5px,#bfc0ca 5.5px 6px,#09090c 7px 9px);box-shadow:0 0 18px #aaa6,inset 0 0 10px #eee;animation:spin 3.2s linear infinite; }
   @keyframes spin {to{transform:rotate(360deg)}}
   .track strong {font-size:10px;display:block}.track small {font-size:9px;color:#85858f}
   .bar {height:2px;background:#38383e;margin-top:10px}.bar:after{content:"";display:block;width:38%;height:2px;background:#ddd}
@@ -71,16 +71,16 @@
       <div class="sigil">† 𖤐 ⛧ 𖤐 †</div>
       <p class="desc">A little corner of the internet. Chrome dreams, corrupted memories, and things that don't belong in the real world.</p>
       <div class="links">
-        <a href="https://www.instagram.com/_thatsonme/" target="_blank" rel="noopener">INSTAGRAM ↗</a>
+        <a href="https://www.instagram.com/_.thatsonme/" target="_blank" rel="noopener">INSTAGRAM ↗</a>
         <a href="https://open.spotify.com/track/1dbcQERW1gOh0G557OoAXe" target="_blank" rel="noopener">MUSIC ↗</a>
-        <a href="https://ig.me/m/_thatsonme" target="_blank" rel="noopener">CONTACT / DM ↗</a>
+        <a href="https://ig.me/m/_.thatsonme" target="_blank" rel="noopener">CONTACT / DM ↗</a>
       </div>
     </section>
 
     <section class="panel head-panel">
-      <div class="panel-head"><span>FIG. 001 — CHROME ENTITY</span><span>3D / AUTO-ROTATE</span></div>
+      <div class="panel-head"><span>FIG. 001 — THE CHROME WRAITH</span><span>3D / AUTO-ROTATE</span></div>
       <span class="corner c1">⌜</span><span class="corner c2">⌜</span><span class="corner c3">⌜</span><span class="corner c4">⌜</span>
-      <canvas id="scene" aria-label="Animated chrome head"></canvas>
+      <canvas id="scene" aria-label="Animated chrome Ghostface-inspired mask"></canvas>
       <div class="head-label"><span>SUBJECT: UNKNOWN</span><span>RENDER LOOP: ACTIVE</span></div>
     </section>
   </main>
@@ -93,7 +93,7 @@
     <div class="panel small">
       <h3>02 / NOW PLAYING</h3>
       <a class="track" href="https://open.spotify.com/track/1dbcQERW1gOh0G557OoAXe" target="_blank" rel="noopener" style="color:inherit;text-decoration:none"><div class="disc"></div><div><strong>PLAY MY FREQUENCY ↗</strong><small>OPEN TRACK IN SPOTIFY</small></div></a>
-      <iframe title="Spotify track player" style="border-radius:8px;margin-top:10px" src="https://open.spotify.com/embed/track/1dbcQERW1gOh0G557OoAXe?utm_source=generator&theme=0" width="100%" height="80" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+      <iframe title="Spotify track player" style="border-radius:8px;margin-top:10px" src="https://open.spotify.com/embed/track/1dbcQERW1gOh0G557OoAXe?utm_source=generator&theme=0" width="100%" height="152" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
     </div>
     <div class="panel small">
       <h3>03 / SYSTEM LOG</h3>
@@ -114,9 +114,14 @@ const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x08080a);
 scene.fog = new THREE.Fog(0x08080a, 7, 17);
 const camera = new THREE.PerspectiveCamera(36, 1, 0.1, 100);
-camera.position.set(0, 0.1, 7.8);
-const renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:false});
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+camera.position.set(0, 0.02, 7.0);
+let renderer;
+try { renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:false}); } catch (err) {
+  const label=document.createElement('div'); label.textContent='3D RENDER UNAVAILABLE — OPEN IN CHROME';
+  label.style.cssText='position:absolute;inset:45% 12px auto;text-align:center;color:#aaa;font:10px monospace;letter-spacing:2px';
+  host.appendChild(label); throw err;
+}
+renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.6));
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.toneMappingExposure = 1.4;
@@ -148,36 +153,63 @@ function spike(parent, start, end, radius, material=chrome) {
   mesh.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),d.normalize());
   parent.add(mesh); return mesh;
 }
-// Stylised sculptural head, built from metallic geometry so no external model is needed.
-ellipsoid(entity,0,.02,0,.88,1.22,.68,darkChrome,48);       // narrow dark skull
-ellipsoid(entity,0,-.80,.10,.58,.43,.55,chrome,36);          // tapered jaw
-ellipsoid(entity,0,-.18,.61,.14,.39,.16,darkChrome,24);      // blade-like nose bridge
-ellipsoid(entity,0,-.48,.64,.18,.09,.14,chrome,24);          // nose tip
-// cheek plates
-for (const s of [-1,1]) {
-  ellipsoid(entity,s*.58,-.32,.44,.32,.20,.24,darkChrome,28);
-  ellipsoid(entity,s*.42,.22,.59,.32,.12,.14,chrome,28);    // blade brow
-  ellipsoid(entity,s*.42,.055,.635,.23,.115,.07,black,24);   // deep hollow eye socket
-  // ears
-  ellipsoid(entity,s*.88,-.03,.02,.12,.25,.15,darkChrome,24);
-  // crown and temple thorns
-  spike(entity,[s*.30,.86,.03],[s*.66,1.72,-.04],.12,chrome);
-  spike(entity,[s*.62,.62,.0],[s*1.38,1.12,-.05],.10,darkChrome);
-  spike(entity,[s*.80,.18,.0],[s*1.55,.28,-.15],.085,chrome);
-  spike(entity,[s*.84,-.30,.0],[s*1.48,-.65,-.05],.11,darkChrome);
-  spike(entity,[s*.60,-.76,.02],[s*1.0,-1.30,-.05],.10,chrome);
-  // cheek sigils / sharp fins
-  spike(entity,[s*.46,-.20,.58],[s*.96,-.40,.64],.08,chrome);
-  spike(entity,[s*.50,-.40,.52],[s*.90,-.76,.42],.08,darkChrome);
+// Dark, elongated Ghostface silhouette — real cut-out eye and mouth openings,
+// with restrained chrome cybersigilism details (not a cartoon face).
+const hoodMat = new THREE.MeshStandardMaterial({color:0x07070a, metalness:.72, roughness:.32, side:THREE.DoubleSide});
+const hoodShape = new THREE.Shape();
+hoodShape.moveTo(0,1.72);
+hoodShape.bezierCurveTo(-.90,1.60,-1.15,.75,-.96,-.20);
+hoodShape.lineTo(-.73,-.95); hoodShape.lineTo(-.40,-1.48); hoodShape.lineTo(0,-1.83);
+hoodShape.lineTo(.40,-1.48); hoodShape.lineTo(.73,-.95); hoodShape.lineTo(.96,-.20);
+hoodShape.bezierCurveTo(1.15,.75,.90,1.60,0,1.72);
+const hood = new THREE.Mesh(new THREE.ExtrudeGeometry(hoodShape,{depth:.16,bevelEnabled:true,bevelSegments:3,bevelSize:.045,bevelThickness:.045}),hoodMat);
+hood.position.set(0,0,-.45); entity.add(hood); hood.renderOrder=0;
+
+const faceShape = new THREE.Shape();
+faceShape.moveTo(0,1.35);
+faceShape.bezierCurveTo(-.53,1.35,-.76,1.00,-.73,.57);
+faceShape.lineTo(-.62,-.05);
+faceShape.bezierCurveTo(-.57,-.63,-.30,-1.20,0,-1.55);
+faceShape.bezierCurveTo(.30,-1.20,.57,-.63,.62,-.05);
+faceShape.lineTo(.73,.57);
+faceShape.bezierCurveTo(.76,1.00,.53,1.35,0,1.35);
+// Carve the signature hollow, slanted eyes and long mouth directly into the mask.
+function ovalHole(cx,cy,rx,ry,tilt=0){
+  const path=new THREE.Path();
+  const pts=[];
+  for(let i=0;i<=40;i++){
+    const a=i/40*Math.PI*2;
+    const x=Math.cos(a)*rx, y=Math.sin(a)*ry;
+    pts.push([cx+x*Math.cos(tilt)-y*Math.sin(tilt),cy+x*Math.sin(tilt)+y*Math.cos(tilt)]);
+  }
+  path.moveTo(pts[0][0],pts[0][1]);
+  for(let i=1;i<pts.length;i++) path.lineTo(pts[i][0],pts[i][1]);
+  path.closePath(); return path;
 }
-// forehead central ornament and chin point
-spike(entity,[0,.82,.34],[0,1.48,.38],.11,chrome);
-spike(entity,[0,-.90,.34],[0,-1.48,.30],.10,chrome);
-// mouth grille
-for(let i=-2;i<=2;i++) {
-  const tooth = new THREE.Mesh(new THREE.BoxGeometry(.12,.035,.035),darkChrome);
-  tooth.position.set(i*.11,-.64,.61); entity.add(tooth);
+faceShape.holes.push(ovalHole(-.32,.43,.16,.30,-.22));
+faceShape.holes.push(ovalHole(.32,.43,.16,.30,.22));
+faceShape.holes.push(ovalHole(0,-.43,.125,.43,0));
+const faceGeo=new THREE.ExtrudeGeometry(faceShape,{depth:.20,bevelEnabled:true,bevelSegments:4,steps:1,bevelSize:.055,bevelThickness:.055,curveSegments:24});
+const face=new THREE.Mesh(faceGeo,chrome); face.position.set(0,-.015,.03); entity.add(face); face.renderOrder=2;
+// Black recess backing sits behind the cut-outs, making them read as deep voids.
+const voidMat=new THREE.MeshStandardMaterial({color:0x010103,metalness:.1,roughness:.95,side:THREE.DoubleSide});
+function darkVoid(x,y,sx,sy,z=-.12){ const m=new THREE.Mesh(new THREE.CircleGeometry(1,40),voidMat);m.position.set(x,y,z);m.scale.set(sx,sy,1);entity.add(m);m.renderOrder=1;return m; }
+darkVoid(-.32,.43,.16,.30); darkVoid(.32,.43,.16,.30); darkVoid(0,-.43,.125,.43);
+// Fine metal edges and long blade-like thorns; intentionally sparse and sharp.
+for(const side of [-1,1]){
+  spike(entity,[side*.13,.76,.37],[side*.48,.66,.32],.025,chrome);
+  spike(entity,[side*.14,1.02,.18],[side*.49,.91,.14],.022,darkChrome);
+  spike(entity,[side*.56,.08,.12],[side*.47,-.32,.16],.028,darkChrome);
+  spike(entity,[side*.31,-.96,.14],[side*.10,-1.29,.13],.025,chrome);
+  // crown and temple blades: long, narrow, polished metal rather than bulky horns
+  spike(entity,[side*.28,1.05,-.02],[side*.52,1.62,-.04],.045,chrome);
+  spike(entity,[side*.58,.70,-.08],[side*1.17,1.02,-.10],.035,darkChrome);
+  spike(entity,[side*.72,.10,-.08],[side*1.28,.25,-.10],.030,chrome);
+  spike(entity,[side*.69,-.40,-.08],[side*1.10,-.75,-.10],.035,darkChrome);
 }
+spike(entity,[0,1.25,-.02],[0,1.64,-.03],.04,chrome);
+spike(entity,[0,-1.28,.10],[0,-1.62,.08],.035,chrome);
+
 // floating ring and sigil-like orbital details
 const ring = new THREE.Mesh(new THREE.TorusGeometry(1.62,.012,8,120),new THREE.MeshStandardMaterial({color:0x777984,metalness:1,roughness:.22}));
 ring.rotation.x=1.18; ring.rotation.y=.2; entity.add(ring);
@@ -201,7 +233,7 @@ canvas.addEventListener('pointerup',()=>dragging=false);
 canvas.addEventListener('pointercancel',()=>dragging=false);
 
 function resize(){
- const w=host.clientWidth, h=host.clientHeight-24;
+ const w=Math.max(1,host.clientWidth), h=Math.max(1,host.clientHeight-24);
  renderer.setSize(w,h,false);
  camera.aspect=w/h; camera.updateProjectionMatrix();
 }
