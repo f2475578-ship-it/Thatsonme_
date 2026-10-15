@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#050505">
+<title>EC1PSED.exe — personal archive</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Orbitron:wght@400;600;800&display=swap');
+  :root { --silver:#d8d8df; --muted:#777780; --line:#3b3b42; --bg:#050506; }
+  * { box-sizing:border-box; }
+  html,body { margin:0; min-height:100%; background:var(--bg); color:#eee; font-family:'Space Mono',monospace; }
+  body { overflow-x:hidden; background:
+    radial-gradient(ellipse at 70% 45%,rgba(93,93,110,.16),transparent 38%),
+    radial-gradient(ellipse at 10% 90%,rgba(90,90,100,.10),transparent 35%), #050506; }
+  body:before { content:""; position:fixed; inset:0; pointer-events:none; z-index:5; opacity:.14;
+    background:repeating-linear-gradient(0deg,transparent 0 3px,rgba(255,255,255,.06) 4px); }
+  .wrap { width:min(1120px,94vw); margin:auto; padding:22px 0 30px; position:relative; }
+  .topbar { display:flex; justify-content:space-between; align-items:center; border:1px solid var(--line); padding:10px 14px; background:#080809c9; font-size:10px; letter-spacing:2px; }
+  .brand { font-family:Orbitron,sans-serif; font-weight:800; letter-spacing:4px; }
+  .status { color:#a9a9b2; } .dot { display:inline-block; width:6px;height:6px;border-radius:50%;background:#d9d9e0;box-shadow:0 0 10px #fff;margin-right:7px; }
+  .main { display:grid; grid-template-columns:1fr 1.05fr; gap:16px; margin-top:16px; }
+  .panel { border:1px solid var(--line); background:linear-gradient(145deg,rgba(18,18,21,.96),rgba(5,5,7,.95)); position:relative; overflow:hidden; }
+  .panel-head { padding:10px 13px; border-bottom:1px solid var(--line); color:#9999a3; font-size:9px; letter-spacing:2px; display:flex;justify-content:space-between; }
+  .intro { padding:clamp(22px,4vw,44px) 24px 26px; min-height:420px; display:flex; flex-direction:column; justify-content:center; }
+  .eyebrow { color:#8b8b95; font-size:10px; letter-spacing:3px; margin-bottom:18px; }
+  h1 { font:800 clamp(36px,6vw,70px)/.9 Orbitron,sans-serif; letter-spacing:-3px; margin:0; text-transform:uppercase; text-shadow:2px 2px 0 #62626b, 0 0 22px #7777; }
+  h1 span { display:block; color:#777780; }
+  .sigil { font-size:32px; letter-spacing:8px; margin:25px 0 17px; color:#c7c7cf; text-shadow:0 0 15px #aaa; }
+  .desc { max-width:350px; color:#a0a0a9; font-size:11px; line-height:1.9; }
+  .links { display:flex; flex-wrap:wrap; gap:8px; margin-top:25px; }
+  .links a,.fakebutton { color:#e5e5e9; text-decoration:none; font:10px 'Space Mono',monospace; letter-spacing:1px; padding:11px 13px; border:1px solid #55555f; background:#101013; transition:.2s; cursor:pointer; }
+  .links a:hover,.fakebutton:hover { color:#050506; background:#dddde3; box-shadow:0 0 18px #aaa5; }
+  .head-panel { min-height:420px; }
+  #scene { position:absolute; inset:24px 0 0; width:100%; height:calc(100% - 24px); display:block; }
+  .head-label { position:absolute; bottom:17px; left:14px; right:14px; display:flex; justify-content:space-between; font-size:9px; letter-spacing:1px; color:#8d8d97; pointer-events:none; }
+  .corner { position:absolute; color:#aaaab4; font-size:21px; line-height:1; z-index:2; }
+  .c1 {top:39px;left:12px}.c2 {top:39px;right:12px;transform:scaleX(-1)}.c3 {bottom:35px;left:12px;transform:scaleY(-1)}.c4 {bottom:35px;right:12px;transform:scale(-1)}
+  .bottom { display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; margin-top:16px; }
+  .small { min-height:125px; padding:15px; }
+  .small h3 { font:600 11px Orbitron,sans-serif; letter-spacing:2px; margin:0 0 12px; color:#d6d6de; }
+  .small p { font-size:10px; line-height:1.8; color:#8f8f99; margin:0; }
+  .track { display:flex;align-items:center;gap:12px;margin-top:12px; }
+  .disc { width:38px;height:38px;border-radius:50%;border:1px solid #888;background:repeating-radial-gradient(circle,#161619 0 3px,#777 4px,#17171a 5px 7px); animation:spin 7s linear infinite; }
+  @keyframes spin {to{transform:rotate(360deg)}}
+  .track strong {font-size:10px;display:block}.track small {font-size:9px;color:#85858f}
+  .bar {height:2px;background:#38383e;margin-top:10px}.bar:after{content:"";display:block;width:38%;height:2px;background:#ddd}
+  .footer {display:flex;justify-content:space-between;gap:10px;margin-top:15px;color:#62626b;font-size:9px;letter-spacing:1px}
+  .popup {position:fixed;right:18px;bottom:18px;z-index:10;width:min(280px,calc(100vw - 36px));background:#0b0b0e;border:1px solid #85858d;box-shadow:0 10px 40px #000;padding:12px 14px;font-size:10px;line-height:1.7;color:#bdbdc5;animation:pop 1s ease both}
+  .popup b {color:#f0f0f4;letter-spacing:1px}.popup button {float:right;background:none;border:0;color:#aaa;font:inherit;cursor:pointer}
+  @keyframes pop {from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+  @media(max-width:720px) {
+    .wrap{width:94vw;padding-top:12px}.topbar{font-size:8px;letter-spacing:1px}.brand{letter-spacing:2px}
+    .main{grid-template-columns:1fr}.intro{min-height:340px}.head-panel{min-height:390px}
+    .bottom{grid-template-columns:1fr}.small{min-height:100px}h1{font-size:clamp(42px,13vw,66px)}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="topbar">
+    <div class="brand">EC1PSED<span style="color:#777">.EXE</span></div>
+    <div class="status"><span class="dot"></span> SYSTEM ONLINE</div>
+    <div id="clock">00:00:00</div>
+  </header>
+
+  <main class="main">
+    <section class="panel intro">
+      <div class="eyebrow">PERSONAL ARCHIVE // VOL. 001</div>
+      <h1>ENTER<span>THE VOID</span></h1>
+      <div class="sigil">† 𖤐 ⛧ 𖤐 †</div>
+      <p class="desc">A little corner of the internet. Chrome dreams, corrupted memories, and things that don't belong in the real world.</p>
+      <div class="links">
+        <a href="https://instagram.com/" target="_blank" rel="noopener">INSTAGRAM ↗</a>
+        <a href="https://open.spotify.com/" target="_blank" rel="noopener">MUSIC ↗</a>
+        <a href="mailto:you@example.com">CONTACT ↗</a>
+      </div>
+    </section>
+
+    <section class="panel head-panel">
+      <div class="panel-head"><span>FIG. 001 — CHROME ENTITY</span><span>3D / AUTO-ROTATE</span></div>
+      <span class="corner c1">⌜</span><span class="corner c2">⌜</span><span class="corner c3">⌜</span><span class="corner c4">⌜</span>
+      <canvas id="scene" aria-label="Animated chrome head"></canvas>
+      <div class="head-label"><span>SUBJECT: UNKNOWN</span><span>RENDER LOOP: ACTIVE</span></div>
+    </section>
+  </main>
+
+  <section class="bottom">
+    <div class="panel small">
+      <h3>01 / CURRENT FREQUENCY</h3>
+      <p>TRANSMITTING FROM AN UNKNOWN LOCATION.<br>NO SIGNAL IS PERMANENT.</p>
+    </div>
+    <div class="panel small">
+      <h3>02 / NOW PLAYING</h3>
+      <div class="track"><div class="disc"></div><div><strong>YOUR TRACK HERE</strong><small>replace with your favourite song</small></div></div>
+      <div class="bar"></div>
+    </div>
+    <div class="panel small">
+      <h3>03 / SYSTEM LOG</h3>
+      <p id="log">[ OK ] visual interface loaded<br>[ OK ] entity animation active<br>[ .. ] awaiting user signal</p>
+    </div>
+  </section>
+  <footer class="footer"><span>© 2026 EC1PSED ARCHIVE</span><span>MADE OF STATIC & SILVER</span><span>V.1.0.0</span></footer>
+</div>
+
+<div class="popup" id="popup"><button onclick="document.getElementById('popup').remove()">[ X ]</button><b>INCOMING TRANSMISSION</b><br>Welcome to the void. The entity is awake.</div>
+
+<script type="module">
+import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
+
+const canvas = document.querySelector('#scene');
+const host = canvas.parentElement;
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x08080a);
+scene.fog = new THREE.Fog(0x08080a, 7, 17);
+const camera = new THREE.PerspectiveCamera(36, 1, 0.1, 100);
+camera.position.set(0, 0.1, 7.8);
+const renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:false});
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.4;
+
+scene.add(new THREE.HemisphereLight(0xe7e7ff, 0x15151c, 2.0));
+function areaLight(color, intensity, x,y,z) {
+  const light = new THREE.DirectionalLight(color,intensity);
+  light.position.set(x,y,z); scene.add(light);
+}
+areaLight(0xffffff,4,3,4,5);
+areaLight(0x8d9bff,3,-4,1,3);
+areaLight(0xffffff,3,1,-3,-4);
+areaLight(0x777788,2,-2,-2,4);
+
+const chrome = new THREE.MeshStandardMaterial({color:0xbfc2cb, metalness:1, roughness:0.16});
+const darkChrome = new THREE.MeshStandardMaterial({color:0x393b45, metalness:0.95, roughness:0.24});
+const black = new THREE.MeshStandardMaterial({color:0x030306, metalness:0.35, roughness:0.3});
+const entity = new THREE.Group(); scene.add(entity);
+
+function ellipsoid(parent, x,y,z, sx,sy,sz, material=chrome, segments=32) {
+  const mesh = new THREE.Mesh(new THREE.SphereGeometry(1,segments,segments), material);
+  mesh.position.set(x,y,z); mesh.scale.set(sx,sy,sz); parent.add(mesh); return mesh;
+}
+function spike(parent, start, end, radius, material=chrome) {
+  const a = new THREE.Vector3(...start), b = new THREE.Vector3(...end);
+  const d = new THREE.Vector3().subVectors(b,a);
+  const mesh = new THREE.Mesh(new THREE.ConeGeometry(radius,d.length(),8,1), material);
+  mesh.position.copy(a).add(b).multiplyScalar(.5);
+  mesh.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),d.normalize());
+  parent.add(mesh); return mesh;
+}
+// Stylised sculptural head, built from metallic geometry so no external model is needed.
+ellipsoid(entity,0,0,0,1.02,1.28,.78,chrome,48);             // skull
+ellipsoid(entity,0,-.82,.08,.66,.48,.62,chrome,36);          // jaw
+ellipsoid(entity,0,-.18,.68,.20,.40,.18,darkChrome,24);      // nose bridge
+ellipsoid(entity,0,-.48,.70,.24,.12,.19,chrome,24);          // nose tip
+// cheek plates
+for (const s of [-1,1]) {
+  ellipsoid(entity,s*.60,-.34,.47,.35,.25,.28,darkChrome,28);
+  ellipsoid(entity,s*.43,.23,.63,.30,.16,.12,chrome,28);    // brow
+  ellipsoid(entity,s*.42,.08,.67,.23,.105,.075,black,24);   // eye socket
+  ellipsoid(entity,s*.42,.08,.735,.11,.045,.025,chrome,20);// eye glint
+  // ears
+  ellipsoid(entity,s*.98,-.03,.02,.16,.29,.20,darkChrome,24);
+  // crown and temple thorns
+  spike(entity,[s*.35,.88,.05],[s*.80,1.65,.0],.14,chrome);
+  spike(entity,[s*.70,.65,.0],[s*1.42,1.06,-.05],.12,darkChrome);
+  spike(entity,[s*.86,.25,.0],[s*1.60,.38,-.15],.10,chrome);
+  spike(entity,[s*.84,-.30,.0],[s*1.48,-.65,-.05],.11,darkChrome);
+  spike(entity,[s*.60,-.76,.02],[s*1.0,-1.30,-.05],.10,chrome);
+  // cheek sigils / sharp fins
+  spike(entity,[s*.48,-.20,.62],[s*.95,-.45,.72],.07,chrome);
+  spike(entity,[s*.52,-.42,.57],[s*.88,-.75,.45],.07,darkChrome);
+}
+// forehead central ornament and chin point
+spike(entity,[0,.82,.42],[0,1.42,.5],.13,chrome);
+spike(entity,[0,-.95,.38],[0,-1.52,.34],.12,chrome);
+// mouth grille
+for(let i=-2;i<=2;i++) {
+  const tooth = new THREE.Mesh(new THREE.BoxGeometry(.12,.035,.035),darkChrome);
+  tooth.position.set(i*.12,-.66,.68); entity.add(tooth);
+}
+// floating ring and sigil-like orbital details
+const ring = new THREE.Mesh(new THREE.TorusGeometry(1.62,.012,8,120),new THREE.MeshStandardMaterial({color:0x777984,metalness:1,roughness:.22}));
+ring.rotation.x=1.18; ring.rotation.y=.2; entity.add(ring);
+const ring2 = new THREE.Mesh(new THREE.TorusGeometry(1.85,.008,6,100),darkChrome);
+ring2.rotation.x=1.0; ring2.rotation.y=-.4; entity.add(ring2);
+
+// Tiny floating metallic shards around the head
+for(let i=0;i<18;i++){
+  const angle=i/18*Math.PI*2;
+  const r=1.9+(i%3)*.18;
+  const shard=new THREE.Mesh(new THREE.OctahedronGeometry(.045+(i%3)*.018),i%2?chrome:darkChrome);
+  shard.position.set(Math.cos(angle)*r,Math.sin(angle)*r*.75,(i%4-1.5)*.22);
+  entity.add(shard);
+}
+
+let targetX=0, targetY=0, dragging=false, lastX=0,lastY=0;
+canvas.style.touchAction='pan-y';
+canvas.addEventListener('pointerdown',e=>{dragging=true;lastX=e.clientX;lastY=e.clientY;canvas.setPointerCapture(e.pointerId);});
+canvas.addEventListener('pointermove',e=>{if(!dragging)return;targetY+=(e.clientX-lastX)*.008;targetX+=(e.clientY-lastY)*.006;lastX=e.clientX;lastY=e.clientY;});
+canvas.addEventListener('pointerup',()=>dragging=false);
+canvas.addEventListener('pointercancel',()=>dragging=false);
+
+function resize(){
+ const w=host.clientWidth, h=host.clientHeight-24;
+ renderer.setSize(w,h,false);
+ camera.aspect=w/h; camera.updateProjectionMatrix();
+}
+new ResizeObserver(resize).observe(host); resize();
+const clock = new THREE.Clock();
+function animate(){
+ requestAnimationFrame(animate);
+ const t=clock.getElapsedTime();
+ // The head rotates on its own; pointer dragging temporarily steers it.
+ entity.rotation.y += (targetY + Math.sin(t*.35)*.16 - entity.rotation.y)*.025;
+ entity.rotation.x += (targetX + Math.sin(t*.5)*.05 - entity.rotation.x)*.025;
+ entity.position.y = Math.sin(t*.8)*.055;
+ ring.rotation.z = t*.12;
+ ring2.rotation.z = -t*.09;
+ renderer.render(scene,camera);
+}
+animate();
+</script>
+<script>
+function tick(){document.getElementById('clock').textContent=new Date().toLocaleTimeString('en-GB');}
+tick();setInterval(tick,1000);
+</script>
+</body>
+</html>
