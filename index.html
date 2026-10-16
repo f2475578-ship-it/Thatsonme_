@@ -20,7 +20,6 @@
 }
 
 * { box-sizing:border-box; }
-
 html { scroll-behavior:smooth; }
 
 body {
@@ -216,12 +215,7 @@ h1 span {
 }
 
 .chrome-star:active { cursor:grabbing; }
-
-.chrome-star svg {
-  width:100%;
-  height:100%;
-  overflow:visible;
-}
+.chrome-star svg { width:100%;height:100%;overflow:visible; }
 
 .star-label {
   position:absolute;
@@ -315,7 +309,12 @@ h1 span {
 
 .track small { color:#aaaab8;font-size:9px; }
 
-.spotify { width:100%;display:block;border:0;border-radius:10px; }
+.spotify {
+  width:100%;
+  display:block;
+  border:0;
+  border-radius:10px;
+}
 
 .link-list { display:grid;gap:8px; }
 
@@ -353,15 +352,7 @@ footer {
   font-size:9px;
 }
 
-.ticker {
-  margin:22px 0;
-  padding:13px 0;
-  border-block:1px solid #494953;
-  color:#ddddeb;
-  font-size:10px;
-  line-height:2;
-  letter-spacing:1px;
-}
+/* CLOTHING SHOWROOM */
 
 .clothing-intro { padding:25px 0 12px; }
 
@@ -387,7 +378,7 @@ footer {
   min-width:0;
   overflow:hidden;
   border:1px solid var(--line);
-  background:#09090cf0;
+  background:#09090cf5;
   transition:.25s;
 }
 
@@ -454,7 +445,7 @@ footer {
   text-shadow:0 0 5px white,0 0 16px #aaaaff90;
 }
 
-/* GLOWING GOTHIC CROSS */
+/* GOTHIC CROSS BACKGROUND */
 
 .gothic-cross-bg {
   position:fixed;
@@ -478,7 +469,7 @@ footer {
   to { transform:translate(-50%,-50%) rotate(360deg); }
 }
 
-/* LIGHTNING */
+/* LIGHTNING EFFECT */
 
 #lightningCanvas {
   position:fixed;
@@ -491,13 +482,13 @@ footer {
   mix-blend-mode:screen;
 }
 
-/* EXTRA NEON TEXT */
+/* GLOWING TEXT */
 
 h2,h3,.brand,.section-title,.eyebrow,.star-label {
   text-shadow:0 0 5px #fff,0 0 15px #b5b5ff90,0 0 30px #8585ff40;
 }
 
-p,small,.desc,.status,.card small {
+p,small,.desc,.card small {
   text-shadow:0 0 5px #bdbdff70;
 }
 
@@ -570,19 +561,22 @@ a,button {
   </svg>
 </div>
 
-<!-- LIGHTNING CANVAS -->
 <canvas id="lightningCanvas" aria-hidden="true"></canvas>
 
 <div class="wrap">
 
 <header>
   <a class="brand" href="#home" data-view="home">_<span>thatsonme</span></a>
+
   <nav aria-label="Main navigation">
     <button class="nav-btn active" data-view="home">HOME</button>
     <button class="nav-btn" data-view="clothing">CLOTHING</button>
   </nav>
-  <div class="status"><i style="display:inline-block;width:6px;height:6px;background:white;border-radius:50%"></i> ARCHIVE ONLINE</div>
+
+  <div class="status">● ARCHIVE ONLINE</div>
 </header>
+
+<!-- HOME PAGE -->
 
 <section id="home-section">
 
@@ -609,8 +603,9 @@ a,button {
         </div>
       </div>
 
-      <div class="scene" aria-label="Interactive chrome star">
+      <div class="scene">
         <button id="gyroButton" class="btn">ENABLE GYRO ↗</button>
+
         <div class="orbit"></div>
         <div class="orbit two"></div>
 
@@ -666,8 +661,12 @@ a,button {
   <div class="bottom">
     <section class="music-panel">
       <div class="section-title">NOW PLAYING // 001</div>
+
       <div class="track">
-        <div><strong>vanished</strong><br><small>OPEN IN SPOTIFY ↗</small></div>
+        <div>
+          <strong>vanished</strong><br>
+          <small>OPEN IN SPOTIFY ↗</small>
+        </div>
         <span>♫</span>
       </div>
 
@@ -685,6 +684,7 @@ a,button {
 
     <section class="links-panel">
       <div class="section-title">QUICK ACCESS // 002</div>
+
       <div class="link-list">
         <a class="link-row" href="https://www.instagram.com/_.thatsonme/" target="_blank" rel="noopener noreferrer"><span>INSTAGRAM</span><span>↗</span></a>
         <a class="link-row" href="https://ig.me/m/_.thatsonme" target="_blank" rel="noopener noreferrer"><span>CONTACT</span><span>↗</span></a>
@@ -697,7 +697,9 @@ a,button {
 </section>
 
 <!-- CLOTHING SHOWROOM -->
+
 <section id="clothing-section" hidden>
+
   <div class="panel" style="margin-top:18px">
     <div class="panel-head">
       <span>ARCHIVE 002 // GARMENTS</span>
@@ -707,86 +709,151 @@ a,button {
     <div class="clothing-intro">
       <div class="eyebrow">THE STREETWEAR ARCHIVE</div>
       <h2>NO BASIC<br><span>FITS.</span></h2>
-      <p class="desc">Dark streetwear. Oversized silhouettes. Pieces for people who don't dress to blend in.</p>
+
+      <p class="desc">
+        Dark streetwear. Oversized silhouettes.
+        Pieces for people who don't dress to blend in.
+      </p>
+
       <button class="btn" data-view="home">← BACK HOME</button>
     </div>
   </div>
 
+  <!-- NO TOP DIALOGUE TICKER HERE -->
+
   <div class="clothing-grid">
 
+    <!-- 001 -->
     <article class="clothing-card">
       <div class="clothing-image">
         <span>ITEM 001</span>
-        <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=800&q=80" alt="T-shirt">
+        <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=800&q=80" alt="T-shirt" loading="lazy">
       </div>
       <div class="clothing-info">
         <h2>VOID TEE</h2>
         <p>Oversized fit // washed black</p>
-        <strong>YOU CAN'T AFFORD IT, PAL.</strong>
+        <strong>NOT MADE FOR EVERYBODY.</strong>
       </div>
     </article>
 
+    <!-- 002 -->
     <article class="clothing-card">
       <div class="clothing-image">
         <span>ITEM 002</span>
-        <img src="https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?auto=format&fit=crop&w=800&q=80" alt="Streetwear clothing">
+        <img src="https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?auto=format&fit=crop&w=800&q=80" alt="Streetwear clothing" loading="lazy">
       </div>
       <div class="clothing-info">
         <h2>AFTER HOURS HOODIE</h2>
         <p>Heavyweight // all-black</p>
-        <strong>GOT THE MONEY?</strong>
+        <strong>YOUR EX WOULD APPROVE.</strong>
       </div>
     </article>
 
+    <!-- 003 -->
     <article class="clothing-card">
       <div class="clothing-image">
         <span>ITEM 003</span>
-        <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=800&q=80" alt="Streetwear fashion">
+        <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=800&q=80" alt="Streetwear fashion" loading="lazy">
       </div>
       <div class="clothing-info">
         <h2>GLITCH UNIFORM</h2>
         <p>Loose layers // night-shift energy</p>
-        <strong>YOUR BANK SAID NO.</strong>
+        <strong>TOO DIFFERENT TO FIT IN.</strong>
       </div>
     </article>
 
+    <!-- 004 -->
     <article class="clothing-card">
       <div class="clothing-image">
         <span>ITEM 004</span>
-        <img src="https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=800&q=80" alt="Denim jeans">
+        <img src="https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=800&q=80" alt="Denim jeans" loading="lazy">
       </div>
       <div class="clothing-info">
         <h2>BAGGY DENIM</h2>
         <p>Wide leg // low-slung shape</p>
-        <strong>TOO RICH FOR YOUR TASTE.</strong>
+        <strong>THE FIT SPEAKS FOR ITSELF.</strong>
       </div>
     </article>
 
+    <!-- 005 -->
     <article class="clothing-card">
       <div class="clothing-image">
         <span>ITEM 005</span>
-        <img src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=800&q=80" alt="Alternative fashion">
+        <img src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=800&q=80" alt="Alternative fashion" loading="lazy">
       </div>
       <div class="clothing-info">
         <h2>SHADOW SHELL</h2>
         <p>Technical layers // cold chrome</p>
-        <strong>NOT FOR YOUR BUDGET.</strong>
+        <strong>CAUGHT IN 4K. STILL DRIPPED OUT.</strong>
       </div>
     </article>
 
+    <!-- 006 -->
     <article class="clothing-card">
       <div class="clothing-image">
         <span>ITEM 006</span>
-        <img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&w=800&q=80" alt="Clothing collection">
+        <img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&w=800&q=80" alt="Clothing collection" loading="lazy">
       </div>
       <div class="clothing-info">
         <h2>STATIC SET</h2>
         <p>Street uniform // zero apologies</p>
-        <strong>LOOKS EXPENSIVE. IS EXPENSIVE.</strong>
+        <strong>NO REFUNDS ON THE AURA.</strong>
+      </div>
+    </article>
+
+    <!-- 007 CHROME HEARTS -->
+    <article class="clothing-card">
+      <div class="clothing-image">
+        <span>ITEM 007 // GOTHIC LUXURY</span>
+        <img src="https://images.unsplash.com/photo-1523398002811-999ca8dec234?auto=format&fit=crop&w=800&q=80" alt="Dark streetwear fashion inspiration" loading="lazy">
+      </div>
+      <div class="clothing-info">
+        <h2>CHROME HEARTS</h2>
+        <p>Gothic graphics // silver hardware // dark luxury</p>
+        <strong>LOVE HURTS. SILVER DOESN'T.</strong>
+      </div>
+    </article>
+
+    <!-- 008 GRILLZ -->
+    <article class="clothing-card">
+      <div class="clothing-image">
+        <span>ITEM 008 // ICED OUT</span>
+        <img src="https://images.unsplash.com/photo-1617038220319-276d3cfab638?auto=format&fit=crop&w=800&q=80" alt="Silver jewelry inspiration" loading="lazy">
+      </div>
+      <div class="clothing-info">
+        <h2>ICY GRILLZ</h2>
+        <p>Silver shine // iced-out attitude</p>
+        <strong>SMILE LIKE YOU OWN THE CITY.</strong>
+      </div>
+    </article>
+
+    <!-- 009 ACCESSORIES -->
+    <article class="clothing-card">
+      <div class="clothing-image">
+        <span>ITEM 009 // ACCESSORIES</span>
+        <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?auto=format&fit=crop&w=800&q=80" alt="Silver accessories inspiration" loading="lazy">
+      </div>
+      <div class="clothing-info">
+        <h2>SILVER RELICS</h2>
+        <p>Chrome accessories // cold metal</p>
+        <strong>THE DETAILS MAKE THE DIFFERENCE.</strong>
       </div>
     </article>
 
   </div>
+
+  <div class="panel" style="margin-bottom:20px">
+    <div class="panel-head">
+      <span>END OF COLLECTION</span>
+      <span>ARCHIVE 002</span>
+    </div>
+    <div style="padding:20px">
+      <h2 style="font-family:Orbitron,sans-serif">STAY RARE.</h2>
+      <p class="desc">Your style. Your rules. Your own little corner of the internet.</p>
+      <button class="btn" data-view="home">RETURN TO ARCHIVE ↗</button>
+    </div>
+  </div>
+
 </section>
 
 <footer>
@@ -798,24 +865,26 @@ a,button {
 
 <script>
 /* NAVIGATION */
+
 const home = document.getElementById("home-section");
 const clothing = document.getElementById("clothing-section");
 
 function showView(view) {
   const isClothing = view === "clothing";
+
   home.hidden = isClothing;
   clothing.hidden = !isClothing;
 
   document.querySelectorAll(".nav-btn").forEach(button => {
-    button.classList.toggle("active", button.dataset.view === view);
+    button.classList.toggle("active",button.dataset.view === view);
   });
 
-  history.replaceState(null, "", isClothing ? "#clothing" : location.pathname);
+  history.replaceState(null,"",isClothing ? "#clothing" : location.pathname);
   window.scrollTo({top:0,behavior:"smooth"});
 }
 
 document.querySelectorAll("[data-view]").forEach(button => {
-  button.addEventListener("click", event => {
+  button.addEventListener("click",event => {
     event.preventDefault();
     showView(button.dataset.view);
   });
@@ -823,16 +892,20 @@ document.querySelectorAll("[data-view]").forEach(button => {
 
 if (location.hash === "#clothing") showView("clothing");
 
-/* GYRO + TOUCH STAR */
-const scene = document.querySelector(".scene");
+
+/* GYROSCOPE + DRAGGABLE STAR */
+
 const star = document.getElementById("chromeStar");
 const gyroButton = document.getElementById("gyroButton");
 
 let gyroEnabled = false;
 let dragging = false;
-let lastX = 0, lastY = 0;
-let dragX = 0, dragY = 0;
-let tiltX = 0, tiltY = 0;
+let lastX = 0;
+let lastY = 0;
+let dragX = 0;
+let dragY = 0;
+let tiltX = 0;
+let tiltY = 0;
 
 function updateStar() {
   star.style.transform =
@@ -848,6 +921,7 @@ async function enableGyro() {
 
     if (typeof DeviceOrientationEvent.requestPermission === "function") {
       const permission = await DeviceOrientationEvent.requestPermission();
+
       if (permission !== "granted") {
         gyroButton.textContent = "PERMISSION DENIED";
         return;
@@ -861,25 +935,26 @@ async function enableGyro() {
   }
 }
 
-gyroButton.addEventListener("click", enableGyro);
+gyroButton.addEventListener("click",enableGyro);
 
-window.addEventListener("deviceorientation", event => {
+window.addEventListener("deviceorientation",event => {
   if (!gyroEnabled || dragging) return;
   if (event.beta == null || event.gamma == null) return;
 
   tiltX = Math.max(-45,Math.min(45,event.beta - 45));
   tiltY = Math.max(-45,Math.min(45,event.gamma));
+
   updateStar();
 });
 
-star.addEventListener("pointerdown", event => {
+star.addEventListener("pointerdown",event => {
   dragging = true;
   lastX = event.clientX;
   lastY = event.clientY;
   star.setPointerCapture(event.pointerId);
 });
 
-star.addEventListener("pointermove", event => {
+star.addEventListener("pointermove",event => {
   if (!dragging) return;
 
   dragX = Math.max(-100,Math.min(100,dragX + event.clientX - lastX));
@@ -887,34 +962,46 @@ star.addEventListener("pointermove", event => {
 
   lastX = event.clientX;
   lastY = event.clientY;
+
   updateStar();
 });
 
 function stopDragging() { dragging = false; }
 
-star.addEventListener("pointerup", stopDragging);
-star.addEventListener("pointercancel", stopDragging);
-star.addEventListener("lostpointercapture", stopDragging);
+star.addEventListener("pointerup",stopDragging);
+star.addEventListener("pointercancel",stopDragging);
+star.addEventListener("lostpointercapture",stopDragging);
+
 
 /* RANDOM LIGHTNING */
+
 (() => {
   const canvas = document.getElementById("lightningCanvas");
   const ctx = canvas.getContext("2d");
-  const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  let width = 0, height = 0, dpr = 1;
+  const reducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+
+  let width = 0;
+  let height = 0;
+  let dpr = 1;
   let bolts = [];
   let flash = 0;
   let nextStrike = 2500;
+  let lastTime = 0;
 
   function resize() {
-    dpr = Math.min(devicePixelRatio || 1,2);
-    width = innerWidth;
-    height = innerHeight;
+    dpr = Math.min(window.devicePixelRatio || 1,2);
+    width = window.innerWidth;
+    height = window.innerHeight;
+
     canvas.width = Math.round(width*dpr);
     canvas.height = Math.round(height*dpr);
+
     canvas.style.width = width+"px";
     canvas.style.height = height+"px";
+
     ctx.setTransform(dpr,0,0,dpr,0,0);
   }
 
@@ -922,67 +1009,83 @@ star.addEventListener("lostpointercapture", stopDragging);
     const points = [];
     let x = Math.random()*width;
     let y = -10;
+
     points.push({x,y});
 
     const segments = 20 + Math.floor(Math.random()*12);
+
     for (let i=0;i<segments;i++) {
       x += (Math.random()-.5)*55;
       y += height/segments;
       points.push({x,y});
     }
+
     return points;
   }
 
   function strike() {
     bolts = [makeBolt()];
-    if (Math.random()>.4) bolts.push(makeBolt());
+
+    if (Math.random() > .4) {
+      bolts.push(makeBolt());
+    }
+
     flash = .25 + Math.random()*.25;
     nextStrike = 3500 + Math.random()*8500;
   }
 
   function drawBolt(points,alpha,lineWidth) {
-    if (points.length<2) return;
+    if (points.length < 2) return;
+
     ctx.beginPath();
     ctx.moveTo(points[0].x,points[0].y);
+
     for (let i=1;i<points.length;i++) {
       ctx.lineTo(points[i].x,points[i].y);
     }
-    ctx.strokeStyle=`rgba(220,225,255,${alpha})`;
-    ctx.lineWidth=lineWidth;
-    ctx.shadowColor="#aaaaff";
-    ctx.shadowBlur=20;
+
+    ctx.strokeStyle = `rgba(220,225,255,${alpha})`;
+    ctx.lineWidth = lineWidth;
+    ctx.shadowColor = "#aaaaff";
+    ctx.shadowBlur = 20;
     ctx.stroke();
-    ctx.shadowBlur=0;
+    ctx.shadowBlur = 0;
   }
 
-  function animate() {
+  function animate(time) {
     requestAnimationFrame(animate);
+
     ctx.clearRect(0,0,width,height);
 
     if (reducedMotion || document.hidden) {
-      bolts=[];
-      flash=0;
+      bolts = [];
+      flash = 0;
+      lastTime = time;
       return;
     }
 
-    nextStrike -= 16;
+    const delta = lastTime ? Math.min(time-lastTime,50) : 16;
+    lastTime = time;
 
-    if (nextStrike<=0) strike();
+    nextStrike -= delta;
+
+    if (nextStrike <= 0) strike();
 
     flash *= .86;
 
-    if (flash>.015) {
-      ctx.fillStyle=`rgba(210,215,255,${flash*.12})`;
+    if (flash > .015) {
+      ctx.fillStyle = `rgba(210,215,255,${flash*.12})`;
       ctx.fillRect(0,0,width,height);
     }
 
-    const alpha=Math.min(flash*4,.9);
+    const alpha = Math.min(flash*4,.9);
+
     bolts.forEach(points => {
       drawBolt(points,alpha,1.4);
       drawBolt(points,alpha*.3,4);
     });
 
-    if (flash<.01) bolts=[];
+    if (flash < .01) bolts = [];
   }
 
   resize();
