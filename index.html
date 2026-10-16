@@ -38,6 +38,20 @@
   .links { display:flex; flex-wrap:wrap; gap:8px; margin-top:25px; }
   .links a,.fakebutton { color:#e5e5e9; text-decoration:none; font:10px 'Space Mono',monospace; letter-spacing:1px; padding:11px 13px; border:1px solid #55555f; background:rgba(16,16,19,.38); backdrop-filter:blur(4px); transition:.2s; cursor:pointer; }
   .links a:hover,.fakebutton:hover { color:#050506; background:#dddde3; box-shadow:0 0 18px #aaa5; }
+  .showroom-link {
+    display:inline-flex; align-items:center; justify-content:center; gap:12px; width:fit-content;
+    margin-top:20px; padding:14px 18px; color:#f2f2f7; text-decoration:none;
+    font:700 10px 'Space Mono',monospace; letter-spacing:2px;
+    border:1px solid rgba(230,235,255,.72);
+    background:linear-gradient(135deg,rgba(220,225,240,.16),rgba(15,15,22,.58));
+    box-shadow:0 0 18px rgba(190,200,255,.12),inset 0 0 12px rgba(255,255,255,.06);
+    backdrop-filter:blur(8px); animation:showroom-float 3.2s ease-in-out infinite;
+    transition:transform .25s,box-shadow .25s,background .25s;
+  }
+  .showroom-link:hover { transform:translateY(-3px) scale(1.02); box-shadow:0 0 24px rgba(210,220,255,.3),inset 0 0 16px rgba(255,255,255,.12); background:rgba(210,215,230,.18); }
+  .showroom-link .arrow {font-size:15px;line-height:1}
+  @keyframes showroom-float {0%,100%{translate:0 0}50%{translate:0 -5px}}
+  @media(prefers-reduced-motion:reduce){.showroom-link{animation:none}}
   .head-panel { min-height:420px; }
   #scene { position:absolute; inset:24px 0 0; width:100%; height:calc(100% - 24px); display:block; }
   .head-label { position:absolute; bottom:17px; left:14px; right:14px; display:flex; justify-content:space-between; font-size:9px; letter-spacing:1px; color:#8d8d97; pointer-events:none; }
@@ -169,7 +183,7 @@
 <div class="wrap">
   <header class="topbar">
     <div class="brand">_THATSONME</div>
-    <nav style="display:flex;gap:12px;align-items:center;flex-wrap:wrap"><a href="index.html" style="color:#ddd;text-decoration:none">HOME</a><a href="clothing.html" style="color:#fff;text-decoration:none;border:1px solid #777;padding:7px 9px">CLOTHING ↗</a></nav><div class="status"><span class="dot"></span> SYSTEM ONLINE</div>
+    <nav style="display:flex;gap:12px;align-items:center;flex-wrap:wrap"><a href="index.html" style="color:#ddd;text-decoration:none">HOME</a></nav><div class="status"><span class="dot"></span> SYSTEM ONLINE</div>
     <div id="clock">00:00:00</div>
   </header>
 
@@ -184,6 +198,7 @@
         <a href="https://www.reddit.com/u/ec1psed/s/hQudMEiFJx" target="_blank" rel="noopener">REDDIT ↗</a>
         <a href="https://ig.me/m/_.thatsonme" target="_blank" rel="noopener">CONTACT / DM ↗</a>
       </div>
+      <a class="showroom-link" href="clothing.html">ENTER THE SHOWROOM <span class="arrow">↗</span></a>
     </section>
 
     <section class="panel head-panel">
