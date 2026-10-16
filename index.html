@@ -169,7 +169,7 @@
 <div class="wrap">
   <header class="topbar">
     <div class="brand">_THATSONME</div>
-    <div class="status"><span class="dot"></span> SYSTEM ONLINE</div>
+    <nav style="display:flex;gap:12px;align-items:center;flex-wrap:wrap"><a href="index.html" style="color:#ddd;text-decoration:none">HOME</a><a href="clothing.html" style="color:#fff;text-decoration:none;border:1px solid #777;padding:7px 9px">CLOTHING ↗</a></nav><div class="status"><span class="dot"></span> SYSTEM ONLINE</div>
     <div id="clock">00:00:00</div>
   </header>
 
@@ -187,10 +187,10 @@
     </section>
 
     <section class="panel head-panel">
-      <div class="panel-head"><span>FIG. 001 — CHROME ORB</span><span>3D / GYRO / AUTO-ROTATE</span></div>
+      <div class="panel-head"><span>FIG. 001 — LIQUID CHROME STAR</span><span>3D / GYRO / AUTO-ROTATE</span></div>
       <span class="corner c1">⌜</span><span class="corner c2">⌜</span><span class="corner c3">⌜</span><span class="corner c4">⌜</span>
       <canvas id="scene" aria-label="Animated stylized chrome sculpture"></canvas>
-      <div class="head-label"><span>OBJECT: CHROME ORB</span><span>GYRO LINK: STANDBY</span></div>
+      <div class="head-label"><span>OBJECT: CHROME STAR</span><span>GYRO LINK: STANDBY</span></div>
     </section>
   </main>
 
@@ -212,7 +212,7 @@
   <footer class="footer"><span>© 2026 _THATSONME ARCHIVE</span><span>MADE OF STATIC & SILVER</span><span>V.1.0.0</span></footer>
 </div>
 
-<div class="popup" id="popup"><button onclick="document.getElementById('popup').remove()">[ X ]</button><b>INCOMING TRANSMISSION</b><br>Welcome to the void. The chrome orb is awake.</div>
+<div class="popup" id="popup"><button onclick="document.getElementById('popup').remove()">[ X ]</button><b>INCOMING TRANSMISSION</b><br>Welcome to the void. The chrome star is awake.</div>
 
 <script type="module">
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
@@ -263,23 +263,28 @@ function spike(parent, start, end, radius, material=chrome) {
   mesh.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),d.normalize());
   parent.add(mesh); return mesh;
 }
-// Smooth chrome orb with orbiting rings and small floating fragments.
+// A sculptural, mirror-polished silver star replaces the dark-looking ball.
 const relic = new THREE.Group(); entity.add(relic);
-const silver = new THREE.MeshPhysicalMaterial({color:0xf4f6ff, metalness:1, roughness:0.035, clearcoat:1, clearcoatRoughness:0.02, reflectivity:1});
-const darkSilver = new THREE.MeshPhysicalMaterial({color:0xbfc5d2, metalness:1, roughness:0.055, clearcoat:1, clearcoatRoughness:0.025, reflectivity:1});
-const blackSteel = new THREE.MeshStandardMaterial({color:0x101116, metalness:.8, roughness:.22});
-const orb = new THREE.Mesh(new THREE.SphereGeometry(.78, 128, 128), silver);
-relic.add(orb);
-// Bright polished silver core: no dark inner sphere to muddy the chrome finish.
-const innerOrb = new THREE.Mesh(new THREE.SphereGeometry(.695, 96, 96), silver);
-innerOrb.scale.setScalar(0.998);
-relic.add(innerOrb);
-// Narrow bright studio reflections make the metal read as mirror-polished chrome.
+const silver = new THREE.MeshPhysicalMaterial({color:0xffffff, metalness:1, roughness:0.018, clearcoat:1, clearcoatRoughness:0.008, reflectivity:1});
+const darkSilver = new THREE.MeshPhysicalMaterial({color:0xe1e5f0, metalness:1, roughness:0.035, clearcoat:1, clearcoatRoughness:0.01, reflectivity:1});
+const starShape = new THREE.Shape();
+for(let i=0;i<10;i++){
+  const a=Math.PI/2+i*Math.PI/5;
+  const r=i%2===0?0.94:0.43;
+  const x=Math.cos(a)*r, y=Math.sin(a)*r;
+  if(i===0) starShape.moveTo(x,y); else starShape.lineTo(x,y);
+}
+starShape.closePath();
+const starGeometry = new THREE.ExtrudeGeometry(starShape,{depth:0.28,bevelEnabled:true,bevelSegments:5,steps:1,bevelSize:0.075,bevelThickness:0.075,curveSegments:12});
+starGeometry.center();
+const star = new THREE.Mesh(starGeometry,silver);
+star.rotation.set(0.18,-0.16,0.12);
+relic.add(star);
+// Bright polished edge glints accent the mirror-chrome silhouette.
 const highlightMaterial = new THREE.MeshBasicMaterial({color:0xffffff});
-const highlight = new THREE.Mesh(new THREE.TorusGeometry(.56,.012,8,128), highlightMaterial);
-highlight.position.set(-.08,.05,.50);
-highlight.rotation.set(.35,-.28,-.42);
-relic.add(highlight);
+const glint = new THREE.Mesh(new THREE.TorusGeometry(0.68,0.009,8,128),highlightMaterial);
+glint.scale.set(1.0,0.92,0.35); glint.rotation.set(0.2,0.5,-0.35); glint.position.z=0.22;
+relic.add(glint);
 // Offset reflective bands surround the orb like a futuristic gyroscope.
 const orbitA = new THREE.Mesh(new THREE.TorusGeometry(1.12,.025,12,160), silver);
 orbitA.rotation.set(.82,.25,.12); entity.add(orbitA);
