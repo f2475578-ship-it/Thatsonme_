@@ -2,801 +2,853 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#050505">
+<meta name="description" content="_thatsonme — personal archive">
 <title>_thatsonme — personal archive</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
 :root {
-  --bg:#050505;
-  --panel:#09090c;
-  --text:#f0f0fa;
-  --muted:#9999a8;
-  --line:#393943;
-  --silver:#e2e2f0;
+  --bg: #050505;
+  --silver: #dedede;
+  --muted: #858585;
+  --line: rgba(230,230,230,.2);
+  --glow: rgba(230,230,230,.65);
 }
 
-* { box-sizing:border-box; }
-html { scroll-behavior:smooth; }
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--bg);
+}
 
 body {
-  margin:0;
-  background:var(--bg);
-  color:var(--text);
-  font-family:"Space Mono",monospace;
-  overflow-x:hidden;
-  text-shadow:0 0 3px #fff7,0 0 8px #c8c8ff45;
+  margin: 0;
+  background: #050505;
+  color: var(--silver);
+  font-family: "Space Mono", monospace;
+  overflow-x: hidden;
 }
 
-body::before {
-  content:"";
-  position:fixed;
-  inset:0;
-  z-index:-2;
-  pointer-events:none;
-  background:
-    radial-gradient(ellipse at 50% 20%,#33334435,transparent 65%),
-    repeating-linear-gradient(0deg,transparent 0 3px,#fff3 4px);
+a {
+  color: inherit;
 }
 
-a { color:inherit;text-decoration:none; }
-button { font:inherit; }
-
-a:focus-visible,button:focus-visible {
-  outline:2px solid white;
-  outline-offset:4px;
+button, a {
+  -webkit-tap-highlight-color: transparent;
 }
 
-.wrap {
-  position:relative;
-  z-index:2;
-  width:min(1050px,calc(100% - 30px));
-  margin:auto;
+::selection {
+  background: #ddd;
+  color: #050505;
 }
+
+/* BACKGROUND */
+
+#lightning {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  opacity: .65;
+}
+
+.background-cross {
+  position: fixed;
+  width: min(85vw, 750px);
+  height: min(85vw, 750px);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 0;
+  opacity: .17;
+  animation: crossRotate 65s linear infinite;
+}
+
+.background-cross svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.background-cross path {
+  fill: none;
+  stroke: #cfcfcf;
+  stroke-width: 1.5;
+  filter: drop-shadow(0 0 8px #fff);
+}
+
+@keyframes crossRotate {
+  from { rotate: 0deg; }
+  to { rotate: 360deg; }
+}
+
+.flash {
+  position: fixed;
+  inset: 0;
+  background: white;
+  opacity: 0;
+  z-index: 50;
+  pointer-events: none;
+}
+
+.flash.active {
+  animation: flashEffect .35s ease-out;
+}
+
+@keyframes flashEffect {
+  0% { opacity: .25; }
+  100% { opacity: 0; }
+}
+
+.noise {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: .055;
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent 0px,
+    transparent 2px,
+    rgba(255,255,255,.18) 3px
+  );
+}
+
+main, header, footer {
+  position: relative;
+  z-index: 2;
+}
+
+/* HEADER */
 
 header {
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  flex-wrap:wrap;
-  padding:17px 0;
-  border-bottom:1px solid var(--line);
+  width: min(1100px, 92%);
+  margin: auto;
+  padding: 23px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  border-bottom: 1px solid var(--line);
 }
 
 .brand {
-  font-family:Orbitron,sans-serif;
-  font-size:18px;
-  font-weight:900;
-  letter-spacing:-1px;
-  text-shadow:0 0 5px white,0 0 20px #aaaaff;
+  font-family: Orbitron, sans-serif;
+  font-size: 15px;
+  font-weight: 900;
+  letter-spacing: 3px;
+  text-decoration: none;
+  text-shadow: 0 0 12px var(--glow);
 }
 
-.brand span { color:#bdbdce; }
-
-nav { display:flex;gap:7px; }
-
-.nav-btn,.btn {
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  padding:11px 13px;
-  border:1px solid #51515f;
-  background:#08080c;
-  color:#eeeef8;
-  font-size:10px;
-  letter-spacing:1px;
-  cursor:pointer;
-  text-shadow:0 0 8px #ddd;
-  transition:.2s;
+.header-label {
+  font-size: 9px;
+  color: var(--muted);
+  letter-spacing: 2px;
+  text-align: right;
 }
 
-.nav-btn:hover,.nav-btn.active,.btn:hover {
-  border-color:#fff;
-  box-shadow:0 0 14px #aaaaff30;
-}
+/* GENERAL TEXT GLOW */
 
-.btn.primary {
-  color:#08080c;
-  background:#e7e7ef;
-}
-
-.btn.primary:hover { box-shadow:0 0 22px #ddd; }
-
-.panel {
-  border:1px solid var(--line);
-  background:#09090ce8;
-  position:relative;
-  overflow:hidden;
-}
-
-.panel-head {
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-  padding:12px 15px;
-  border-bottom:1px solid var(--line);
-  color:#aaaab9;
-  font-size:9px;
-  letter-spacing:1px;
+h1, h2, h3, p, a, span, strong {
+  text-shadow: 0 0 8px rgba(220,220,220,.13);
 }
 
 .hero {
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:15px;
-  padding:20px 0;
-}
-
-.hero-copy {
-  padding:22px;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
+  width: min(1000px, 92%);
+  min-height: 76vh;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 65px 0 45px;
 }
 
 .eyebrow {
-  color:#b4b4c5;
-  font-size:10px;
-  letter-spacing:3px;
-  margin-bottom:18px;
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 5px;
+  margin-bottom: 25px;
 }
 
-h1 {
-  margin:0 0 18px;
-  font-family:Orbitron,sans-serif;
-  font-size:clamp(38px,7vw,68px);
-  line-height:1.1;
-  letter-spacing:-2px;
-  overflow-wrap:anywhere;
-  text-shadow:0 0 6px #fff,0 0 20px #aaaaff90,0 0 45px #aaaaff35;
+.hero h1 {
+  font-family: Orbitron, sans-serif;
+  font-size: clamp(38px, 9vw, 94px);
+  line-height: 1.1;
+  font-weight: 900;
+  letter-spacing: -3px;
+  margin: 0;
+  color: #f0f0f0;
+  text-shadow:
+    0 0 4px #fff,
+    0 0 18px rgba(255,255,255,.5),
+    0 0 55px rgba(255,255,255,.17);
 }
 
-h1 span {
-  display:block;
-  color:transparent;
-  -webkit-text-stroke:1px #eeeefb;
-  filter:drop-shadow(0 0 9px #aaaaff);
+.hero-subtitle {
+  color: #aaa;
+  font-size: 11px;
+  line-height: 2;
+  letter-spacing: 2px;
+  margin: 22px 0 0;
 }
 
-.desc {
-  max-width:420px;
-  color:#b1b1c0;
-  font-size:11px;
-  line-height:2;
+.hero-star {
+  width: 170px;
+  height: 170px;
+  max-width: 45vw;
+  margin: 28px 0;
+  cursor: grab;
+  touch-action: pan-y;
+  filter: drop-shadow(0 0 15px rgba(255,255,255,.23));
 }
 
-.actions { display:flex;gap:9px;flex-wrap:wrap;margin-top:20px; }
-
-.scene {
-  min-height:360px;
-  position:relative;
-  display:grid;
-  place-items:center;
-  perspective:900px;
-  overflow:hidden;
-  background:radial-gradient(ellipse,#55556b24,transparent 70%);
-  touch-action:pan-y;
+.hero-star:active {
+  cursor: grabbing;
 }
 
-.orbit {
-  position:absolute;
-  width:260px;
-  height:90px;
-  border:1px solid #c6c6e477;
-  border-radius:50%;
-  transform:rotate(-30deg);
-  animation:orbitSpin 12s linear infinite;
-  pointer-events:none;
+.hero-star svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
 }
 
-.orbit.two {
-  width:290px;
-  height:120px;
-  transform:rotate(50deg);
-  animation-duration:17s;
-  animation-direction:reverse;
+.star-main {
+  transform-origin: 100px 100px;
+  animation: starTurn 24s linear infinite;
 }
 
-.chrome-star {
-  position:relative;
-  z-index:2;
-  width:145px;
-  height:145px;
-  cursor:grab;
-  touch-action:none;
-  user-select:none;
-  -webkit-user-select:none;
-  filter:drop-shadow(0 0 15px #bdbdff66);
-  will-change:transform;
+.star-orbit {
+  transform-origin: 100px 100px;
+  animation: starTurn 16s linear infinite reverse;
 }
 
-.chrome-star:active { cursor:grabbing; }
-.chrome-star svg { width:100%;height:100%;overflow:visible; }
-
-.star-label {
-  position:absolute;
-  bottom:18px;
-  color:#b4b4c3;
-  font-size:9px;
-  letter-spacing:3px;
+@keyframes starTurn {
+  to { transform: rotate(360deg); }
 }
 
-#gyroButton {
-  position:absolute;
-  z-index:5;
-  top:12px;
-  left:12px;
-  padding:9px;
-  font-size:9px;
+/* LINKS */
+
+.links {
+  width: min(560px, 100%);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 25px;
 }
 
-@keyframes orbitSpin {
-  to { rotate:360deg; }
+.cyber-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  min-height: 52px;
+  padding: 14px 15px;
+  border: 1px solid var(--line);
+  background: rgba(255,255,255,.025);
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-decoration: none;
+  transition: .3s ease;
 }
 
-.grid {
-  display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:12px;
-  margin:12px 0 18px;
+.cyber-link span:last-child {
+  color: #888;
 }
 
-.card {
-  min-width:0;
-  padding:17px;
-  border:1px solid var(--line);
-  background:#09090ce8;
-  transition:.2s;
+.cyber-link:hover {
+  background: rgba(255,255,255,.1);
+  border-color: #ddd;
+  box-shadow: 0 0 18px rgba(255,255,255,.12);
+  text-shadow: 0 0 12px white;
 }
 
-.card:hover {
-  transform:translateY(-3px);
-  border-color:#eee;
-  box-shadow:0 0 20px #aaaaff24;
+.section {
+  width: min(1000px, 92%);
+  margin: auto;
+  padding: 65px 0;
 }
 
-.card small { color:#aaaab8;font-size:9px;letter-spacing:1px; }
-
-.card h2 {
-  margin:15px 0 8px;
-  font:700 13px Orbitron,sans-serif;
-  text-shadow:0 0 8px #aaaaff;
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 20px;
+  margin-bottom: 25px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--line);
 }
 
-.card p {
-  color:#aaaab8;
-  font-size:10px;
-  line-height:1.8;
+.section-heading h2 {
+  font-family: Orbitron, sans-serif;
+  font-size: clamp(19px, 4vw, 29px);
+  margin: 0;
+  letter-spacing: 2px;
+  text-shadow: 0 0 15px rgba(255,255,255,.35);
 }
 
-.bottom {
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
-  margin:18px 0;
+.section-heading p {
+  font-size: 9px;
+  color: var(--muted);
+  letter-spacing: 2px;
+  text-align: right;
+  margin: 0;
 }
 
-.music-panel,.links-panel {
-  min-width:0;
-  padding:18px;
-  border:1px solid var(--line);
-  background:#09090cf0;
+/* MUSIC */
+
+.music-panel {
+  border: 1px solid var(--line);
+  padding: 18px;
+  background: rgba(255,255,255,.025);
 }
 
-.section-title {
-  color:#b7b7c8;
-  font-size:10px;
-  letter-spacing:2px;
-  margin-bottom:17px;
+.music-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 15px;
 }
 
-.track {
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:12px;
-  margin-bottom:15px;
+.music-top strong {
+  font-family: Orbitron, sans-serif;
+  font-size: 13px;
+  letter-spacing: 2px;
 }
 
-.track strong {
-  font:700 17px Orbitron,sans-serif;
-  text-shadow:0 0 8px white,0 0 20px #aaaaff;
+.music-top span {
+  font-size: 9px;
+  color: #888;
 }
 
-.track small { color:#aaaab8;font-size:9px; }
-
-.spotify {
-  width:100%;
-  display:block;
-  border:0;
-  border-radius:10px;
+.track-name {
+  font-size: 12px;
+  letter-spacing: 3px;
+  margin-bottom: 15px;
 }
 
-.link-list { display:grid;gap:8px; }
-
-.link-row {
-  width:100%;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  padding:13px;
-  border:1px solid #30303a;
-  background:#08080c;
-  color:#eeeef7;
-  font-size:10px;
-  cursor:pointer;
-  text-align:left;
-  transition:.2s;
+.spotify-frame {
+  width: 100%;
+  height: 152px;
+  border: 0;
+  border-radius: 8px;
+  display: block;
+  background: #111;
 }
 
-.link-row:hover {
-  border-color:#ddd;
-  box-shadow:0 0 14px #aaaaff28;
+/* WEATHER LOCATION */
+
+.weather-location {
+  margin: 35px auto 5px;
+  padding: 15px 8px;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  text-align: center;
+  font-size: 10px;
+  line-height: 2;
+  letter-spacing: 1.5px;
+  overflow-wrap: anywhere;
 }
 
-.link-row span:last-child { color:#b8b8ca; }
+.weather-label {
+  color: #777;
+}
 
-footer {
-  display:flex;
-  justify-content:space-between;
-  gap:12px;
-  flex-wrap:wrap;
-  padding:20px 0 32px;
-  border-top:1px solid var(--line);
-  color:#aaaab8;
-  font-size:9px;
+.weather-location a {
+  color: #eee;
+  text-decoration: none;
+  text-shadow: 0 0 8px #aaa;
+}
+
+.weather-location a:hover {
+  text-shadow: 0 0 15px white;
+}
+
+.weather-note {
+  color: #666;
+  font-size: 8px;
+  margin-top: 5px;
+  letter-spacing: 1px;
 }
 
 /* CLOTHING SHOWROOM */
 
-.clothing-intro { padding:25px 0 12px; }
-
-.clothing-intro h2 {
-  margin:10px 0;
-  font:900 clamp(35px,7vw,65px)/1.15 Orbitron,sans-serif;
-  text-shadow:0 0 8px white,0 0 25px #aaaaff75;
-}
-
-.clothing-intro h2 span {
-  color:transparent;
-  -webkit-text-stroke:1px white;
+.clothing-intro {
+  max-width: 650px;
+  color: #888;
+  font-size: 10px;
+  line-height: 2.2;
+  margin: -8px 0 28px;
 }
 
 .clothing-grid {
-  display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:13px;
-  margin:22px 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 23px 16px;
+  align-items: start;
 }
 
 .clothing-card {
-  min-width:0;
-  overflow:hidden;
-  border:1px solid var(--line);
-  background:#09090cf5;
-  transition:.25s;
+  min-width: 0;
+  position: relative;
+  overflow: visible;
+  border: 1px solid rgba(230,230,230,.2);
+  background: rgba(255,255,255,.025);
+  animation: cardFloat 4.5s ease-in-out infinite;
+  transition:
+    border-color .35s ease,
+    filter .35s ease,
+    box-shadow .35s ease;
+}
+
+.clothing-card:nth-child(3n + 2) {
+  animation-delay: -1.5s;
+}
+
+.clothing-card:nth-child(3n) {
+  animation-delay: -3s;
 }
 
 .clothing-card:hover {
-  transform:translateY(-4px);
-  border-color:#ddd;
-  box-shadow:0 0 20px #aaaaff22;
+  border-color: rgba(255,255,255,.7);
+  filter: drop-shadow(0 0 12px rgba(220,220,220,.22));
+  box-shadow: 0 0 25px rgba(255,255,255,.06);
+  z-index: 3;
+}
+
+@keyframes cardFloat {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -9px; }
 }
 
 .clothing-image {
-  height:290px;
-  position:relative;
-  overflow:hidden;
-  background:#111116;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  position: relative;
+  background:
+    radial-gradient(ellipse at center, #333, #080808 70%);
+}
+
+.clothing-image::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border: 1px solid rgba(255,255,255,.05);
+  background: linear-gradient(
+    135deg,
+    rgba(255,255,255,.08),
+    transparent 35%,
+    transparent 70%,
+    rgba(255,255,255,.035)
+  );
 }
 
 .clothing-image img {
-  width:100%;
-  height:100%;
-  display:block;
-  object-fit:cover;
-  filter:grayscale(1) contrast(1.1);
-  transition:transform .5s,filter .5s;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(100%) brightness(.82) contrast(1.1);
+  transition: transform .6s ease, filter .6s ease;
 }
 
 .clothing-card:hover .clothing-image img {
-  transform:scale(1.06);
-  filter:grayscale(.5) contrast(1.1);
+  transform: scale(1.07);
+  filter: grayscale(100%) brightness(1.1) contrast(1.08);
 }
 
-.clothing-image span {
-  position:absolute;
-  top:10px;
-  left:10px;
-  z-index:1;
-  padding:6px;
-  border:1px solid #777;
-  background:#050506df;
-  color:white;
-  font-size:9px;
-  letter-spacing:1px;
+.product-number {
+  position: absolute;
+  z-index: 2;
+  top: 10px;
+  left: 10px;
+  font-size: 8px;
+  letter-spacing: 2px;
+  color: white;
+  background: rgba(0,0,0,.65);
+  padding: 6px 7px;
+  border: 1px solid rgba(255,255,255,.2);
 }
 
-.clothing-info { padding:13px; }
+.clothing-info {
+  padding: 12px 11px 14px;
+}
 
-.clothing-info h2 {
-  font:700 12px Orbitron,sans-serif;
-  text-shadow:0 0 8px #aaaaff;
+.clothing-info h3 {
+  font-family: Orbitron, sans-serif;
+  font-size: clamp(10px, 1.5vw, 13px);
+  letter-spacing: 1px;
+  margin: 0 0 9px;
+  color: #f0f0f0;
 }
 
 .clothing-info p {
-  color:#aaaab8;
-  font-size:9px;
-  line-height:1.8;
+  font-size: 9px;
+  line-height: 1.8;
+  color: #999;
+  margin: 0;
 }
 
 .clothing-info strong {
-  display:block;
-  margin-top:13px;
-  padding-top:12px;
-  border-top:1px solid #41414a;
-  font-size:9px;
-  line-height:1.8;
-  text-shadow:0 0 5px white,0 0 16px #aaaaff90;
+  display: block;
+  margin-top: 13px;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+  font-size: 8px;
+  line-height: 1.8;
+  letter-spacing: 1px;
+  color: #ddd;
+  text-shadow: 0 0 9px rgba(255,255,255,.45);
 }
 
-/* GOTHIC CROSS BACKGROUND */
+/* FOOTER */
 
-.gothic-cross-bg {
-  position:fixed;
-  top:50%;
-  left:50%;
-  width:min(85vw,580px);
-  pointer-events:none;
-  z-index:0;
-  opacity:.19;
-  transform:translate(-50%,-50%);
-  animation:gothicCrossRotate 55s linear infinite;
-  filter:
-    drop-shadow(0 0 8px #c5c5ff90)
-    drop-shadow(0 0 22px #8888ff55);
+footer {
+  width: min(1000px, 92%);
+  margin: auto;
+  padding: 25px 0 35px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  flex-wrap: wrap;
+  font-size: 9px;
+  color: #777;
+  letter-spacing: 1px;
 }
 
-.gothic-cross-bg svg { display:block;width:100%;height:auto; }
-
-@keyframes gothicCrossRotate {
-  from { transform:translate(-50%,-50%) rotate(0deg); }
-  to { transform:translate(-50%,-50%) rotate(360deg); }
+footer a {
+  color: #ccc;
+  text-decoration: none;
 }
 
-/* LIGHTNING EFFECT */
-
-#lightningCanvas {
-  position:fixed;
-  inset:0;
-  width:100%;
-  height:100%;
-  z-index:1;
-  pointer-events:none;
-  opacity:.9;
-  mix-blend-mode:screen;
+footer a:hover {
+  text-shadow: 0 0 12px white;
 }
 
-/* GLOWING TEXT */
+/* MOBILE */
 
-h2,h3,.brand,.section-title,.eyebrow,.star-label {
-  text-shadow:0 0 5px #fff,0 0 15px #b5b5ff90,0 0 30px #8585ff40;
+@media (max-width: 700px) {
+  .clothing-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 19px 12px;
+  }
+
+  .clothing-info {
+    padding: 11px 9px 12px;
+  }
+
+  .clothing-info h3 {
+    font-size: 10px;
+  }
+
+  .clothing-info p {
+    font-size: 8px;
+  }
+
+  .clothing-info strong {
+    font-size: 7px;
+  }
+
+  .section {
+    padding: 45px 0;
+  }
+
+  .hero {
+    min-height: auto;
+    padding-top: 75px;
+    padding-bottom: 45px;
+  }
+
+  .hero h1 {
+    letter-spacing: -2px;
+  }
+
+  .header-label {
+    font-size: 8px;
+  }
 }
 
-p,small,.desc,.card small {
-  text-shadow:0 0 5px #bdbdff70;
+@media (max-width: 360px) {
+  .links {
+    grid-template-columns: 1fr;
+  }
+
+  .clothing-grid {
+    gap: 12px 8px;
+  }
+
+  .clothing-info h3 {
+    letter-spacing: 0;
+  }
 }
 
-a,button {
-  text-shadow:0 0 5px #fff9,0 0 12px #aaaaff75;
-}
-
-::selection { color:#050505;background:#eeeefb; }
-
-#home-section[hidden],#clothing-section[hidden] {
-  display:none!important;
-}
-
-@media(max-width:720px) {
-  .hero { grid-template-columns:1fr; }
-  .hero-copy { padding:20px; }
-  .scene { min-height:320px; }
-  .grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
-  .bottom { grid-template-columns:1fr; }
-  .clothing-grid { grid-template-columns:repeat(2,minmax(0,1fr));gap:9px; }
-  .clothing-image { height:230px; }
-  .clothing-info { padding:10px; }
-  .gothic-cross-bg { width:100vw;opacity:.15; }
-}
-
-@media(max-width:400px) {
-  .wrap { width:calc(100% - 22px); }
-  .brand { font-size:15px; }
-  .status { display:none; }
-  .grid,.clothing-grid { grid-template-columns:1fr; }
-  .clothing-image { height:300px; }
-  h1 { letter-spacing:-1px; }
-}
-
-@media(prefers-reduced-motion:reduce) {
-  html { scroll-behavior:auto; }
-  .gothic-cross-bg,.orbit { animation:none; }
-  *,*::before,*::after { transition-duration:.01ms!important; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<!-- ROTATING GOTHIC CROSS -->
-<div class="gothic-cross-bg" aria-hidden="true">
-  <svg viewBox="0 0 300 420" xmlns="http://www.w3.org/2000/svg">
-    <defs>
-      <linearGradient id="crossChrome" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0%" stop-color="#555560"/>
-        <stop offset="25%" stop-color="#ffffff"/>
-        <stop offset="45%" stop-color="#858591"/>
-        <stop offset="65%" stop-color="#f5f5ff"/>
-        <stop offset="100%" stop-color="#666675"/>
-      </linearGradient>
-      <filter id="crossGlow" x="-100%" y="-100%" width="300%" height="300%">
-        <feGaussianBlur stdDeviation="4" result="blur"/>
-        <feMerge>
-          <feMergeNode in="blur"/>
-          <feMergeNode in="SourceGraphic"/>
-        </feMerge>
-      </filter>
-    </defs>
-    <g fill="url(#crossChrome)" stroke="#eeeefc" stroke-width="1.5"
-       stroke-linejoin="round" filter="url(#crossGlow)">
-      <path d="M132 18 L150 2 L168 18 L163 43 L181 62 L169 84 L164 125 L206 102 L222 78 L238 91 L236 115 L265 124 L280 146 L255 151 L238 139 L219 156 L185 163 L185 204 L211 191 L225 205 L211 222 L185 228 L185 336 L202 360 L180 354 L150 405 L120 354 L98 360 L115 336 L115 228 L89 222 L75 205 L89 191 L115 204 L115 163 L81 156 L62 139 L45 151 L20 146 L35 124 L64 115 L62 91 L78 78 L94 102 L136 125 L131 84 L119 62 L137 43 Z"/>
-      <path d="M150 142 L168 171 L150 200 L132 171 Z" fill="#08080c" stroke="#fff" stroke-width="2"/>
-      <path d="M150 153 L160 171 L150 188 L140 171 Z" fill="none" stroke="#cfcfe8"/>
-    </g>
+<canvas id="lightning" aria-hidden="true"></canvas>
+
+<div class="background-cross" aria-hidden="true">
+  <svg viewBox="0 0 200 200">
+    <path d="M82 12 L118 12 L118 70 L170 70 L170 106 L118 106 L118 188 L82 188 L82 106 L30 106 L30 70 L82 70 Z"/>
+    <path d="M73 3 L127 3 L127 61 L179 61 L179 115 L127 115 L127 197 L73 197 L73 115 L21 115 L21 61 L73 61 Z"/>
+    <path d="M100 0 L100 200 M0 91 L200 91"/>
   </svg>
 </div>
 
-<canvas id="lightningCanvas" aria-hidden="true"></canvas>
-
-<div class="wrap">
+<div class="noise" aria-hidden="true"></div>
+<div class="flash" id="flash" aria-hidden="true"></div>
 
 <header>
-  <a class="brand" href="#home" data-view="home">_<span>thatsonme</span></a>
-
-  <nav aria-label="Main navigation">
-    <button class="nav-btn active" data-view="home">HOME</button>
-    <button class="nav-btn" data-view="clothing">CLOTHING</button>
-  </nav>
-
-  <div class="status">● ARCHIVE ONLINE</div>
+  <a href="#home" class="brand">_THATSONME</a>
+  <div class="header-label">PERSONAL ARCHIVE // 001</div>
 </header>
 
-<!-- HOME PAGE -->
+<main>
 
-<section id="home-section">
+<!-- HOMEPAGE -->
 
-  <div class="panel" style="margin-top:18px">
-    <div class="panel-head">
-      <span>PERSONAL ARCHIVE // 001</span>
-      <span>EST. UNKNOWN</span>
-    </div>
+<section class="hero" id="home">
+  <div class="eyebrow">WELCOME TO MY LITTLE CORNER</div>
 
-    <div class="hero">
-      <div class="hero-copy">
-        <div class="eyebrow">WELCOME TO MY WORLD</div>
-        <h1>_THAT'S<br><span>ON ME.</span></h1>
+  <h1>THAT'S<br>ON ME.</h1>
 
-        <p class="desc">
-          Just another face in the crowd.
-          A personal archive of music, thoughts,
-          digital fragments and everything in between.
-        </p>
+  <p class="hero-subtitle">
+    NOT HERE TO FIT IN.<br>
+    JUST HERE TO EXIST.
+  </p>
 
-        <div class="actions">
-          <a class="btn primary" href="https://www.instagram.com/_.thatsonme/" target="_blank" rel="noopener noreferrer">FIND ME ↗</a>
-          <button class="btn" data-view="clothing">ENTER SHOWROOM ↗</button>
-        </div>
-      </div>
+  <div class="hero-star" id="heroStar" aria-label="Interactive chrome star">
+    <svg viewBox="0 0 200 200">
+      <defs>
+        <linearGradient id="chrome" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#fff"/>
+          <stop offset="22%" stop-color="#555"/>
+          <stop offset="43%" stop-color="#fff"/>
+          <stop offset="60%" stop-color="#777"/>
+          <stop offset="79%" stop-color="#eee"/>
+          <stop offset="100%" stop-color="#444"/>
+        </linearGradient>
+        <linearGradient id="orbitChrome">
+          <stop offset="0%" stop-color="#444"/>
+          <stop offset="50%" stop-color="#fff"/>
+          <stop offset="100%" stop-color="#555"/>
+        </linearGradient>
+      </defs>
 
-      <div class="scene">
-        <button id="gyroButton" class="btn">ENABLE GYRO ↗</button>
+      <g class="star-orbit">
+        <ellipse cx="100" cy="100" rx="85" ry="33"
+          fill="none" stroke="url(#orbitChrome)" stroke-width="1.5"
+          transform="rotate(-35 100 100)"/>
+        <ellipse cx="100" cy="100" rx="70" ry="42"
+          fill="none" stroke="#aaa" stroke-width=".6"
+          transform="rotate(55 100 100)"/>
+      </g>
 
-        <div class="orbit"></div>
-        <div class="orbit two"></div>
-
-        <div class="chrome-star" id="chromeStar">
-          <svg viewBox="0 0 200 200" aria-label="Chrome star">
-            <defs>
-              <linearGradient id="chrome" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stop-color="#555560"/>
-                <stop offset="20%" stop-color="#fff"/>
-                <stop offset="38%" stop-color="#777783"/>
-                <stop offset="54%" stop-color="#f8f8ff"/>
-                <stop offset="72%" stop-color="#666672"/>
-                <stop offset="100%" stop-color="#eee"/>
-              </linearGradient>
-            </defs>
-            <polygon points="100,5 124,70 195,75 141,120 158,192 100,151 42,192 59,120 5,75 76,70"
-              fill="url(#chrome)" stroke="#fff" stroke-width="2"/>
-          </svg>
-        </div>
-
-        <div class="star-label">CHROME DREAMS // 001</div>
-      </div>
-    </div>
+      <g class="star-main">
+        <path d="M100 18 L119 76 L181 78 L132 116 L149 178 L100 142 L51 178 L68 116 L19 78 L81 76 Z"
+          fill="url(#chrome)" stroke="#eee" stroke-width="1.2"/>
+        <path d="M100 18 L100 142 L81 76 Z"
+          fill="#fff" opacity=".4"/>
+        <path d="M100 142 L119 76 L181 78 L132 116 Z"
+          fill="#222" opacity=".45"/>
+        <path d="M51 178 L100 142 L149 178 L100 125 Z"
+          fill="#aaa" opacity=".6"/>
+        <path d="M100 18 L119 76 L100 95 L81 76 Z"
+          fill="#fff" opacity=".7"/>
+      </g>
+    </svg>
   </div>
 
-  <div class="panel" style="margin-top:18px">
-    <div class="panel-head">
-      <span>DIRECTORY</span>
-      <span>SELECT A DESTINATION</span>
-    </div>
-  </div>
+  <p class="eyebrow">FIND ME ELSEWHERE</p>
 
-  <div class="grid">
-    <a class="card" href="https://www.instagram.com/_.thatsonme/" target="_blank" rel="noopener noreferrer">
-      <small>01 // SOCIAL</small>
-      <h2>INSTAGRAM ↗</h2>
-      <p>@_.thatsonme<br>Catch me outside the archive.</p>
+  <nav class="links" aria-label="Social links">
+    <a class="cyber-link"
+       href="https://www.instagram.com/_.thatsonme/"
+       target="_blank" rel="noopener noreferrer">
+      <span>INSTAGRAM</span><span>↗</span>
     </a>
 
-    <a class="card" href="https://www.reddit.com/u/ec1psed/s/hQudMEiFJx" target="_blank" rel="noopener noreferrer">
-      <small>02 // COMMUNITY</small>
-      <h2>REDDIT ↗</h2>
-      <p>Another corner of the internet.</p>
+    <a class="cyber-link"
+       href="https://www.reddit.com/u/ec1psed/s/hQudMEiFJx"
+       target="_blank" rel="noopener noreferrer">
+      <span>REDDIT</span><span>↗</span>
     </a>
 
-    <a class="card" href="https://ig.me/m/_.thatsonme" target="_blank" rel="noopener noreferrer">
-      <small>03 // CONTACT</small>
-      <h2>MESSAGE ME ↗</h2>
-      <p>Slide into the DMs.</p>
+    <a class="cyber-link"
+       href="https://ig.me/m/_.thatsonme"
+       target="_blank" rel="noopener noreferrer">
+      <span>CONTACT</span><span>↗</span>
     </a>
-  </div>
 
-  <div class="bottom">
-    <section class="music-panel">
-      <div class="section-title">NOW PLAYING // 001</div>
-
-      <div class="track">
-        <div>
-          <strong>vanished</strong><br>
-          <small>OPEN IN SPOTIFY ↗</small>
-        </div>
-        <span>♫</span>
-      </div>
-
-      <iframe
-        class="spotify"
-        title="vanished on Spotify"
-        src="https://open.spotify.com/embed/track/1gM1Xu2spprbzVPTpTR9Uq?utm_source=generator"
-        height="152"
-        loading="lazy"
-        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
-      </iframe>
-
-      <p class="desc">Press play to listen. Spotify may require a tap.</p>
-    </section>
-
-    <section class="links-panel">
-      <div class="section-title">QUICK ACCESS // 002</div>
-
-      <div class="link-list">
-        <a class="link-row" href="https://www.instagram.com/_.thatsonme/" target="_blank" rel="noopener noreferrer"><span>INSTAGRAM</span><span>↗</span></a>
-        <a class="link-row" href="https://ig.me/m/_.thatsonme" target="_blank" rel="noopener noreferrer"><span>CONTACT</span><span>↗</span></a>
-        <a class="link-row" href="https://www.reddit.com/u/ec1psed/s/hQudMEiFJx" target="_blank" rel="noopener noreferrer"><span>REDDIT</span><span>↗</span></a>
-        <button class="link-row" data-view="clothing"><span>CLOTHING SHOWROOM</span><span>↗</span></button>
-      </div>
-    </section>
-  </div>
-
+    <a class="cyber-link" href="#clothing">
+      <span>CLOTHING</span><span>↓</span>
+    </a>
+  </nav>
 </section>
 
-<!-- CLOTHING SHOWROOM -->
+<!-- MUSIC -->
 
-<section id="clothing-section" hidden>
-
-  <div class="panel" style="margin-top:18px">
-    <div class="panel-head">
-      <span>ARCHIVE 002 // GARMENTS</span>
-      <span>NOT FOR EVERYONE</span>
-    </div>
-
-    <div class="clothing-intro">
-      <div class="eyebrow">THE STREETWEAR ARCHIVE</div>
-      <h2>NO BASIC<br><span>FITS.</span></h2>
-
-      <p class="desc">
-        Dark streetwear. Oversized silhouettes.
-        Pieces for people who don't dress to blend in.
-      </p>
-
-      <button class="btn" data-view="home">← BACK HOME</button>
-    </div>
+<section class="section" id="music">
+  <div class="section-heading">
+    <h2>NOW PLAYING</h2>
+    <p>MY ROTATION // 001</p>
   </div>
 
-  <!-- NO TOP DIALOGUE TICKER -->
+  <div class="music-panel">
+    <div class="music-top">
+      <strong>SONG OF THE MOMENT</strong>
+      <span>SPOTIFY PLAYER</span>
+    </div>
+
+    <div class="track-name">vanished</div>
+
+    <iframe
+      class="spotify-frame"
+      src="https://open.spotify.com/embed/track/1gM1Xu2spprbzVPTpTR9Uq?utm_source=generator"
+      title="vanished on Spotify"
+      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+      loading="lazy">
+    </iframe>
+
+    <p style="font-size:9px;color:#777;line-height:2;margin-bottom:0">
+      IF IT SOUNDS RIGHT, IT STAYS.
+    </p>
+  </div>
+</section>
+
+<!-- CLOTHING -->
+
+<section class="section" id="clothing">
+  <div class="section-heading">
+    <h2>THE SHOWROOM</h2>
+    <p>COLLECTION // 009</p>
+  </div>
+
+  <p class="clothing-intro">
+    DARK PIECES. COLD METAL. NO BASIC ENERGY.
+    A LITTLE SOMETHING FOR THE ONES WHO GET IT.
+  </p>
 
   <div class="clothing-grid">
 
-    <!-- 001 -->
+    <!-- 001 VOID TEE -->
     <article class="clothing-card">
       <div class="clothing-image">
-        <span>ITEM 001</span>
-        <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=800&q=80" alt="T-shirt" loading="lazy">
+        <span class="product-number">001 / VOID</span>
+        <img
+          src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=800&q=80"
+          alt="Minimal dark streetwear T-shirt"
+          loading="lazy">
       </div>
       <div class="clothing-info">
-        <h2>VOID TEE</h2>
-        <p>Oversized fit // washed black</p>
+        <h3>VOID TEE</h3>
+        <p>THE EVERYDAY UNIFORM.</p>
         <strong>NOT MADE FOR EVERYBODY.</strong>
       </div>
     </article>
 
-    <!-- 002 -->
+    <!-- 002 AFTER HOURS -->
     <article class="clothing-card">
       <div class="clothing-image">
-        <span>ITEM 002</span>
-        <img src="https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?auto=format&fit=crop&w=800&q=80" alt="Streetwear clothing" loading="lazy">
+        <span class="product-number">002 / NIGHT</span>
+        <img
+          src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=800&q=80"
+          alt="Dark oversized hoodie"
+          loading="lazy">
       </div>
       <div class="clothing-info">
-        <h2>AFTER HOURS HOODIE</h2>
-        <p>Heavyweight // all-black</p>
+        <h3>AFTER HOURS HOODIE</h3>
+        <p>MADE FOR THE LATE NIGHTS.</p>
         <strong>YOUR EX WOULD APPROVE.</strong>
       </div>
     </article>
 
-    <!-- 003 -->
+    <!-- 003 GLITCH -->
     <article class="clothing-card">
       <div class="clothing-image">
-        <span>ITEM 003</span>
-        <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=800&q=80" alt="Streetwear fashion" loading="lazy">
+        <span class="product-number">003 / GLITCH</span>
+        <img
+          src="https://images.unsplash.com/photo-1503341504253-dff4815485f1?auto=format&fit=crop&w=800&q=80"
+          alt="Streetwear fashion outfit"
+          loading="lazy">
       </div>
       <div class="clothing-info">
-        <h2>GLITCH UNIFORM</h2>
-        <p>Loose layers // night-shift energy</p>
+        <h3>GLITCH UNIFORM</h3>
+        <p>OUTSIDE THE ALGORITHM.</p>
         <strong>TOO DIFFERENT TO FIT IN.</strong>
       </div>
     </article>
 
-    <!-- 004 -->
+    <!-- 004 BAGGY DENIM -->
     <article class="clothing-card">
       <div class="clothing-image">
-        <span>ITEM 004</span>
-        <img src="https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=800&q=80" alt="Denim jeans" loading="lazy">
+        <span class="product-number">004 / DENIM</span>
+        <img
+          src="https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=800&q=80"
+          alt="Baggy denim jeans"
+          loading="lazy">
       </div>
       <div class="clothing-info">
-        <h2>BAGGY DENIM</h2>
-        <p>Wide leg // low-slung shape</p>
+        <h3>BAGGY DENIM</h3>
+        <p>LOOSE FIT. LOUD PRESENCE.</p>
         <strong>THE FIT SPEAKS FOR ITSELF.</strong>
       </div>
     </article>
 
-    <!-- 005 -->
+    <!-- 005 SHADOW SHELL -->
     <article class="clothing-card">
       <div class="clothing-image">
-        <span>ITEM 005</span>
-        <img src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=800&q=80" alt="Alternative fashion" loading="lazy">
+        <span class="product-number">005 / SHADOW</span>
+        <img
+          src="https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=800&q=80"
+          alt="Dark streetwear jacket"
+          loading="lazy">
       </div>
       <div class="clothing-info">
-        <h2>SHADOW SHELL</h2>
-        <p>Technical layers // cold chrome</p>
+        <h3>SHADOW SHELL</h3>
+        <p>BUILT FOR THE NIGHT SHIFT.</p>
         <strong>CAUGHT IN 4K. STILL DRIPPED OUT.</strong>
       </div>
     </article>
 
-    <!-- 006 -->
+    <!-- 006 STATIC SET -->
     <article class="clothing-card">
       <div class="clothing-image">
-        <span>ITEM 006</span>
-        <img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&w=800&q=80" alt="Clothing collection" loading="lazy">
+        <span class="product-number">006 / STATIC</span>
+        <img
+          src="https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb?auto=format&fit=crop&w=800&q=80"
+          alt="Monochrome streetwear look"
+          loading="lazy">
       </div>
       <div class="clothing-info">
-        <h2>STATIC SET</h2>
-        <p>Street uniform // zero apologies</p>
+        <h3>STATIC SET</h3>
+        <p>FULL LOOK. ZERO NOISE.</p>
         <strong>NO REFUNDS ON THE AURA.</strong>
       </div>
     </article>
@@ -804,12 +856,15 @@ a,button {
     <!-- 007 CHROME HEARTS -->
     <article class="clothing-card">
       <div class="clothing-image">
-        <span>ITEM 007 // GOTHIC LUXURY</span>
-        <img src="chromehearts.jpg" alt="Chrome Hearts gothic streetwear" loading="lazy">
+        <span class="product-number">007 / CHROME</span>
+        <img
+          src="chromehearts.jpg"
+          alt="Chrome Hearts gothic streetwear"
+          loading="lazy">
       </div>
       <div class="clothing-info">
-        <h2>CHROME HEARTS</h2>
-        <p>Gothic graphics // silver hardware // dark luxury</p>
+        <h3>CHROME HEARTS</h3>
+        <p>GOTHIC DETAILS. COLD SILVER.</p>
         <strong>HEARTS COLD. METAL COLDER.</strong>
       </div>
     </article>
@@ -817,282 +872,12 @@ a,button {
     <!-- 008 GRILLZ -->
     <article class="clothing-card">
       <div class="clothing-image">
-        <span>ITEM 008 // ICED OUT</span>
-        <img src="https://images.unsplash.com/photo-1617038220319-276d3cfab638?auto=format&fit=crop&w=800&q=80" alt="Silver jewelry inspiration" loading="lazy">
+        <span class="product-number">008 / ICED</span>
+        <img
+          src="grillz.jpg"
+          alt="Silver iced-out grillz"
+          loading="lazy">
       </div>
       <div class="clothing-info">
-        <h2>ICY GRILLZ</h2>
-        <p>Silver shine // iced-out attitude</p>
-        <strong>SMILE LIKE YOU OWN THE CITY.</strong>
-      </div>
-    </article>
-
-    <!-- 009 ACCESSORIES -->
-    <article class="clothing-card">
-      <div class="clothing-image">
-        <span>ITEM 009 // ACCESSORIES</span>
-        <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?auto=format&fit=crop&w=800&q=80" alt="Silver accessories inspiration" loading="lazy">
-      </div>
-      <div class="clothing-info">
-        <h2>SILVER RELICS</h2>
-        <p>Chrome accessories // cold metal</p>
-        <strong>THE DETAILS MAKE THE DIFFERENCE.</strong>
-      </div>
-    </article>
-
-  </div>
-
-  <div class="panel" style="margin-bottom:20px">
-    <div class="panel-head">
-      <span>END OF COLLECTION</span>
-      <span>ARCHIVE 002</span>
-    </div>
-    <div style="padding:20px">
-      <h2 style="font-family:Orbitron,sans-serif">STAY RARE.</h2>
-      <p class="desc">Your style. Your rules. Your own little corner of the internet.</p>
-      <button class="btn" data-view="home">RETURN TO ARCHIVE ↗</button>
-    </div>
-  </div>
-
-</section>
-
-<footer>
-  <span>_THATSONME // PERSONAL ARCHIVE</span>
-  <span>MADE OF PIXELS & BAD DECISIONS.</span>
-</footer>
-
-</div>
-
-<script>
-/* NAVIGATION */
-
-const home = document.getElementById("home-section");
-const clothing = document.getElementById("clothing-section");
-
-function showView(view) {
-  const isClothing = view === "clothing";
-
-  home.hidden = isClothing;
-  clothing.hidden = !isClothing;
-
-  document.querySelectorAll(".nav-btn").forEach(button => {
-    button.classList.toggle("active",button.dataset.view === view);
-  });
-
-  history.replaceState(null,"",isClothing ? "#clothing" : location.pathname);
-  window.scrollTo({top:0,behavior:"smooth"});
-}
-
-document.querySelectorAll("[data-view]").forEach(button => {
-  button.addEventListener("click",event => {
-    event.preventDefault();
-    showView(button.dataset.view);
-  });
-});
-
-if (location.hash === "#clothing") showView("clothing");
-
-
-/* GYROSCOPE + DRAGGABLE STAR */
-
-const star = document.getElementById("chromeStar");
-const gyroButton = document.getElementById("gyroButton");
-
-let gyroEnabled = false;
-let dragging = false;
-let lastX = 0;
-let lastY = 0;
-let dragX = 0;
-let dragY = 0;
-let tiltX = 0;
-let tiltY = 0;
-
-function updateStar() {
-  star.style.transform =
-    `translate3d(${dragX}px,${dragY}px,0) rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
-}
-
-async function enableGyro() {
-  try {
-    if (!("DeviceOrientationEvent" in window)) {
-      gyroButton.textContent = "GYRO NOT SUPPORTED";
-      return;
-    }
-
-    if (typeof DeviceOrientationEvent.requestPermission === "function") {
-      const permission = await DeviceOrientationEvent.requestPermission();
-
-      if (permission !== "granted") {
-        gyroButton.textContent = "PERMISSION DENIED";
-        return;
-      }
-    }
-
-    gyroEnabled = true;
-    gyroButton.textContent = "GYRO ACTIVE ✓";
-  } catch (_) {
-    gyroButton.textContent = "GYRO UNAVAILABLE";
-  }
-}
-
-gyroButton.addEventListener("click",enableGyro);
-
-window.addEventListener("deviceorientation",event => {
-  if (!gyroEnabled || dragging) return;
-  if (event.beta == null || event.gamma == null) return;
-
-  tiltX = Math.max(-45,Math.min(45,event.beta - 45));
-  tiltY = Math.max(-45,Math.min(45,event.gamma));
-
-  updateStar();
-});
-
-star.addEventListener("pointerdown",event => {
-  dragging = true;
-  lastX = event.clientX;
-  lastY = event.clientY;
-  star.setPointerCapture(event.pointerId);
-});
-
-star.addEventListener("pointermove",event => {
-  if (!dragging) return;
-
-  dragX = Math.max(-100,Math.min(100,dragX + event.clientX - lastX));
-  dragY = Math.max(-100,Math.min(100,dragY + event.clientY - lastY));
-
-  lastX = event.clientX;
-  lastY = event.clientY;
-
-  updateStar();
-});
-
-function stopDragging() { dragging = false; }
-
-star.addEventListener("pointerup",stopDragging);
-star.addEventListener("pointercancel",stopDragging);
-star.addEventListener("lostpointercapture",stopDragging);
-
-
-/* RANDOM LIGHTNING */
-
-(() => {
-  const canvas = document.getElementById("lightningCanvas");
-  const ctx = canvas.getContext("2d");
-
-  const reducedMotion = window.matchMedia(
-    "(prefers-reduced-motion: reduce)"
-  ).matches;
-
-  let width = 0;
-  let height = 0;
-  let dpr = 1;
-  let bolts = [];
-  let flash = 0;
-  let nextStrike = 2500;
-  let lastTime = 0;
-
-  function resize() {
-    dpr = Math.min(window.devicePixelRatio || 1,2);
-    width = window.innerWidth;
-    height = window.innerHeight;
-
-    canvas.width = Math.round(width*dpr);
-    canvas.height = Math.round(height*dpr);
-
-    canvas.style.width = width+"px";
-    canvas.style.height = height+"px";
-
-    ctx.setTransform(dpr,0,0,dpr,0,0);
-  }
-
-  function makeBolt() {
-    const points = [];
-    let x = Math.random()*width;
-    let y = -10;
-
-    points.push({x,y});
-
-    const segments = 20 + Math.floor(Math.random()*12);
-
-    for (let i=0;i<segments;i++) {
-      x += (Math.random()-.5)*55;
-      y += height/segments;
-      points.push({x,y});
-    }
-
-    return points;
-  }
-
-  function strike() {
-    bolts = [makeBolt()];
-
-    if (Math.random() > .4) {
-      bolts.push(makeBolt());
-    }
-
-    flash = .25 + Math.random()*.25;
-    nextStrike = 3500 + Math.random()*8500;
-  }
-
-  function drawBolt(points,alpha,lineWidth) {
-    if (points.length < 2) return;
-
-    ctx.beginPath();
-    ctx.moveTo(points[0].x,points[0].y);
-
-    for (let i=1;i<points.length;i++) {
-      ctx.lineTo(points[i].x,points[i].y);
-    }
-
-    ctx.strokeStyle = `rgba(220,225,255,${alpha})`;
-    ctx.lineWidth = lineWidth;
-    ctx.shadowColor = "#aaaaff";
-    ctx.shadowBlur = 20;
-    ctx.stroke();
-    ctx.shadowBlur = 0;
-  }
-
-  function animate(time) {
-    requestAnimationFrame(animate);
-
-    ctx.clearRect(0,0,width,height);
-
-    if (reducedMotion || document.hidden) {
-      bolts = [];
-      flash = 0;
-      lastTime = time;
-      return;
-    }
-
-    const delta = lastTime ? Math.min(time-lastTime,50) : 16;
-    lastTime = time;
-
-    nextStrike -= delta;
-
-    if (nextStrike <= 0) strike();
-
-    flash *= .86;
-
-    if (flash > .015) {
-      ctx.fillStyle = `rgba(210,215,255,${flash*.12})`;
-      ctx.fillRect(0,0,width,height);
-    }
-
-    const alpha = Math.min(flash*4,.9);
-
-    bolts.forEach(points => {
-      drawBolt(points,alpha,1.4);
-      drawBolt(points,alpha*.3,4);
-    });
-
-    if (flash < .01) bolts = [];
-  }
-
-  resize();
-  window.addEventListener("resize",resize);
-  requestAnimationFrame(animate);
-})();
-</script>
-
-</body>
-</html>
+        <h3>ICY GRILLZ</h3>
+       
