@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -84,10 +84,10 @@
     </section>
 
     <section class="panel head-panel">
-      <div class="panel-head"><span>FIG. 001 — CHROME RELIC</span><span>3D / GYRO / AUTO-ROTATE</span></div>
+      <div class="panel-head"><span>FIG. 001 — CHROME ORB</span><span>3D / GYRO / AUTO-ROTATE</span></div>
       <span class="corner c1">⌜</span><span class="corner c2">⌜</span><span class="corner c3">⌜</span><span class="corner c4">⌜</span>
       <canvas id="scene" aria-label="Animated stylized chrome sculpture"></canvas>
-      <div class="head-label"><span>OBJECT: CHROME RELIC</span><span>GYRO LINK: STANDBY</span></div>
+      <div class="head-label"><span>OBJECT: CHROME ORB</span><span>GYRO LINK: STANDBY</span></div>
     </section>
   </main>
 
@@ -98,8 +98,8 @@
     </div>
     <div class="panel small">
       <h3>02 / NOW PLAYING</h3>
-      <a class="track" href="https://open.spotify.com/track/1dbcQERW1gOh0G557OoAXe" target="_blank" rel="noopener" style="color:inherit;text-decoration:none"><div class="disc"></div><div><strong>PLAY MY FREQUENCY ↗</strong><small>OPEN TRACK IN SPOTIFY</small></div></a>
-      <iframe title="Spotify track player — starts at the beginning" style="border-radius:8px;margin-top:10px" src="https://open.spotify.com/embed/track/1dbcQERW1gOh0G557OoAXe?utm_source=generator&theme=0&autoplay=1" width="100%" height="152" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+      <a class="track" href="https://open.spotify.com/track/1dbcQERW1gOh0G557OoAXe" target="_blank" rel="noopener" style="color:inherit;text-decoration:none"><div class="disc"></div><div><strong>PLAY MY FREQUENCY ↗</strong><small>OPEN IN SPOTIFY • STARTS AT 0:00</small></div></a>
+      <iframe title="Spotify track player" style="border-radius:8px;margin-top:10px" src="https://open.spotify.com/embed/track/1dbcQERW1gOh0G557OoAXe?utm_source=generator&theme=0" width="100%" height="152" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="eager"></iframe>
     </div>
     <div class="panel small">
       <h3>03 / SYSTEM LOG</h3>
@@ -109,7 +109,7 @@
   <footer class="footer"><span>© 2026 _THATSONME ARCHIVE</span><span>MADE OF STATIC & SILVER</span><span>V.1.0.0</span></footer>
 </div>
 
-<div class="popup" id="popup"><button onclick="document.getElementById('popup').remove()">[ X ]</button><b>INCOMING TRANSMISSION</b><br>Welcome to the void. The chrome relic is awake.</div>
+<div class="popup" id="popup"><button onclick="document.getElementById('popup').remove()">[ X ]</button><b>INCOMING TRANSMISSION</b><br>Welcome to the void. The chrome orb is awake.</div>
 
 <script type="module">
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
@@ -159,52 +159,28 @@ function spike(parent, start, end, radius, material=chrome) {
   mesh.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),d.normalize());
   parent.add(mesh); return mesh;
 }
-// Stylized, non-functional chrome prop sculpture. Purely decorative geometry.
+// Smooth chrome orb with orbiting rings and small floating fragments.
 const relic = new THREE.Group(); entity.add(relic);
-const silver = new THREE.MeshStandardMaterial({color:0xd4d6df, metalness:1, roughness:.12});
-const darkSilver = new THREE.MeshStandardMaterial({color:0x555965, metalness:.98, roughness:.2});
-const blackSteel = new THREE.MeshStandardMaterial({color:0x101116, metalness:.8, roughness:.25});
-function box(parent, x,y,z, sx,sy,sz, mat, bevel=0) {
-  const geo = new THREE.BoxGeometry(sx,sy,sz);
-  const m = new THREE.Mesh(geo,mat); m.position.set(x,y,z); parent.add(m); return m;
+const silver = new THREE.MeshStandardMaterial({color:0xd4d6df, metalness:1, roughness:.10});
+const darkSilver = new THREE.MeshStandardMaterial({color:0x555965, metalness:.98, roughness:.18});
+const blackSteel = new THREE.MeshStandardMaterial({color:0x101116, metalness:.8, roughness:.22});
+const orb = new THREE.Mesh(new THREE.SphereGeometry(.78, 96, 96), silver);
+relic.add(orb);
+const innerOrb = new THREE.Mesh(new THREE.SphereGeometry(.69, 64, 64), darkSilver);
+relic.add(innerOrb);
+// Offset reflective bands surround the orb like a futuristic gyroscope.
+const orbitA = new THREE.Mesh(new THREE.TorusGeometry(1.12,.025,12,160), silver);
+orbitA.rotation.set(.82,.25,.12); entity.add(orbitA);
+const orbitB = new THREE.Mesh(new THREE.TorusGeometry(1.34,.014,10,160), darkSilver);
+orbitB.rotation.set(1.22,-.62,.35); entity.add(orbitB);
+const orbitC = new THREE.Mesh(new THREE.TorusGeometry(1.52,.009,8,160), silver);
+orbitC.rotation.set(.15,.95,-.3); entity.add(orbitC);
+for(let i=0;i<14;i++){
+  const a=i/14*Math.PI*2;
+  const shard=new THREE.Mesh(new THREE.OctahedronGeometry(.035+(i%3)*.012),i%2?silver:darkSilver);
+  shard.position.set(Math.cos(a)*1.55,Math.sin(a)*1.25,Math.sin(a*2)*.28);
+  entity.add(shard);
 }
-function cylinderBetween(parent, a, b, radius, mat, radial=32) {
-  const va=new THREE.Vector3(...a), vb=new THREE.Vector3(...b), d=new THREE.Vector3().subVectors(vb,va);
-  const m=new THREE.Mesh(new THREE.CylinderGeometry(radius,radius,d.length(),radial),mat);
-  m.position.copy(va).add(vb).multiplyScalar(.5); m.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),d.normalize()); parent.add(m); return m;
-}
-function tubeBetween(parent, a, b, radius, mat) { return cylinderBetween(parent,a,b,radius,mat,20); }
-// Horizontal upper body and barrel, designed as a futuristic display sculpture.
-box(relic, .05,.18,0, 1.48,.36,.48,silver);
-box(relic, -.10,.405,0, 1.05,.12,.40,darkSilver);
-box(relic, -.70,.19,0, .22,.39,.50,darkSilver);
-// Short cylindrical front accent and dark inset end cap.
-cylinderBetween(relic,[.79,.18,0],[1.10,.18,0],.125,silver,40);
-cylinderBetween(relic,[1.105,.18,0],[1.12,.18,0],.087,blackSteel,40);
-// Angled grip, with layered silver side plates.
-const grip = new THREE.Group(); grip.position.set(-.34,-.02,0); grip.rotation.z=-.28; relic.add(grip);
-box(grip,0,-.37,0,.39,.76,.40,darkSilver);
-box(grip,0,-.39,.215,.30,.66,.055,silver);
-box(grip,0,-.39,-.215,.30,.66,.055,silver);
-// Grip grooves and small chrome pins are decorative surface details.
-for(let i=0;i<4;i++) box(grip,0,-.18-i*.13,.249,.22,.025,.012,blackSteel);
-for(const z of [-.255,.255]) {
-  const pin=new THREE.Mesh(new THREE.CylinderGeometry(.035,.035,.025,20),silver);
-  pin.rotation.x=Math.PI/2; pin.position.set(-.36,.20,z); relic.add(pin);
-}
-// Open, decorative trigger guard: an incomplete chrome loop, not a working mechanism.
-tubeBetween(relic,[-.03,-.02,.18],[.36,-.10,.18],.027,silver);
-tubeBetween(relic,[.36,-.10,.18],[.31,-.35,.18],.027,silver);
-tubeBetween(relic,[.31,-.35,.18],[.02,-.33,.18],.027,silver);
-// Raised side inlay and abstract etched lines catch the moving lights.
-box(relic,.12,.20,.249,.66,.075,.018,blackSteel);
-box(relic,.12,.20,.263,.48,.018,.012,silver);
-for(let i=0;i<3;i++) box(relic,.28+i*.105,.20,.274,.018,.05,.012,darkSilver);
-// Floating orbit accents keep the original cyber-sculpture feel.
-const orbitA=new THREE.Mesh(new THREE.TorusGeometry(1.42,.012,8,140),silver); orbitA.rotation.set(.9,.25,.15); entity.add(orbitA);
-const orbitB=new THREE.Mesh(new THREE.TorusGeometry(1.53,.009,6,140),darkSilver); orbitB.rotation.set(1.25,-.55,.4); entity.add(orbitB);
-for(let i=0;i<10;i++){const a=i/10*Math.PI*2;const shard=new THREE.Mesh(new THREE.OctahedronGeometry(.035+(i%3)*.01),i%2?silver:darkSilver);shard.position.set(Math.cos(a)*1.65,Math.sin(a)*1.18,(i%3-1)*.16);entity.add(shard);}
-
 let targetX=0, targetY=0, dragging=false, lastX=0,lastY=0;
 let parallaxX=0, parallaxY=0;
 let gyroBaseBeta=null, gyroBaseGamma=null, gyroActive=false;
@@ -239,6 +215,7 @@ function animate(){
  entity.rotation.x += (targetX + parallaxX + Math.sin(t*.5)*.05 - entity.rotation.x)*.075;
  entity.position.y = Math.sin(t*.8)*.055;
  relic.rotation.z = Math.sin(t*.45)*.055;
+ orbitC.rotation.z = -t*.10;
  orbitA.rotation.z = -t*.12;
  orbitB.rotation.z = t*.16;
  renderer.render(scene,camera);
