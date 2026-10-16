@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#050505">
 <title>_thatsonme — personal archive</title>
 
@@ -12,11 +12,11 @@
 <style>
 :root {
   --bg:#050505;
-  --panel:#0b0b0e;
-  --text:#eeeeF5;
-  --muted:#85858f;
-  --line:#38383f;
-  --silver:#d7d7e0;
+  --panel:#09090c;
+  --text:#f0f0fa;
+  --muted:#9999a8;
+  --line:#393943;
+  --silver:#e2e2f0;
 }
 
 * { box-sizing:border-box; }
@@ -29,96 +29,83 @@ body {
   color:var(--text);
   font-family:"Space Mono",monospace;
   overflow-x:hidden;
+  text-shadow:0 0 3px #fff7,0 0 8px #c8c8ff45;
 }
 
 body::before {
   content:"";
   position:fixed;
   inset:0;
+  z-index:-2;
   pointer-events:none;
-  z-index:-1;
   background:
-    radial-gradient(ellipse at 50% 15%,#29293238,transparent 55%),
-    repeating-linear-gradient(
-      0deg,
-      transparent 0px,
-      transparent 3px,
-      #ffffff04 4px
-    );
+    radial-gradient(ellipse at 50% 20%,#33334435,transparent 65%),
+    repeating-linear-gradient(0deg,transparent 0 3px,#fff3 4px);
 }
 
 a { color:inherit;text-decoration:none; }
-
 button { font:inherit; }
 
-button:focus-visible,
-a:focus-visible {
+a:focus-visible,button:focus-visible {
   outline:2px solid white;
   outline-offset:4px;
 }
 
 .wrap {
-  width:min(1050px,calc(100% - 32px));
+  position:relative;
+  z-index:2;
+  width:min(1050px,calc(100% - 30px));
   margin:auto;
 }
 
 header {
-  min-height:76px;
   display:flex;
-  justify-content:space-between;
   align-items:center;
-  gap:14px;
-  border-bottom:1px solid var(--line);
+  justify-content:space-between;
+  gap:12px;
   flex-wrap:wrap;
-  padding:14px 0;
+  padding:17px 0;
+  border-bottom:1px solid var(--line);
 }
 
 .brand {
   font-family:Orbitron,sans-serif;
+  font-size:18px;
   font-weight:900;
-  font-size:19px;
   letter-spacing:-1px;
+  text-shadow:0 0 5px white,0 0 20px #aaaaff;
 }
 
-.brand span { color:#888892; }
+.brand span { color:#bdbdce; }
 
-nav {
-  display:flex;
-  gap:7px;
-  flex-wrap:wrap;
-}
+nav { display:flex;gap:7px; }
 
-.nav-btn {
-  background:transparent;
-  color:var(--muted);
-  border:1px solid var(--line);
-  padding:10px 12px;
+.nav-btn,.btn {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:11px 13px;
+  border:1px solid #51515f;
+  background:#08080c;
+  color:#eeeef8;
   font-size:10px;
+  letter-spacing:1px;
   cursor:pointer;
-  letter-spacing:1px;
+  text-shadow:0 0 8px #ddd;
+  transition:.2s;
 }
 
-.nav-btn:hover,
-.nav-btn.active {
-  color:white;
-  border-color:#dddde7;
+.nav-btn:hover,.nav-btn.active,.btn:hover {
+  border-color:#fff;
+  box-shadow:0 0 14px #aaaaff30;
 }
 
-.status {
-  color:#aaaab5;
-  font-size:9px;
-  letter-spacing:1px;
+.btn.primary {
+  color:#08080c;
+  background:#e7e7ef;
 }
 
-.status i {
-  display:inline-block;
-  width:6px;
-  height:6px;
-  border-radius:50%;
-  background:#ddd;
-  margin-right:6px;
-  box-shadow:0 0 10px #fff;
-}
+.btn.primary:hover { box-shadow:0 0 22px #ddd; }
 
 .panel {
   border:1px solid var(--line);
@@ -128,12 +115,12 @@ nav {
 }
 
 .panel-head {
-  padding:12px 15px;
   display:flex;
   justify-content:space-between;
-  gap:12px;
+  gap:10px;
+  padding:12px 15px;
   border-bottom:1px solid var(--line);
-  color:#9999a5;
+  color:#aaaab9;
   font-size:9px;
   letter-spacing:1px;
 }
@@ -141,115 +128,94 @@ nav {
 .hero {
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:18px;
-  padding:22px 0;
+  gap:15px;
+  padding:20px 0;
 }
 
 .hero-copy {
-  padding:20px 4px;
+  padding:22px;
   display:flex;
   flex-direction:column;
   justify-content:center;
 }
 
 .eyebrow {
-  color:#aaaab5;
+  color:#b4b4c5;
   font-size:10px;
   letter-spacing:3px;
   margin-bottom:18px;
 }
 
 h1 {
-  font-family:Orbitron,sans-serif;
-  font-size:clamp(35px,7vw,66px);
-  line-height:1.05;
-  letter-spacing:-3px;
-  overflow-wrap:anywhere;
   margin:0 0 18px;
+  font-family:Orbitron,sans-serif;
+  font-size:clamp(38px,7vw,68px);
+  line-height:1.1;
+  letter-spacing:-2px;
+  overflow-wrap:anywhere;
+  text-shadow:0 0 6px #fff,0 0 20px #aaaaff90,0 0 45px #aaaaff35;
 }
 
 h1 span {
   display:block;
   color:transparent;
-  -webkit-text-stroke:1px #bdbdc8;
+  -webkit-text-stroke:1px #eeeefb;
+  filter:drop-shadow(0 0 9px #aaaaff);
 }
 
 .desc {
-  color:#a1a1ac;
+  max-width:420px;
+  color:#b1b1c0;
   font-size:11px;
   line-height:2;
-  max-width:420px;
 }
 
-.actions {
-  display:flex;
-  flex-wrap:wrap;
-  gap:9px;
-  margin-top:22px;
-}
-
-.btn {
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  min-height:44px;
-  border:1px solid #55555f;
-  padding:12px 15px;
-  font-size:10px;
-  letter-spacing:1px;
-  transition:.2s;
-}
-
-.btn.primary {
-  background:#e6e6ec;
-  color:#08080a;
-  border-color:#e6e6ec;
-}
-
-.btn:hover {
-  border-color:white;
-  transform:translateY(-2px);
-}
+.actions { display:flex;gap:9px;flex-wrap:wrap;margin-top:20px; }
 
 .scene {
   min-height:360px;
+  position:relative;
   display:grid;
   place-items:center;
-  perspective:800px;
-  position:relative;
-  background:
-    radial-gradient(ellipse,#3a3a4725,transparent 65%);
+  perspective:900px;
   overflow:hidden;
+  background:radial-gradient(ellipse,#55556b24,transparent 70%);
+  touch-action:pan-y;
 }
 
-.scene::before,
-.scene::after {
-  content:"";
+.orbit {
   position:absolute;
-  width:230px;
-  height:230px;
-  border:1px solid #85858d5c;
-  transform:rotateX(64deg) rotateZ(30deg);
-  animation:orbit 12s linear infinite;
+  width:260px;
+  height:90px;
+  border:1px solid #c6c6e477;
+  border-radius:50%;
+  transform:rotate(-30deg);
+  animation:orbitSpin 12s linear infinite;
+  pointer-events:none;
 }
 
-.scene::after {
-  width:180px;
-  height:180px;
-  border-color:#d8d8e52e;
+.orbit.two {
+  width:290px;
+  height:120px;
+  transform:rotate(50deg);
+  animation-duration:17s;
   animation-direction:reverse;
-  animation-duration:9s;
 }
 
 .chrome-star {
+  position:relative;
+  z-index:2;
   width:145px;
   height:145px;
-  position:relative;
-  z-index:1;
-  animation:starfloat 4s ease-in-out infinite alternate,
-             starspin 24s linear infinite;
-  filter:drop-shadow(0 0 25px #aaaab526);
+  cursor:grab;
+  touch-action:none;
+  user-select:none;
+  -webkit-user-select:none;
+  filter:drop-shadow(0 0 15px #bdbdff66);
+  will-change:transform;
 }
+
+.chrome-star:active { cursor:grabbing; }
 
 .chrome-star svg {
   width:100%;
@@ -257,42 +223,24 @@ h1 span {
   overflow:visible;
 }
 
-.orbit {
-  position:absolute;
-  width:270px;
-  height:95px;
-  border:1px solid #bfc0ce91;
-  border-radius:50%;
-  transform:rotate(-30deg);
-  animation:orbit 10s linear infinite;
-}
-
-.orbit.two {
-  width:300px;
-  height:120px;
-  transform:rotate(50deg);
-  animation-duration:15s;
-  animation-direction:reverse;
-}
-
 .star-label {
   position:absolute;
-  bottom:17px;
+  bottom:18px;
+  color:#b4b4c3;
   font-size:9px;
-  color:#888894;
   letter-spacing:3px;
 }
 
-@keyframes starfloat {
-  from { transform:translateY(-9px) rotate(-8deg); }
-  to { transform:translateY(9px) rotate(8deg); }
+#gyroButton {
+  position:absolute;
+  z-index:5;
+  top:12px;
+  left:12px;
+  padding:9px;
+  font-size:9px;
 }
 
-@keyframes starspin {
-  to { filter:drop-shadow(0 0 30px #ddd); }
-}
-
-@keyframes orbit {
+@keyframes orbitSpin {
   to { rotate:360deg; }
 }
 
@@ -300,36 +248,33 @@ h1 span {
   display:grid;
   grid-template-columns:repeat(3,minmax(0,1fr));
   gap:12px;
-  margin:0 0 18px;
+  margin:12px 0 18px;
 }
 
 .card {
   min-width:0;
-  border:1px solid var(--line);
   padding:17px;
-  background:#0a0a0d;
-  transition:border-color .2s,transform .2s;
+  border:1px solid var(--line);
+  background:#09090ce8;
+  transition:.2s;
 }
 
 .card:hover {
-  border-color:#c8c8d2;
   transform:translateY(-3px);
+  border-color:#eee;
+  box-shadow:0 0 20px #aaaaff24;
 }
 
-.card small {
-  color:#777783;
-  font-size:9px;
-  letter-spacing:1px;
-}
+.card small { color:#aaaab8;font-size:9px;letter-spacing:1px; }
 
 .card h2 {
-  font-family:Orbitron,sans-serif;
-  font-size:13px;
   margin:15px 0 8px;
+  font:700 13px Orbitron,sans-serif;
+  text-shadow:0 0 8px #aaaaff;
 }
 
 .card p {
-  color:#9999a4;
+  color:#aaaab8;
   font-size:10px;
   line-height:1.8;
 }
@@ -341,110 +286,115 @@ h1 span {
   margin:18px 0;
 }
 
-.music-panel,
-.links-panel {
+.music-panel,.links-panel {
+  min-width:0;
   padding:18px;
   border:1px solid var(--line);
-  background:#09090c;
-  min-width:0;
+  background:#09090cf0;
 }
 
 .section-title {
+  color:#b7b7c8;
   font-size:10px;
   letter-spacing:2px;
-  color:#aaaab5;
   margin-bottom:17px;
 }
 
 .track {
   display:flex;
   justify-content:space-between;
-  gap:10px;
   align-items:center;
-  margin-bottom:14px;
+  gap:12px;
+  margin-bottom:15px;
 }
 
 .track strong {
-  font-family:Orbitron,sans-serif;
-  font-size:17px;
+  font:700 17px Orbitron,sans-serif;
+  text-shadow:0 0 8px white,0 0 20px #aaaaff;
 }
 
-.track small {
-  color:#9999a4;
-  font-size:9px;
-}
+.track small { color:#aaaab8;font-size:9px; }
 
-.spotify {
-  width:100%;
-  border:0;
-  border-radius:10px;
-  display:block;
-}
+.spotify { width:100%;display:block;border:0;border-radius:10px; }
 
-.link-list {
-  display:grid;
-  gap:8px;
-}
+.link-list { display:grid;gap:8px; }
 
 .link-row {
+  width:100%;
   display:flex;
-  justify-content:space-between;
   align-items:center;
+  justify-content:space-between;
   gap:12px;
   padding:13px;
-  border:1px solid #292930;
-  font-size:11px;
+  border:1px solid #30303a;
+  background:#08080c;
+  color:#eeeef7;
+  font-size:10px;
+  cursor:pointer;
+  text-align:left;
   transition:.2s;
 }
 
 .link-row:hover {
-  border-color:#ccc;
-  background:#ffffff08;
+  border-color:#ddd;
+  box-shadow:0 0 14px #aaaaff28;
 }
 
-.link-row span:last-child { color:#888894; }
+.link-row span:last-child { color:#b8b8ca; }
 
 footer {
   display:flex;
   justify-content:space-between;
   gap:12px;
-  padding:20px 0 35px;
-  border-top:1px solid var(--line);
-  color:#777783;
-  font-size:9px;
   flex-wrap:wrap;
+  padding:20px 0 32px;
+  border-top:1px solid var(--line);
+  color:#aaaab8;
+  font-size:9px;
 }
 
 .ticker {
-  overflow:hidden;
-  border-block:1px solid #414149;
-  padding:13px 0;
   margin:22px 0;
-  white-space:normal;
-  color:#c4c4ce;
+  padding:13px 0;
+  border-block:1px solid #494953;
+  color:#ddddeb;
   font-size:10px;
   line-height:2;
   letter-spacing:1px;
 }
 
+.clothing-intro { padding:25px 0 12px; }
+
+.clothing-intro h2 {
+  margin:10px 0;
+  font:900 clamp(35px,7vw,65px)/1.15 Orbitron,sans-serif;
+  text-shadow:0 0 8px white,0 0 25px #aaaaff75;
+}
+
+.clothing-intro h2 span {
+  color:transparent;
+  -webkit-text-stroke:1px white;
+}
+
 .clothing-grid {
   display:grid;
   grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:14px;
+  gap:13px;
   margin:22px 0;
 }
 
 .clothing-card {
   min-width:0;
   overflow:hidden;
-  border:1px solid #38383f;
-  background:#09090c;
-  transition:transform .25s,border-color .25s;
+  border:1px solid var(--line);
+  background:#09090cf0;
+  transition:.25s;
 }
 
 .clothing-card:hover {
   transform:translateY(-4px);
-  border-color:#d9d9e4;
+  border-color:#ddd;
+  box-shadow:0 0 20px #aaaaff22;
 }
 
 .clothing-image {
@@ -465,7 +415,7 @@ footer {
 
 .clothing-card:hover .clothing-image img {
   transform:scale(1.06);
-  filter:grayscale(.55) contrast(1.1);
+  filter:grayscale(.5) contrast(1.1);
 }
 
 .clothing-image span {
@@ -474,23 +424,22 @@ footer {
   left:10px;
   z-index:1;
   padding:6px;
-  color:white;
-  background:#050506d9;
   border:1px solid #777;
+  background:#050506df;
+  color:white;
   font-size:9px;
   letter-spacing:1px;
 }
 
-.clothing-info { padding:14px; }
+.clothing-info { padding:13px; }
 
 .clothing-info h2 {
-  font-family:Orbitron,sans-serif;
-  font-size:12px;
-  margin:0 0 8px;
+  font:700 12px Orbitron,sans-serif;
+  text-shadow:0 0 8px #aaaaff;
 }
 
 .clothing-info p {
-  color:#9999a5;
+  color:#aaaab8;
   font-size:9px;
   line-height:1.8;
 }
@@ -502,73 +451,137 @@ footer {
   border-top:1px solid #41414a;
   font-size:9px;
   line-height:1.8;
+  text-shadow:0 0 5px white,0 0 16px #aaaaff90;
 }
 
-.clothing-intro {
-  padding:25px 0 10px;
+/* GLOWING GOTHIC CROSS */
+
+.gothic-cross-bg {
+  position:fixed;
+  top:50%;
+  left:50%;
+  width:min(85vw,580px);
+  pointer-events:none;
+  z-index:0;
+  opacity:.19;
+  transform:translate(-50%,-50%);
+  animation:gothicCrossRotate 55s linear infinite;
+  filter:
+    drop-shadow(0 0 8px #c5c5ff90)
+    drop-shadow(0 0 22px #8888ff55);
 }
 
-.clothing-intro h2 {
-  font-family:Orbitron,sans-serif;
-  font-size:clamp(32px,7vw,60px);
-  line-height:1.2;
-  margin:12px 0;
+.gothic-cross-bg svg { display:block;width:100%;height:auto; }
+
+@keyframes gothicCrossRotate {
+  from { transform:translate(-50%,-50%) rotate(0deg); }
+  to { transform:translate(-50%,-50%) rotate(360deg); }
 }
 
-.clothing-intro h2 span {
-  color:transparent;
-  -webkit-text-stroke:1px #ccc;
+/* LIGHTNING */
+
+#lightningCanvas {
+  position:fixed;
+  inset:0;
+  width:100%;
+  height:100%;
+  z-index:1;
+  pointer-events:none;
+  opacity:.9;
+  mix-blend-mode:screen;
 }
 
-#home-section[hidden],
-#clothing-section[hidden] {
+/* EXTRA NEON TEXT */
+
+h2,h3,.brand,.section-title,.eyebrow,.star-label {
+  text-shadow:0 0 5px #fff,0 0 15px #b5b5ff90,0 0 30px #8585ff40;
+}
+
+p,small,.desc,.status,.card small {
+  text-shadow:0 0 5px #bdbdff70;
+}
+
+a,button {
+  text-shadow:0 0 5px #fff9,0 0 12px #aaaaff75;
+}
+
+::selection { color:#050505;background:#eeeefb; }
+
+#home-section[hidden],#clothing-section[hidden] {
   display:none!important;
 }
 
 @media(max-width:720px) {
   .hero { grid-template-columns:1fr; }
-  .hero-copy { padding:14px 2px; }
-  .scene { min-height:300px; }
+  .hero-copy { padding:20px; }
+  .scene { min-height:320px; }
   .grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
   .bottom { grid-template-columns:1fr; }
   .clothing-grid { grid-template-columns:repeat(2,minmax(0,1fr));gap:9px; }
   .clothing-image { height:230px; }
   .clothing-info { padding:10px; }
+  .gothic-cross-bg { width:100vw;opacity:.15; }
 }
 
 @media(max-width:400px) {
   .wrap { width:calc(100% - 22px); }
-  header { gap:10px; }
-  .brand { font-size:16px; }
+  .brand { font-size:15px; }
   .status { display:none; }
   .grid,.clothing-grid { grid-template-columns:1fr; }
-  .clothing-image { height:320px; }
-  h1 { letter-spacing:-2px; }
+  .clothing-image { height:300px; }
+  h1 { letter-spacing:-1px; }
 }
 
 @media(prefers-reduced-motion:reduce) {
-  *,*::before,*::after {
-    scroll-behavior:auto!important;
-    animation-duration:.01ms!important;
-    animation-iteration-count:1!important;
-    transition-duration:.01ms!important;
-  }
+  html { scroll-behavior:auto; }
+  .gothic-cross-bg,.orbit { animation:none; }
+  *,*::before,*::after { transition-duration:.01ms!important; }
 }
 </style>
 </head>
 
 <body>
+
+<!-- ROTATING GOTHIC CROSS -->
+<div class="gothic-cross-bg" aria-hidden="true">
+  <svg viewBox="0 0 300 420" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="crossChrome" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#555560"/>
+        <stop offset="25%" stop-color="#ffffff"/>
+        <stop offset="45%" stop-color="#858591"/>
+        <stop offset="65%" stop-color="#f5f5ff"/>
+        <stop offset="100%" stop-color="#666675"/>
+      </linearGradient>
+      <filter id="crossGlow" x="-100%" y="-100%" width="300%" height="300%">
+        <feGaussianBlur stdDeviation="4" result="blur"/>
+        <feMerge>
+          <feMergeNode in="blur"/>
+          <feMergeNode in="SourceGraphic"/>
+        </feMerge>
+      </filter>
+    </defs>
+    <g fill="url(#crossChrome)" stroke="#eeeefc" stroke-width="1.5"
+       stroke-linejoin="round" filter="url(#crossGlow)">
+      <path d="M132 18 L150 2 L168 18 L163 43 L181 62 L169 84 L164 125 L206 102 L222 78 L238 91 L236 115 L265 124 L280 146 L255 151 L238 139 L219 156 L185 163 L185 204 L211 191 L225 205 L211 222 L185 228 L185 336 L202 360 L180 354 L150 405 L120 354 L98 360 L115 336 L115 228 L89 222 L75 205 L89 191 L115 204 L115 163 L81 156 L62 139 L45 151 L20 146 L35 124 L64 115 L62 91 L78 78 L94 102 L136 125 L131 84 L119 62 L137 43 Z"/>
+      <path d="M150 142 L168 171 L150 200 L132 171 Z" fill="#08080c" stroke="#fff" stroke-width="2"/>
+      <path d="M150 153 L160 171 L150 188 L140 171 Z" fill="none" stroke="#cfcfe8"/>
+    </g>
+  </svg>
+</div>
+
+<!-- LIGHTNING CANVAS -->
+<canvas id="lightningCanvas" aria-hidden="true"></canvas>
+
 <div class="wrap">
 
 <header>
   <a class="brand" href="#home" data-view="home">_<span>thatsonme</span></a>
-
   <nav aria-label="Main navigation">
     <button class="nav-btn active" data-view="home">HOME</button>
     <button class="nav-btn" data-view="clothing">CLOTHING</button>
   </nav>
-
-  <div class="status"><i></i> ARCHIVE ONLINE</div>
+  <div class="status"><i style="display:inline-block;width:6px;height:6px;background:white;border-radius:50%"></i> ARCHIVE ONLINE</div>
 </header>
 
 <section id="home-section">
@@ -582,8 +595,7 @@ footer {
     <div class="hero">
       <div class="hero-copy">
         <div class="eyebrow">WELCOME TO MY WORLD</div>
-
-        <h1>_THAT'S<br>ON<span>ME.</span></h1>
+        <h1>_THAT'S<br><span>ON ME.</span></h1>
 
         <p class="desc">
           Just another face in the crowd.
@@ -592,22 +604,18 @@ footer {
         </p>
 
         <div class="actions">
-          <a class="btn primary" href="https://www.instagram.com/_.thatsonme/" target="_blank" rel="noopener noreferrer">
-            FIND ME ↗
-          </a>
-
-          <button class="btn" data-view="clothing">
-            ENTER SHOWROOM ↗
-          </button>
+          <a class="btn primary" href="https://www.instagram.com/_.thatsonme/" target="_blank" rel="noopener noreferrer">FIND ME ↗</a>
+          <button class="btn" data-view="clothing">ENTER SHOWROOM ↗</button>
         </div>
       </div>
 
-      <div class="scene" aria-label="Animated chrome star">
+      <div class="scene" aria-label="Interactive chrome star">
+        <button id="gyroButton" class="btn">ENABLE GYRO ↗</button>
         <div class="orbit"></div>
         <div class="orbit two"></div>
 
-        <div class="chrome-star">
-          <svg viewBox="0 0 200 200" role="img" aria-label="Chrome star">
+        <div class="chrome-star" id="chromeStar">
+          <svg viewBox="0 0 200 200" aria-label="Chrome star">
             <defs>
               <linearGradient id="chrome" x1="0" y1="0" x2="1" y2="1">
                 <stop offset="0%" stop-color="#555560"/>
@@ -635,7 +643,7 @@ footer {
     </div>
   </div>
 
-  <div class="grid" style="margin-top:12px">
+  <div class="grid">
     <a class="card" href="https://www.instagram.com/_.thatsonme/" target="_blank" rel="noopener noreferrer">
       <small>01 // SOCIAL</small>
       <h2>INSTAGRAM ↗</h2>
@@ -658,12 +666,8 @@ footer {
   <div class="bottom">
     <section class="music-panel">
       <div class="section-title">NOW PLAYING // 001</div>
-
       <div class="track">
-        <div>
-          <strong>vanished</strong><br>
-          <small>OPEN IN SPOTIFY ↗</small>
-        </div>
+        <div><strong>vanished</strong><br><small>OPEN IN SPOTIFY ↗</small></div>
         <span>♫</span>
       </div>
 
@@ -676,36 +680,23 @@ footer {
         allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
       </iframe>
 
-      <p class="desc">
-        Press play to listen. Playback depends on Spotify
-        and your browser's settings.
-      </p>
+      <p class="desc">Press play to listen. Spotify may require a tap.</p>
     </section>
 
     <section class="links-panel">
       <div class="section-title">QUICK ACCESS // 002</div>
-
       <div class="link-list">
-        <a class="link-row" href="https://www.instagram.com/_.thatsonme/" target="_blank" rel="noopener noreferrer">
-          <span>INSTAGRAM</span><span>↗</span>
-        </a>
-
-        <a class="link-row" href="https://ig.me/m/_.thatsonme" target="_blank" rel="noopener noreferrer">
-          <span>CONTACT</span><span>↗</span>
-        </a>
-
-        <a class="link-row" href="https://www.reddit.com/u/ec1psed/s/hQudMEiFJx" target="_blank" rel="noopener noreferrer">
-          <span>REDDIT</span><span>↗</span>
-        </a>
-
-        <button class="link-row" data-view="clothing" style="background:transparent;color:white;text-align:left;cursor:pointer">
-          <span>CLOTHING SHOWROOM</span><span>↗</span>
-        </button>
+        <a class="link-row" href="https://www.instagram.com/_.thatsonme/" target="_blank" rel="noopener noreferrer"><span>INSTAGRAM</span><span>↗</span></a>
+        <a class="link-row" href="https://ig.me/m/_.thatsonme" target="_blank" rel="noopener noreferrer"><span>CONTACT</span><span>↗</span></a>
+        <a class="link-row" href="https://www.reddit.com/u/ec1psed/s/hQudMEiFJx" target="_blank" rel="noopener noreferrer"><span>REDDIT</span><span>↗</span></a>
+        <button class="link-row" data-view="clothing"><span>CLOTHING SHOWROOM</span><span>↗</span></button>
       </div>
     </section>
   </div>
+
 </section>
 
+<!-- CLOTHING SHOWROOM -->
 <section id="clothing-section" hidden>
   <div class="panel" style="margin-top:18px">
     <div class="panel-head">
@@ -715,17 +706,9 @@ footer {
 
     <div class="clothing-intro">
       <div class="eyebrow">THE STREETWEAR ARCHIVE</div>
-
       <h2>NO BASIC<br><span>FITS.</span></h2>
-
-      <p class="desc">
-        Dark streetwear. Oversized silhouettes.
-        Pieces for people who don't dress to blend in.
-      </p>
-
-      <button class="btn" data-view="home" style="margin-top:15px">
-        ← BACK HOME
-      </button>
+      <p class="desc">Dark streetwear. Oversized silhouettes. Pieces for people who don't dress to blend in.</p>
+      <button class="btn" data-view="home">← BACK HOME</button>
     </div>
   </div>
 
@@ -819,42 +802,198 @@ footer {
 </div>
 
 <script>
+/* NAVIGATION */
 const home = document.getElementById("home-section");
 const clothing = document.getElementById("clothing-section");
-const navButtons = document.querySelectorAll("[data-view]");
 
 function showView(view) {
   const isClothing = view === "clothing";
-
   home.hidden = isClothing;
   clothing.hidden = !isClothing;
 
   document.querySelectorAll(".nav-btn").forEach(button => {
-    button.classList.toggle(
-      "active",
-      button.dataset.view === view
-    );
+    button.classList.toggle("active", button.dataset.view === view);
   });
 
-  history.replaceState(
-    null,
-    "",
-    isClothing ? "#clothing" : location.pathname
-  );
-
+  history.replaceState(null, "", isClothing ? "#clothing" : location.pathname);
   window.scrollTo({top:0,behavior:"smooth"});
 }
 
-navButtons.forEach(button => {
+document.querySelectorAll("[data-view]").forEach(button => {
   button.addEventListener("click", event => {
     event.preventDefault();
     showView(button.dataset.view);
   });
 });
 
-if (location.hash === "#clothing") {
-  showView("clothing");
+if (location.hash === "#clothing") showView("clothing");
+
+/* GYRO + TOUCH STAR */
+const scene = document.querySelector(".scene");
+const star = document.getElementById("chromeStar");
+const gyroButton = document.getElementById("gyroButton");
+
+let gyroEnabled = false;
+let dragging = false;
+let lastX = 0, lastY = 0;
+let dragX = 0, dragY = 0;
+let tiltX = 0, tiltY = 0;
+
+function updateStar() {
+  star.style.transform =
+    `translate3d(${dragX}px,${dragY}px,0) rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
 }
+
+async function enableGyro() {
+  try {
+    if (!("DeviceOrientationEvent" in window)) {
+      gyroButton.textContent = "GYRO NOT SUPPORTED";
+      return;
+    }
+
+    if (typeof DeviceOrientationEvent.requestPermission === "function") {
+      const permission = await DeviceOrientationEvent.requestPermission();
+      if (permission !== "granted") {
+        gyroButton.textContent = "PERMISSION DENIED";
+        return;
+      }
+    }
+
+    gyroEnabled = true;
+    gyroButton.textContent = "GYRO ACTIVE ✓";
+  } catch (_) {
+    gyroButton.textContent = "GYRO UNAVAILABLE";
+  }
+}
+
+gyroButton.addEventListener("click", enableGyro);
+
+window.addEventListener("deviceorientation", event => {
+  if (!gyroEnabled || dragging) return;
+  if (event.beta == null || event.gamma == null) return;
+
+  tiltX = Math.max(-45,Math.min(45,event.beta - 45));
+  tiltY = Math.max(-45,Math.min(45,event.gamma));
+  updateStar();
+});
+
+star.addEventListener("pointerdown", event => {
+  dragging = true;
+  lastX = event.clientX;
+  lastY = event.clientY;
+  star.setPointerCapture(event.pointerId);
+});
+
+star.addEventListener("pointermove", event => {
+  if (!dragging) return;
+
+  dragX = Math.max(-100,Math.min(100,dragX + event.clientX - lastX));
+  dragY = Math.max(-100,Math.min(100,dragY + event.clientY - lastY));
+
+  lastX = event.clientX;
+  lastY = event.clientY;
+  updateStar();
+});
+
+function stopDragging() { dragging = false; }
+
+star.addEventListener("pointerup", stopDragging);
+star.addEventListener("pointercancel", stopDragging);
+star.addEventListener("lostpointercapture", stopDragging);
+
+/* RANDOM LIGHTNING */
+(() => {
+  const canvas = document.getElementById("lightningCanvas");
+  const ctx = canvas.getContext("2d");
+  const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  let width = 0, height = 0, dpr = 1;
+  let bolts = [];
+  let flash = 0;
+  let nextStrike = 2500;
+
+  function resize() {
+    dpr = Math.min(devicePixelRatio || 1,2);
+    width = innerWidth;
+    height = innerHeight;
+    canvas.width = Math.round(width*dpr);
+    canvas.height = Math.round(height*dpr);
+    canvas.style.width = width+"px";
+    canvas.style.height = height+"px";
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+  }
+
+  function makeBolt() {
+    const points = [];
+    let x = Math.random()*width;
+    let y = -10;
+    points.push({x,y});
+
+    const segments = 20 + Math.floor(Math.random()*12);
+    for (let i=0;i<segments;i++) {
+      x += (Math.random()-.5)*55;
+      y += height/segments;
+      points.push({x,y});
+    }
+    return points;
+  }
+
+  function strike() {
+    bolts = [makeBolt()];
+    if (Math.random()>.4) bolts.push(makeBolt());
+    flash = .25 + Math.random()*.25;
+    nextStrike = 3500 + Math.random()*8500;
+  }
+
+  function drawBolt(points,alpha,lineWidth) {
+    if (points.length<2) return;
+    ctx.beginPath();
+    ctx.moveTo(points[0].x,points[0].y);
+    for (let i=1;i<points.length;i++) {
+      ctx.lineTo(points[i].x,points[i].y);
+    }
+    ctx.strokeStyle=`rgba(220,225,255,${alpha})`;
+    ctx.lineWidth=lineWidth;
+    ctx.shadowColor="#aaaaff";
+    ctx.shadowBlur=20;
+    ctx.stroke();
+    ctx.shadowBlur=0;
+  }
+
+  function animate() {
+    requestAnimationFrame(animate);
+    ctx.clearRect(0,0,width,height);
+
+    if (reducedMotion || document.hidden) {
+      bolts=[];
+      flash=0;
+      return;
+    }
+
+    nextStrike -= 16;
+
+    if (nextStrike<=0) strike();
+
+    flash *= .86;
+
+    if (flash>.015) {
+      ctx.fillStyle=`rgba(210,215,255,${flash*.12})`;
+      ctx.fillRect(0,0,width,height);
+    }
+
+    const alpha=Math.min(flash*4,.9);
+    bolts.forEach(points => {
+      drawBolt(points,alpha,1.4);
+      drawBolt(points,alpha*.3,4);
+    });
+
+    if (flash<.01) bolts=[];
+  }
+
+  resize();
+  window.addEventListener("resize",resize);
+  requestAnimationFrame(animate);
+})();
 </script>
 
 </body>
