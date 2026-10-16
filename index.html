@@ -100,9 +100,70 @@
   transform: translate3d(0,0,0);
 }
 
+
+/* Slowly rotating hand-drawn glowing star background */
+#rotating-star-bg {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -2;
+  overflow: hidden;
+  opacity: .58;
+}
+#rotating-star-bg svg {
+  position: absolute;
+  width: min(88vw, 760px);
+  height: min(88vw, 760px);
+  max-height: 88%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  overflow: visible;
+  animation: star-turn 48s linear infinite;
+}
+#rotating-star-bg .star-line {
+  fill: none;
+  stroke: rgba(178, 204, 255, .68);
+  stroke-width: 1.3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 4px rgba(115, 160, 255, .9)) drop-shadow(0 0 16px rgba(100, 130, 255, .55));
+}
+#rotating-star-bg .star-core {
+  fill: rgba(180, 205, 255, .045);
+  stroke: rgba(220, 232, 255, .72);
+  stroke-width: 1.2;
+  filter: drop-shadow(0 0 7px rgba(145, 180, 255, .9)) drop-shadow(0 0 24px rgba(105, 125, 255, .65));
+}
+@keyframes star-turn {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  #rotating-star-bg svg { animation: none; }
+}
+
 </style>
 </head>
 <body>
+
+<div id="rotating-star-bg" aria-hidden="true">
+  <svg viewBox="0 0 600 600" role="presentation">
+    <defs>
+      <filter id="star-glow">
+        <feGaussianBlur stdDeviation="2.2" result="blur"/>
+        <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+    </defs>
+    <path class="star-core" d="M300 62 L345 244 L514 112 L382 278 L552 300 L382 322 L514 488 L345 356 L300 538 L255 356 L86 488 L218 322 L48 300 L218 278 L86 112 L255 244 Z"/>
+    <path class="star-line" d="M300 62 L345 244 L514 112 L382 278 L552 300 L382 322 L514 488 L345 356 L300 538 L255 356 L86 488 L218 322 L48 300 L218 278 L86 112 L255 244 Z"/>
+    <path class="star-line" d="M300 62 L382 278 L514 112 L345 356 L552 300 L255 356 L514 488 L218 322 L300 538 L218 278 L86 488 L345 244 L48 300 L382 322 L86 112 L255 356 Z" opacity=".55"/>
+    <path class="star-line" d="M300 62 L300 538 M48 300 L552 300 M86 112 L514 488 M514 112 L86 488" opacity=".42"/>
+  </svg>
+</div>
+
 <canvas id="cyber-bg" aria-hidden="true"></canvas>
 <canvas id="lightning" aria-hidden="true"></canvas>
 <div class="wrap">
@@ -141,7 +202,7 @@
     <div class="panel small">
       <h3>02 / NOW PLAYING</h3>
       <a class="track" href="https://open.spotify.com/track/7fx9paDdMEk5xrF5yVWUfW?si=gdogzoZLS7OMviqEaTaP2g&utm_source=copy-link" target="_blank" rel="noopener" style="color:inherit;text-decoration:none"><div class="disc"></div><div><strong>PLAY MY FREQUENCY ↗</strong><small>OPEN IN SPOTIFY • </small></div></a>
-      <iframe title="Spotify track player" style="border-radius:8px;margin-top:10px" src="https://open.spotify.com/embed/track/7fx9paDdMEk5xrF5yVWUfW?utm_source=generator&theme=0" width="100%" height="152" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="eager"></iframe>
+      <iframe title="Spotify track player" style="border-radius:8px;margin-top:10px" src="https://open.spotify.com/embed/track/7fx9paDdMEk5xrF5yVWUfW?utm_source=generator&theme=0&start=0" width="100%" height="152" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="eager"></iframe>
     </div>
     <div class="panel small">
       <h3>03 / SYSTEM LOG</h3>
@@ -179,10 +240,11 @@ function areaLight(color, intensity, x,y,z) {
   const light = new THREE.DirectionalLight(color,intensity);
   light.position.set(x,y,z); scene.add(light);
 }
-areaLight(0xffffff,4,3,4,5);
-areaLight(0x8d9bff,3,-4,1,3);
-areaLight(0xffffff,3,1,-3,-4);
-areaLight(0x777788,2,-2,-2,4);
+areaLight(0xffffff,5,3,4,5);
+areaLight(0x8d9bff,3.5,-4,1,3);
+areaLight(0xffffff,4,1,-3,-4);
+areaLight(0xe8f2ff,3,-2,-2,4);
+areaLight(0xffffff,2,0,5,-1);
 
 const chrome = new THREE.MeshStandardMaterial({color:0xbfc2cb, metalness:1, roughness:0.16});
 const darkChrome = new THREE.MeshStandardMaterial({color:0x393b45, metalness:0.95, roughness:0.24});
@@ -203,13 +265,21 @@ function spike(parent, start, end, radius, material=chrome) {
 }
 // Smooth chrome orb with orbiting rings and small floating fragments.
 const relic = new THREE.Group(); entity.add(relic);
-const silver = new THREE.MeshStandardMaterial({color:0xd4d6df, metalness:1, roughness:.10});
-const darkSilver = new THREE.MeshStandardMaterial({color:0x555965, metalness:.98, roughness:.18});
+const silver = new THREE.MeshPhysicalMaterial({color:0xf4f6ff, metalness:1, roughness:0.035, clearcoat:1, clearcoatRoughness:0.02, reflectivity:1});
+const darkSilver = new THREE.MeshPhysicalMaterial({color:0xbfc5d2, metalness:1, roughness:0.055, clearcoat:1, clearcoatRoughness:0.025, reflectivity:1});
 const blackSteel = new THREE.MeshStandardMaterial({color:0x101116, metalness:.8, roughness:.22});
-const orb = new THREE.Mesh(new THREE.SphereGeometry(.78, 96, 96), silver);
+const orb = new THREE.Mesh(new THREE.SphereGeometry(.78, 128, 128), silver);
 relic.add(orb);
-const innerOrb = new THREE.Mesh(new THREE.SphereGeometry(.69, 64, 64), darkSilver);
+// Bright polished silver core: no dark inner sphere to muddy the chrome finish.
+const innerOrb = new THREE.Mesh(new THREE.SphereGeometry(.695, 96, 96), silver);
+innerOrb.scale.setScalar(0.998);
 relic.add(innerOrb);
+// Narrow bright studio reflections make the metal read as mirror-polished chrome.
+const highlightMaterial = new THREE.MeshBasicMaterial({color:0xffffff});
+const highlight = new THREE.Mesh(new THREE.TorusGeometry(.56,.012,8,128), highlightMaterial);
+highlight.position.set(-.08,.05,.50);
+highlight.rotation.set(.35,-.28,-.42);
+relic.add(highlight);
 // Offset reflective bands surround the orb like a futuristic gyroscope.
 const orbitA = new THREE.Mesh(new THREE.TorusGeometry(1.12,.025,12,160), silver);
 orbitA.rotation.set(.82,.25,.12); entity.add(orbitA);
