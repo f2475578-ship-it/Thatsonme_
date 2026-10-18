@@ -82,11 +82,11 @@ a,button{text-shadow:0 0 5px #fff9,0 0 12px #aaaaff75}
 
 /* HEAVEN//VOID REAL PHOTO SCENES */
 .angel-world{position:relative;isolation:isolate;margin:24px 0}
-.angel-scene{min-height:75vh;min-height:75svh;position:relative;display:grid;place-items:center;overflow:hidden;border:1px solid #45454b;background:#050505;margin:16px 0;scroll-margin-top:20px;opacity:.35;transform:scale(.97);transition:opacity .9s ease,transform 1s ease}
+.angel-scene{min-height:75vh;min-height:75svh;position:relative;display:grid;place-items:center;overflow:hidden;border:1px solid #45454b;background:#050505;margin:16px 0;scroll-margin-top:20px;opacity:.12;transform:scale(.985);transition:opacity .8s ease,transform 1s ease}
 .angel-scene.in-view{opacity:1;transform:scale(1)}
-.angel-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.12) brightness(.65);transform:scale(1.06);transition:transform 1.8s ease,filter 1s ease,opacity 1s ease;opacity:.86}
-.angel-scene.in-view .angel-photo{transform:scale(1);filter:grayscale(1) contrast(1.18) brightness(.72)}
-.photo-shade{position:absolute;inset:0;background:linear-gradient(90deg,#000b,transparent 80%),linear-gradient(0deg,#000c,transparent 35%,#0005);pointer-events:none}
+.angel-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center;background:#050505;filter:grayscale(1) contrast(1.12) brightness(.72);transform:scale(1);transition:filter 1s ease,opacity .8s ease;opacity:0}
+.angel-scene.in-view .angel-photo{opacity:1;filter:grayscale(1) contrast(1.18) brightness(.78)}
+.photo-shade{position:absolute;inset:0;background:transparent;pointer-events:none}
 .angel-heading{position:absolute;z-index:3;top:22px;left:18px;right:18px}
 .angel-heading small{color:#ddd;letter-spacing:3px;font-size:9px}
 .angel-heading h2{margin:12px 0;font:900 clamp(26px,6vw,48px)/1.1 Orbitron,sans-serif;letter-spacing:-1px;color:#fff}
@@ -95,6 +95,15 @@ a,button{text-shadow:0 0 5px #fff9,0 0 12px #aaaaff75}
 @media(max-width:720px){.hero{grid-template-columns:1fr}.hero-copy{padding:20px}.scene{min-height:320px}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.bottom{grid-template-columns:1fr}.clothing-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.clothing-image{height:230px}.clothing-info{padding:10px}.gothic-cross-bg{width:100vw;opacity:.15}.angel-scene{min-height:68vh;min-height:68svh}.angel-caption{font-size:8px;letter-spacing:1px}}
 @media(max-width:400px){.wrap{width:calc(100% - 22px)}.brand{font-size:15px}.status{display:none}.grid,.clothing-grid{grid-template-columns:1fr}.clothing-image{height:300px}h1{letter-spacing:-1px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.gothic-cross-bg,.orbit,.clothing-image img{animation:none!important}*,*::before,*::after{transition-duration:.01ms!important}}
+
+/* SHOWROOM SIDE NOTE */
+#shop-note{position:fixed;right:18px;top:50%;transform:translate(120%, -50%);width:min(300px,calc(100vw - 36px));z-index:9999;background:#080808;border:1px solid #aaa;padding:10px;box-shadow:0 0 28px #000;opacity:0;visibility:hidden;transition:transform .45s ease,opacity .35s ease,visibility .35s;display:grid;grid-template-columns:1fr;gap:8px}
+#shop-note.show{transform:translate(0,-50%);opacity:1;visibility:visible}
+#shop-note img{display:block;width:100%;max-height:280px;object-fit:cover;filter:grayscale(1) contrast(1.1)}
+#shop-note .shop-note-message{font:900 13px Orbitron,sans-serif;letter-spacing:1px;text-align:center;color:#f4f4f4;padding:8px 4px}
+#shop-note .shop-note-close{position:absolute;right:15px;top:15px;border:1px solid #fff;background:#050505;color:white;padding:5px 8px;font-size:10px;cursor:pointer}
+@media(max-width:480px){#shop-note{right:10px;width:min(260px,calc(100vw - 20px))}#shop-note img{max-height:220px}}
+
 </style>
 </head>
 <body>
@@ -131,25 +140,16 @@ a,button{text-shadow:0 0 5px #fff9,0 0 12px #aaaaff75}
 <!-- HEAVEN//VOID: REAL PHOTO SCENES (no illustrated/SVG angels) -->
 <div class="angel-world" aria-label="Gothic angel photo gallery">
   <section class="angel-scene photo-scene" data-scene="001">
-    <img class="angel-photo" src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?auto=format&fit=crop&w=1600&q=85" alt="Monochrome classical sculpture in a gallery" loading="lazy">
-    <div class="photo-shade"></div><div class="angel-heading"><small>SCENE 001 // ASCENSION</small><h2>BETWEEN<br>HEAVEN &amp; VOID.</h2></div>
-    <div class="angel-caption"><span>THE FIRST ASCENSION</span><span>001 / 004</span></div>
+    <img class="angel-photo" src="angel-1.jpg" alt="Uploaded black-and-white Gothic photograph 1" loading="lazy">
   </section>
-  <div class="angel-scroll-note">↓ SCROLL TO DESCEND ↓</div>
   <section class="angel-scene photo-scene" data-scene="002">
-    <img class="angel-photo" src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1600&q=85" alt="Dark atmospheric stone architecture" loading="lazy">
-    <div class="photo-shade"></div><div class="angel-heading"><small>SCENE 002 // SANCTUARY</small><h2>THE SILENCE<br>OF GOD.</h2></div>
-    <div class="angel-caption"><span>NO PRAYERS ANSWERED</span><span>002 / 004</span></div>
+    <img class="angel-photo" src="angel-2.jpg" alt="Uploaded black-and-white Gothic photograph 2" loading="lazy">
   </section>
   <section class="angel-scene photo-scene" data-scene="003">
-    <img class="angel-photo" src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=85" alt="Dark dramatic landscape under a moody sky" loading="lazy">
-    <div class="photo-shade"></div><div class="angel-heading"><small>SCENE 003 // THE FALL</small><h2>BEAUTIFUL<br>RUIN.</h2></div>
-    <div class="angel-caption"><span>EVEN ANGELS FALL</span><span>003 / 004</span></div>
+    <img class="angel-photo" src="angel-3.jpg" alt="Uploaded black-and-white Gothic photograph 3" loading="lazy">
   </section>
   <section class="angel-scene photo-scene final-scene" data-scene="004">
-    <img class="angel-photo" src="https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?auto=format&fit=crop&w=1600&q=85" alt="Monochrome misty sky at dawn" loading="lazy">
-    <div class="photo-shade"></div><div class="angel-heading"><small>SCENE 004 // THE VOID</small><h2>WELCOME<br>TO THE END.</h2></div>
-    <div class="angel-caption"><span>YOUR WORLD. YOUR RULES.</span><span>004 / 004</span></div>
+    <img class="angel-photo" src="angel-4.jpg" alt="Uploaded black-and-white Gothic photograph 4" loading="lazy">
   </section>
 </div>
 
@@ -192,17 +192,27 @@ a,button{text-shadow:0 0 5px #fff9,0 0 12px #aaaaff75}
 <footer><span>_THATSONME // PERSONAL ARCHIVE</span><span>MADE OF PIXELS &amp; BAD DECISIONS.</span></footer>
 </div>
 
+
+<aside id="shop-note" role="status" aria-live="polite" aria-label="Showroom announcement">
+<button type="button" class="shop-note-close" aria-label="Close message">✕</button>
+<img src="showroom-popup.jpg" alt="Black and white photo of three horror characters skating together">
+<div class="shop-note-message">we dont sell shit yet</div>
+</aside>
+
 <script>
 /* NAVIGATION */
 const home=document.getElementById("home-section");
 const clothing=document.getElementById("clothing-section");
 function showView(view){
  const isClothing=view==="clothing";
+ const shopNote=document.getElementById("shop-note");
+ if(isClothing){shopNote.classList.add("show");}else{shopNote.classList.remove("show");}
  home.hidden=isClothing;clothing.hidden=!isClothing;
  document.querySelectorAll(".nav-btn").forEach(button=>button.classList.toggle("active",button.dataset.view===view));
  history.replaceState(null,"",isClothing?"#clothing":location.pathname);
  window.scrollTo({top:0,behavior:"smooth"});
 }
+document.querySelector(".shop-note-close").addEventListener("click",()=>document.getElementById("shop-note").classList.remove("show"));
 document.querySelectorAll("[data-view]").forEach(button=>button.addEventListener("click",event=>{event.preventDefault();showView(button.dataset.view)}));
 if(location.hash==="#clothing")showView("clothing");
 
