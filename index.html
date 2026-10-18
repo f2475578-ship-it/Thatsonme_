@@ -1,1101 +1,262 @@
-<!DOCTYPE html>
 
-<html lang="en">  
-<head>  
-<meta charset="UTF-8">  
-<meta name="viewport" content="width=device-width, initial-scale=1">  
-<meta name="theme-color" content="#050505">  
-<title>_thatsonme — personal archive</title>  <link rel="preconnect" href="https://fonts.googleapis.com">  
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">  <style>  
-:root {  
-  --bg:#050505;  
-  --panel:#09090c;  
-  --text:#f0f0fa;  
-  --muted:#9999a8;  
-  --line:#393943;  
-  --silver:#e2e2f0;  
-}  
-  
-* { box-sizing:border-box; }  
-html { scroll-behavior:smooth; }  
-  
-body {  
-  margin:0;  
-  background:var(--bg);  
-  color:var(--text);  
-  font-family:"Space Mono",monospace;  
-  overflow-x:hidden;  
-  text-shadow:0 0 3px #fff7,0 0 8px #c8c8ff45;  
-}  
-  
-body::before {  
-  content:"";  
-  position:fixed;  
-  inset:0;  
-  z-index:-2;  
-  pointer-events:none;  
-  background:  
-    radial-gradient(ellipse at 50% 20%,#33334435,transparent 65%),  
-    repeating-linear-gradient(0deg,transparent 0 3px,#fff3 4px);  
-}  
-  
-a { color:inherit;text-decoration:none; }  
-button { font:inherit; }  
-  
-a:focus-visible,button:focus-visible {  
-  outline:2px solid white;  
-  outline-offset:4px;  
-}  
-  
-.wrap {  
-  position:relative;  
-  z-index:2;  
-  width:min(1050px,calc(100% - 30px));  
-  margin:auto;  
-}  
-  
-header {  
-  display:flex;  
-  align-items:center;  
-  justify-content:space-between;  
-  gap:12px;  
-  flex-wrap:wrap;  
-  padding:17px 0;  
-  border-bottom:1px solid var(--line);  
-}  
-  
-.brand {  
-  font-family:Orbitron,sans-serif;  
-  font-size:18px;  
-  font-weight:900;  
-  letter-spacing:-1px;  
-  text-shadow:0 0 5px white,0 0 20px #aaaaff;  
-}  
-  
-.brand span { color:#bdbdce; }  
-  
-nav { display:flex;gap:7px; }  
-  
-.nav-btn,.btn {  
-  display:inline-flex;  
-  align-items:center;  
-  justify-content:center;  
-  padding:11px 13px;  
-  border:1px solid #51515f;  
-  background:#08080c;  
-  color:#eeeef8;  
-  font-size:10px;  
-  letter-spacing:1px;  
-  cursor:pointer;  
-  text-shadow:0 0 8px #ddd;  
-  transition:.2s;  
-}  
-  
-.nav-btn:hover,.nav-btn.active,.btn:hover {  
-  border-color:#fff;  
-  box-shadow:0 0 14px #aaaaff30;  
-}  
-  
-.btn.primary {  
-  color:#08080c;  
-  background:#e7e7ef;  
-}  
-  
-.btn.primary:hover { box-shadow:0 0 22px #ddd; }  
-  
-.panel {  
-  border:1px solid var(--line);  
-  background:#09090ce8;  
-  position:relative;  
-  overflow:hidden;  
-}  
-  
-.panel-head {  
-  display:flex;  
-  justify-content:space-between;  
-  gap:10px;  
-  padding:12px 15px;  
-  border-bottom:1px solid var(--line);  
-  color:#aaaab9;  
-  font-size:9px;  
-  letter-spacing:1px;  
-}  
-  
-.hero {  
-  display:grid;  
-  grid-template-columns:1fr 1fr;  
-  gap:15px;  
-  padding:20px 0;  
-}  
-  
-.hero-copy {  
-  padding:22px;  
-  display:flex;  
-  flex-direction:column;  
-  justify-content:center;  
-}  
-  
-.eyebrow {  
-  color:#b4b4c5;  
-  font-size:10px;  
-  letter-spacing:3px;  
-  margin-bottom:18px;  
-}  
-  
-h1 {  
-  margin:0 0 18px;  
-  font-family:Orbitron,sans-serif;  
-  font-size:clamp(38px,7vw,68px);  
-  line-height:1.1;  
-  letter-spacing:-2px;  
-  overflow-wrap:anywhere;  
-  text-shadow:0 0 6px #fff,0 0 20px #aaaaff90,0 0 45px #aaaaff35;  
-}  
-  
-h1 span {  
-  display:block;  
-  color:transparent;  
-  -webkit-text-stroke:1px #eeeefb;  
-  filter:drop-shadow(0 0 9px #aaaaff);  
-}  
-  
-.desc {  
-  max-width:420px;  
-  color:#b1b1c0;  
-  font-size:11px;  
-  line-height:2;  
-}  
-  
-.actions { display:flex;gap:9px;flex-wrap:wrap;margin-top:20px; }  
-  
-.scene {  
-  min-height:360px;  
-  position:relative;  
-  display:grid;  
-  place-items:center;  
-  perspective:900px;  
-  overflow:hidden;  
-  background:radial-gradient(ellipse,#55556b24,transparent 70%);  
-  touch-action:pan-y;  
-}  
-  
-.orbit {  
-  position:absolute;  
-  width:260px;  
-  height:90px;  
-  border:1px solid #c6c6e477;  
-  border-radius:50%;  
-  transform:rotate(-30deg);  
-  animation:orbitSpin 12s linear infinite;  
-  pointer-events:none;  
-}  
-  
-.orbit.two {  
-  width:290px;  
-  height:120px;  
-  transform:rotate(50deg);  
-  animation-duration:17s;  
-  animation-direction:reverse;  
-}  
-  
-.chrome-star {  
-  position:relative;  
-  z-index:2;  
-  width:145px;  
-  height:145px;  
-  cursor:grab;  
-  touch-action:none;  
-  user-select:none;  
-  -webkit-user-select:none;  
-  filter:drop-shadow(0 0 15px #bdbdff66);  
-  will-change:transform;  
-}  
-  
-.chrome-star:active { cursor:grabbing; }  
-.chrome-star svg { width:100%;height:100%;overflow:visible; }  
-  
-.star-label {  
-  position:absolute;  
-  bottom:18px;  
-  color:#b4b4c3;  
-  font-size:9px;  
-  letter-spacing:3px;  
-}  
-  
-#gyroButton {  
-  position:absolute;  
-  z-index:5;  
-  top:12px;  
-  left:12px;  
-  padding:9px;  
-  font-size:9px;  
-}  
-  
-@keyframes orbitSpin {  
-  to { rotate:360deg; }  
-}  
-  
-.grid {  
-  display:grid;  
-  grid-template-columns:repeat(3,minmax(0,1fr));  
-  gap:12px;  
-  margin:12px 0 18px;  
-}  
-  
-.card {  
-  min-width:0;  
-  padding:17px;  
-  border:1px solid var(--line);  
-  background:#09090ce8;  
-  transition:.2s;  
-}  
-  
-.card:hover {  
-  transform:translateY(-3px);  
-  border-color:#eee;  
-  box-shadow:0 0 20px #aaaaff24;  
-}  
-  
-.card small { color:#aaaab8;font-size:9px;letter-spacing:1px; }  
-  
-.card h2 {  
-  margin:15px 0 8px;  
-  font:700 13px Orbitron,sans-serif;  
-  text-shadow:0 0 8px #aaaaff;  
-}  
-  
-.card p {  
-  color:#aaaab8;  
-  font-size:10px;  
-  line-height:1.8;  
-}  
-  
-.bottom {  
-  display:grid;  
-  grid-template-columns:1fr 1fr;  
-  gap:12px;  
-  margin:18px 0;  
-}  
-  
-.music-panel,.links-panel {  
-  min-width:0;  
-  padding:18px;  
-  border:1px solid var(--line);  
-  background:#09090cf0;  
-}  
-  
-.section-title {  
-  color:#b7b7c8;  
-  font-size:10px;  
-  letter-spacing:2px;  
-  margin-bottom:17px;  
-}  
-  
-.track {  
-  display:flex;  
-  justify-content:space-between;  
-  align-items:center;  
-  gap:12px;  
-  margin-bottom:15px;  
-}  
-  
-.track strong {  
-  font:700 17px Orbitron,sans-serif;  
-  text-shadow:0 0 8px white,0 0 20px #aaaaff;  
-}  
-  
-.track small { color:#aaaab8;font-size:9px; }  
-  
-.spotify {  
-  width:100%;  
-  display:block;  
-  border:0;  
-  border-radius:10px;  
-}  
-  
-.link-list { display:grid;gap:8px; }  
-  
-.link-row {  
-  width:100%;  
-  display:flex;  
-  align-items:center;  
-  justify-content:space-between;  
-  gap:12px;  
-  padding:13px;  
-  border:1px solid #30303a;  
-  background:#08080c;  
-  color:#eeeef7;  
-  font-size:10px;  
-  cursor:pointer;  
-  text-align:left;  
-  transition:.2s;  
-}  
-  
-.link-row:hover {  
-  border-color:#ddd;  
-  box-shadow:0 0 14px #aaaaff28;  
-}  
-  
-.link-row span:last-child { color:#b8b8ca; }  
-  
-footer {  
-  display:flex;  
-  justify-content:space-between;  
-  gap:12px;  
-  flex-wrap:wrap;  
-  padding:20px 0 32px;  
-  border-top:1px solid var(--line);  
-  color:#aaaab8;  
-  font-size:9px;  
-}  
-  
-/* CLOTHING SHOWROOM */  
-  
-.clothing-intro { padding:25px 0 12px; }  
-  
-.clothing-intro h2 {  
-  margin:10px 0;  
-  font:900 clamp(35px,7vw,65px)/1.15 Orbitron,sans-serif;  
-  text-shadow:0 0 8px white,0 0 25px #aaaaff75;  
-}  
-  
-.clothing-intro h2 span {  
-  color:transparent;  
-  -webkit-text-stroke:1px white;  
-}  
-  
-.clothing-grid {  
-  display:grid;  
-  grid-template-columns:repeat(3,minmax(0,1fr));  
-  gap:13px;  
-  margin:22px 0;  
-}  
-  
-.clothing-card {  
-  min-width:0;  
-  overflow:hidden;  
-  border:1px solid var(--line);  
-  background:#09090cf5;  
-  transition:.25s;  
-}  
-  
-.clothing-card:hover {  
-  transform:translateY(-4px);  
-  border-color:#ddd;  
-  box-shadow:0 0 20px #aaaaff22;  
-}  
-  
-.clothing-image {  
-  height:290px;  
-  position:relative;  
-  overflow:hidden;  
-  background:#111116;  
-}  
-  
-.clothing-image img {  
-  width:100%;  
-  height:100%;  
-  display:block;  
-  object-fit:cover;  
-  filter:grayscale(1) contrast(1.1);  
-  transition:transform .5s,filter .5s;  
-  animation:garmentFloat 5s ease-in-out infinite;  
-}  
-  
-.clothing-card:nth-child(2n) .clothing-image img {  
-  animation-delay:-2s;  
-}  
-  
-.clothing-card:nth-child(3n) .clothing-image img {  
-  animation-delay:-3.5s;  
-}  
-  
-.clothing-card:hover .clothing-image img {  
-  transform:scale(1.06);  
-  filter:grayscale(.5) contrast(1.1);  
-}  
-  
-@keyframes garmentFloat {  
-  0%,100% { translate:0 0; }  
-  50% { translate:0 -5px; }  
-}  
-  
-.clothing-image span {  
-  position:absolute;  
-  top:10px;  
-  left:10px;  
-  z-index:1;  
-  padding:6px;  
-  border:1px solid #777;  
-  background:#050506df;  
-  color:white;  
-  font-size:9px;  
-  letter-spacing:1px;  
-}  
-  
-.clothing-info { padding:13px; }  
-  
-.clothing-info h2 {  
-  font:700 12px Orbitron,sans-serif;  
-  text-shadow:0 0 8px #aaaaff;  
-}  
-  
-.clothing-info p {  
-  color:#aaaab8;  
-  font-size:9px;  
-  line-height:1.8;  
-}  
-  
-.clothing-info strong {  
-  display:block;  
-  margin-top:13px;  
-  padding-top:12px;  
-  border-top:1px solid #41414a;  
-  font-size:9px;  
-  line-height:1.8;  
-  text-shadow:0 0 5px white,0 0 16px #aaaaff90;  
-}  
-  
-/* ROTATING GOTHIC CROSS */  
-  
-.gothic-cross-bg {  
-  position:fixed;  
-  top:50%;  
-  left:50%;  
-  width:min(85vw,580px);  
-  pointer-events:none;  
-  z-index:0;  
-  opacity:.19;  
-  transform:translate(-50%,-50%);  
-  animation:gothicCrossRotate 55s linear infinite;  
-  filter:drop-shadow(0 0 8px #c5c5ff90) drop-shadow(0 0 22px #8888ff55);  
-}  
-  
-.gothic-cross-bg svg { display:block;width:100%;height:auto; }  
-  
-@keyframes gothicCrossRotate {  
-  from { transform:translate(-50%,-50%) rotate(0deg); }  
-  to { transform:translate(-50%,-50%) rotate(360deg); }  
-}  
-  
-/* LIGHTNING */  
-  
-#lightningCanvas {  
-  position:fixed;  
-  inset:0;  
-  width:100%;  
-  height:100%;  
-  z-index:1;  
-  pointer-events:none;  
-  opacity:.9;  
-  mix-blend-mode:screen;  
-}  
-  
-/* WEATHER LINE */  
-  
-.weather-location {  
-  margin:15px 0 20px;  
-  padding:12px;  
-  text-align:center;  
-  border:1px solid var(--line);  
-  background:#09090ce8;  
-  font-size:10px;  
-  letter-spacing:1px;  
-  line-height:1.9;  
-  overflow-wrap:anywhere;  
-}  
-  
-.weather-location .weather-label { color:#9999a8; }  
-  
-.weather-location a {  
-  color:#f0f0fa;  
-  text-shadow:0 0 7px white,0 0 16px #aaaaff;  
-}  
-  
-.weather-location a:hover { text-decoration:underline; }  
-  
-h2,h3,.brand,.section-title,.eyebrow,.star-label {  
-  text-shadow:0 0 5px #fff,0 0 15px #b5b5ff90,0 0 30px #8585ff40;  
-}  
-  
-p,small,.desc,.card small {  
-  text-shadow:0 0 5px #bdbdff70;  
-}  
-  
-a,button {  
-  text-shadow:0 0 5px #fff9,0 0 12px #aaaaff75;  
-}  
-  
-::selection { color:#050505;background:#eeeefb; }  
-  
-#home-section[hidden],#clothing-section[hidden] {  
-  display:none!important;  
-}  
-  
-@media(max-width:720px) {  
-  .hero { grid-template-columns:1fr; }  
-  .hero-copy { padding:20px; }  
-  .scene { min-height:320px; }  
-  .grid { grid-template-columns:repeat(2,minmax(0,1fr)); }  
-  .bottom { grid-template-columns:1fr; }  
-  .clothing-grid { grid-template-columns:repeat(2,minmax(0,1fr));gap:9px; }  
-  .clothing-image { height:230px; }  
-  .clothing-info { padding:10px; }  
-  .gothic-cross-bg { width:100vw;opacity:.15; }  
-}  
-  
-@media(max-width:400px) {  
-  .wrap { width:calc(100% - 22px); }  
-  .brand { font-size:15px; }  
-  .status { display:none; }  
-  .grid,.clothing-grid { grid-template-columns:1fr; }  
-  .clothing-image { height:300px; }  
-  h1 { letter-spacing:-1px; }  
-}  
-  
-@media(prefers-reduced-motion:reduce) {  
-  html { scroll-behavior:auto; }  
-  .gothic-cross-bg,.orbit { animation:none; }  
-  .clothing-image img { animation:none; }  
-  *,*::before,*::after { transition-duration:.01ms!important; }  
-}  
-</style>  </head>  <body>  <div class="gothic-cross-bg" aria-hidden="true">  
-  <svg viewBox="0 0 300 420" xmlns="http://www.w3.org/2000/svg">  
-    <defs>  
-      <linearGradient id="crossChrome" x1="0" y1="0" x2="1" y2="1">  
-        <stop offset="0%" stop-color="#555560"/>  
-        <stop offset="25%" stop-color="#ffffff"/>  
-        <stop offset="45%" stop-color="#858591"/>  
-        <stop offset="65%" stop-color="#f5f5ff"/>  
-        <stop offset="100%" stop-color="#666675"/>  
-      </linearGradient>  
-      <filter id="crossGlow" x="-100%" y="-100%" width="300%" height="300%">  
-        <feGaussianBlur stdDeviation="4" result="blur"/>  
-        <feMerge>  
-          <feMergeNode in="blur"/>  
-          <feMergeNode in="SourceGraphic"/>  
-        </feMerge>  
-      </filter>  
-    </defs>  
-    <g fill="url(#crossChrome)" stroke="#eeeefc" stroke-width="1.5"  
-       stroke-linejoin="round" filter="url(#crossGlow)">  
-      <path d="M132 18 L150 2 L168 18 L163 43 L181 62 L169 84 L164 125 L206 102 L222 78 L238 91 L236 115 L265 124 L280 146 L255 151 L238 139 L219 156 L185 163 L185 204 L211 191 L225 205 L211 222 L185 228 L185 336 L202 360 L180 354 L150 405 L120 354 L98 360 L115 336 L115 228 L89 222 L75 205 L89 191 L115 204 L115 163 L81 156 L62 139 L45 151 L20 146 L35 124 L64 115 L62 91 L78 78 L94 102 L136 125 L131 84 L119 62 L137 43 Z"/>  
-      <path d="M150 142 L168 171 L150 200 L132 171 Z" fill="#08080c" stroke="#fff" stroke-width="2"/>  
-      <path d="M150 153 L160 171 L150 188 L140 171 Z" fill="none" stroke="#cfcfe8"/>  
-    </g>  
-  </svg>  
-</div>  <canvas id="lightningCanvas" aria-hidden="true"></canvas>
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#050505">
+<title>_thatsonme — personal archive</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#050505;--panel:#09090c;--text:#f0f0fa;--muted:#9999a8;--line:#393943;--silver:#e2e2f0}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:"Space Mono",monospace;overflow-x:hidden;text-shadow:0 0 3px #fff7,0 0 8px #c8c8ff45}
+body::before{content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;background:radial-gradient(ellipse at 50% 20%,#33334435,transparent 65%),repeating-linear-gradient(0deg,transparent 0 3px,#fff3 4px)}
+a{color:inherit;text-decoration:none}button{font:inherit}
+a:focus-visible,button:focus-visible{outline:2px solid white;outline-offset:4px}
+.wrap{position:relative;z-index:2;width:min(1050px,calc(100% - 30px));margin:auto}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:17px 0;border-bottom:1px solid var(--line)}
+.brand{font-family:Orbitron,sans-serif;font-size:18px;font-weight:900;letter-spacing:-1px;text-shadow:0 0 5px white,0 0 20px #aaaaff}
+.brand span{color:#bdbdce}nav{display:flex;gap:7px}
+.nav-btn,.btn{display:inline-flex;align-items:center;justify-content:center;padding:11px 13px;border:1px solid #51515f;background:#08080c;color:#eeeef8;font-size:10px;letter-spacing:1px;cursor:pointer;text-shadow:0 0 8px #ddd;transition:.2s}
+.nav-btn:hover,.nav-btn.active,.btn:hover{border-color:#fff;box-shadow:0 0 14px #aaaaff30}
+.btn.primary{color:#08080c;background:#e7e7ef}.btn.primary:hover{box-shadow:0 0 22px #ddd}
+.panel{border:1px solid var(--line);background:#09090ce8;position:relative;overflow:hidden}
+.panel-head{display:flex;justify-content:space-between;gap:10px;padding:12px 15px;border-bottom:1px solid var(--line);color:#aaaab9;font-size:9px;letter-spacing:1px}
+.hero{display:grid;grid-template-columns:1fr 1fr;gap:15px;padding:20px 0}
+.hero-copy{padding:22px;display:flex;flex-direction:column;justify-content:center}
+.eyebrow{color:#b4b4c5;font-size:10px;letter-spacing:3px;margin-bottom:18px}
+h1{margin:0 0 18px;font-family:Orbitron,sans-serif;font-size:clamp(38px,7vw,68px);line-height:1.1;letter-spacing:-2px;overflow-wrap:anywhere;text-shadow:0 0 6px #fff,0 0 20px #aaaaff90,0 0 45px #aaaaff35}
+h1 span{display:block;color:transparent;-webkit-text-stroke:1px #eeeefb;filter:drop-shadow(0 0 9px #aaaaff)}
+.desc{max-width:420px;color:#b1b1c0;font-size:11px;line-height:2}
+.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:20px}
+.scene{min-height:360px;position:relative;display:grid;place-items:center;perspective:900px;overflow:hidden;background:radial-gradient(ellipse,#55556b24,transparent 70%);touch-action:pan-y}
+.orbit{position:absolute;width:260px;height:90px;border:1px solid #c6c6e477;border-radius:50%;transform:rotate(-30deg);animation:orbitSpin 12s linear infinite;pointer-events:none}
+.orbit.two{width:290px;height:120px;transform:rotate(50deg);animation-duration:17s;animation-direction:reverse}
+.chrome-star{position:relative;z-index:2;width:145px;height:145px;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none;filter:drop-shadow(0 0 15px #bdbdff66);will-change:transform}
+.chrome-star:active{cursor:grabbing}.chrome-star svg{width:100%;height:100%;overflow:visible}
+.star-label{position:absolute;bottom:18px;color:#b4b4c3;font-size:9px;letter-spacing:3px}
+#gyroButton{position:absolute;z-index:5;top:12px;left:12px;padding:9px;font-size:9px}
+@keyframes orbitSpin{to{rotate:360deg}}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:12px 0 18px}
+.card{min-width:0;padding:17px;border:1px solid var(--line);background:#09090ce8;transition:.2s}
+.card:hover{transform:translateY(-3px);border-color:#eee;box-shadow:0 0 20px #aaaaff24}
+.card small{color:#aaaab8;font-size:9px;letter-spacing:1px}
+.card h2{margin:15px 0 8px;font:700 13px Orbitron,sans-serif;text-shadow:0 0 8px #aaaaff}
+.card p{color:#aaaab8;font-size:10px;line-height:1.8}
+.bottom{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0}
+.music-panel,.links-panel{min-width:0;padding:18px;border:1px solid var(--line);background:#09090cf0}
+.section-title{color:#b7b7c8;font-size:10px;letter-spacing:2px;margin-bottom:17px}
+.track{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:15px}
+.track strong{font:700 17px Orbitron,sans-serif;text-shadow:0 0 8px white,0 0 20px #aaaaff}.track small{color:#aaaab8;font-size:9px}
+.spotify{width:100%;display:block;border:0;border-radius:10px}
+.link-list{display:grid;gap:8px}
+.link-row{width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px;border:1px solid #30303a;background:#08080c;color:#eeeef7;font-size:10px;cursor:pointer;text-align:left;transition:.2s}
+.link-row:hover{border-color:#ddd;box-shadow:0 0 14px #aaaaff28}.link-row span:last-child{color:#b8b8ca}
+footer{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:20px 0 32px;border-top:1px solid var(--line);color:#aaaab8;font-size:9px}
+.clothing-intro{padding:25px 0 12px}
+.clothing-intro h2{margin:10px 0;font:900 clamp(35px,7vw,65px)/1.15 Orbitron,sans-serif;text-shadow:0 0 8px white,0 0 25px #aaaaff75}
+.clothing-intro h2 span{color:transparent;-webkit-text-stroke:1px white}
+.clothing-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px;margin:22px 0}
+.clothing-card{min-width:0;overflow:hidden;border:1px solid var(--line);background:#09090cf5;transition:.25s}
+.clothing-card:hover{transform:translateY(-4px);border-color:#ddd;box-shadow:0 0 20px #aaaaff22}
+.clothing-image{height:290px;position:relative;overflow:hidden;background:#111116}
+.clothing-image img{width:100%;height:100%;display:block;object-fit:cover;filter:grayscale(1) contrast(1.1);transition:transform .5s,filter .5s;animation:garmentFloat 5s ease-in-out infinite}
+.clothing-card:nth-child(2n) .clothing-image img{animation-delay:-2s}.clothing-card:nth-child(3n) .clothing-image img{animation-delay:-3.5s}
+.clothing-card:hover .clothing-image img{transform:scale(1.06);filter:grayscale(.5) contrast(1.1)}
+@keyframes garmentFloat{0%,100%{translate:0 0}50%{translate:0 -5px}}
+.clothing-image span{position:absolute;top:10px;left:10px;z-index:1;padding:6px;border:1px solid #777;background:#050506df;color:white;font-size:9px;letter-spacing:1px}
+.clothing-info{padding:13px}.clothing-info h2{font:700 12px Orbitron,sans-serif;text-shadow:0 0 8px #aaaaff}
+.clothing-info p{color:#aaaab8;font-size:9px;line-height:1.8}
+.clothing-info strong{display:block;margin-top:13px;padding-top:12px;border-top:1px solid #41414a;font-size:9px;line-height:1.8;text-shadow:0 0 5px white,0 0 16px #aaaaff90}
+.gothic-cross-bg{position:fixed;top:50%;left:50%;width:min(85vw,580px);pointer-events:none;z-index:0;opacity:.19;transform:translate(-50%,-50%);animation:gothicCrossRotate 55s linear infinite;filter:drop-shadow(0 0 8px #c5c5ff90) drop-shadow(0 0 22px #8888ff55)}
+.gothic-cross-bg svg{display:block;width:100%;height:auto}
+@keyframes gothicCrossRotate{from{transform:translate(-50%,-50%) rotate(0deg)}to{transform:translate(-50%,-50%) rotate(360deg)}}
+#lightningCanvas{position:fixed;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;opacity:.9;mix-blend-mode:screen}
+h2,h3,.brand,.section-title,.eyebrow,.star-label{ text-shadow:0 0 5px #fff,0 0 15px #b5b5ff90,0 0 30px #8585ff40}
+p,small,.desc,.card small{text-shadow:0 0 5px #bdbdff70}
+a,button{text-shadow:0 0 5px #fff9,0 0 12px #aaaaff75}
+::selection{color:#050505;background:#eeeefb}
+#home-section[hidden],#clothing-section[hidden]{display:none!important}
 
-<div class="wrap">  <header>  
-  <a class="brand" href="#home" data-view="home">_<span>thatsonme</span></a>    <nav aria-label="Main navigation">  
-    <button class="nav-btn active" data-view="home">HOME</button>  
-    <button class="nav-btn" data-view="clothing">CLOTHING</button>  
-  </nav>    <div class="status">● ARCHIVE ONLINE</div>  
-</header>  <section id="home-section">  
-  <div class="panel" style="margin-top:18px">  
-    <div class="panel-head">  
-      <span>PERSONAL ARCHIVE // 001</span>  
-      <span>EST. UNKNOWN</span>  
-    </div>  <div class="hero">  
-  <div class="hero-copy">  
-    <div class="eyebrow">WELCOME TO MY WORLD</div>  
-    <h1>_THAT'S<br><span>ON ME.</span></h1>  
+/* HEAVEN//VOID SCENES */
+.angel-world{position:relative;isolation:isolate;margin:24px 0}
+.angel-scene{min-height:75vh;min-height:75svh;position:relative;display:grid;place-items:center;overflow:hidden;border:1px solid #45454b;background:#050505;margin:16px 0;transition:background 1s ease;scroll-margin-top:20px}
+.angel-scene::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(ellipse at 50% 42%,#ffffff30,transparent 35%),linear-gradient(180deg,#151515,#030303 75%)}
+.angel-scene.cathedral::before{background:repeating-linear-gradient(90deg,transparent 0 12%,#ffffff0b 13% 14%,transparent 15% 25%),radial-gradient(ellipse at 50% 20%,#ffffff28,transparent 50%),linear-gradient(#151515,#030303)}
+.angel-scene.fallen::before{background:radial-gradient(ellipse at 50% 45%,#bdbdbd30,transparent 40%),linear-gradient(180deg,#171717,#000 85%)}
+.angel-heading{position:absolute;z-index:3;top:22px;left:18px;right:18px}
+.angel-heading small{color:#aaa;letter-spacing:3px;font-size:9px}
+.angel-heading h2{margin:12px 0;font:900 clamp(26px,6vw,48px)/1.1 Orbitron,sans-serif;letter-spacing:-1px}
+.angel-art{width:min(94%,560px);max-height:65%;overflow:visible;filter:drop-shadow(0 0 22px #ffffff16);animation:angelFloat 7s ease-in-out infinite}
+.angel-scene.cathedral .angel-art{width:min(100%,650px)}
+.angel-scene.fallen .angel-art{width:min(100%,700px);animation-duration:9s}
+.angel-caption{position:absolute;z-index:3;left:18px;right:18px;bottom:22px;display:flex;justify-content:space-between;gap:12px;color:#d0d0d0;font-size:9px;letter-spacing:2px}
+.angel-feather{position:absolute;color:#fff;opacity:.5;font-size:22px;animation:featherFall 9s linear infinite;pointer-events:none}
+.angel-scroll-note{color:#aaa;text-align:center;font-size:9px;letter-spacing:3px;padding:10px}
+@keyframes angelFloat{0%,100%{transform:translateY(5px) rotate(-1deg)}50%{transform:translateY(-10px) rotate(1deg)}}
+@keyframes featherFall{0%{transform:translateY(-80px) rotate(0);opacity:0}15%{opacity:.5}85%{opacity:.35}100%{transform:translateY(70vh) rotate(240deg);opacity:0}}
+/* Scroll-linked scene reveal */
+.angel-scene{opacity:.72;transform:scale(.985);transition:opacity .8s ease,transform .8s ease}
+.angel-scene.in-view{opacity:1;transform:scale(1)}
+@media(max-width:720px){.hero{grid-template-columns:1fr}.hero-copy{padding:20px}.scene{min-height:320px}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.bottom{grid-template-columns:1fr}.clothing-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.clothing-image{height:230px}.clothing-info{padding:10px}.gothic-cross-bg{width:100vw;opacity:.15}.angel-scene{min-height:68vh;min-height:68svh}.angel-caption{font-size:8px;letter-spacing:1px}}
+@media(max-width:400px){.wrap{width:calc(100% - 22px)}.brand{font-size:15px}.status{display:none}.grid,.clothing-grid{grid-template-columns:1fr}.clothing-image{height:300px}h1{letter-spacing:-1px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.gothic-cross-bg,.orbit,.angel-art,.angel-feather,.clothing-image img{animation:none!important}*,*::before,*::after{transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<div class="gothic-cross-bg" aria-hidden="true">
+<svg viewBox="0 0 300 420" xmlns="http://www.w3.org/2000/svg">
+<defs><linearGradient id="crossChrome" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#555560"/><stop offset="25%" stop-color="#ffffff"/><stop offset="45%" stop-color="#858591"/><stop offset="65%" stop-color="#f5f5ff"/><stop offset="100%" stop-color="#666675"/></linearGradient><filter id="crossGlow" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="4" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+<g fill="url(#crossChrome)" stroke="#eeeefc" stroke-width="1.5" stroke-linejoin="round" filter="url(#crossGlow)"><path d="M132 18 L150 2 L168 18 L163 43 L181 62 L169 84 L164 125 L206 102 L222 78 L238 91 L236 115 L265 124 L280 146 L255 151 L238 139 L219 156 L185 163 L185 204 L211 191 L225 205 L211 222 L185 228 L185 336 L202 360 L180 354 L150 405 L120 354 L98 360 L115 336 L115 228 L89 222 L75 205 L89 191 L115 204 L115 163 L81 156 L62 139 L45 151 L20 146 L35 124 L64 115 L62 91 L78 78 L94 102 L136 125 L131 84 L119 62 L137 43 Z"/><path d="M150 142 L168 171 L150 200 L132 171 Z" fill="#08080c" stroke="#fff" stroke-width="2"/><path d="M150 153 L160 171 L150 188 L140 171 Z" fill="none" stroke="#cfcfe8"/></g>
+</svg></div>
+<canvas id="lightningCanvas" aria-hidden="true"></canvas>
 
-    <p class="desc">  
-      Just another face in the crowd.  
-      A personal archive of music, thoughts,  
-      digital fragments and everything in between.  
-    </p>  
+<div class="wrap">
+<header>
+<a class="brand" href="#home" data-view="home">_<span>thatsonme</span></a>
+<nav aria-label="Main navigation"><button class="nav-btn active" data-view="home">HOME</button><button class="nav-btn" data-view="clothing">CLOTHING</button></nav>
+<div class="status">● ARCHIVE ONLINE</div>
+</header>
 
-    <div class="actions">  
-      <a class="btn primary" href="https://www.instagram.com/_.thatsonme/" target="_blank" rel="noopener noreferrer">FIND ME ↗</a>  
-      <button class="btn" data-view="clothing">ENTER SHOWROOM ↗</button>  
-    </div>  
-  </div>  
+<section id="home-section">
+<div class="panel" style="margin-top:18px">
+<div class="panel-head"><span>PERSONAL ARCHIVE // 001</span><span>EST. UNKNOWN</span></div>
+<div class="hero">
+<div class="hero-copy">
+<div class="eyebrow">WELCOME TO MY WORLD</div>
+<h1>_THAT'S<br><span>ON ME.</span></h1>
+<p class="desc">Just another face in the crowd. A personal archive of music, thoughts, digital fragments and everything in between.</p>
+<div class="actions"><a class="btn primary" href="https://www.instagram.com/_.thatsonme/" target="_blank" rel="noopener noreferrer">FIND ME ↗</a><button class="btn" data-view="clothing">ENTER SHOWROOM ↗</button></div>
+</div>
+<div class="scene">
+<button id="gyroButton" class="btn">ENABLE GYRO ↗</button><div class="orbit"></div><div class="orbit two"></div>
+<div class="chrome-star" id="chromeStar"><svg viewBox="0 0 200 200" aria-label="Chrome star"><defs><linearGradient id="chrome" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#555560"/><stop offset="20%" stop-color="#fff"/><stop offset="38%" stop-color="#777783"/><stop offset="54%" stop-color="#f8f8ff"/><stop offset="72%" stop-color="#666672"/><stop offset="100%" stop-color="#eee"/></linearGradient></defs><polygon points="100,5 124,70 195,75 141,120 158,192 100,151 42,192 59,120 5,75 76,70" fill="url(#chrome)" stroke="#fff" stroke-width="2"/></svg></div>
+<div class="star-label">CHROME DREAMS // 001</div>
+</div></div></div>
 
-  <div class="scene">  
-    <button id="gyroButton" class="btn">ENABLE GYRO ↗</button>  
-    <div class="orbit"></div>  
-    <div class="orbit two"></div>  
-
-    <div class="chrome-star" id="chromeStar">  
-      <svg viewBox="0 0 200 200" aria-label="Chrome star">  
-        <defs>  
-          <linearGradient id="chrome" x1="0" y1="0" x2="1" y2="1">  
-            <stop offset="0%" stop-color="#555560"/>  
-            <stop offset="20%" stop-color="#fff"/>  
-            <stop offset="38%" stop-color="#777783"/>  
-            <stop offset="54%" stop-color="#f8f8ff"/>  
-            <stop offset="72%" stop-color="#666672"/>  
-            <stop offset="100%" stop-color="#eee"/>  
-          </linearGradient>  
-        </defs>  
-        <polygon points="100,5 124,70 195,75 141,120 158,192 100,151 42,192 59,120 5,75 76,70"  
-          fill="url(#chrome)" stroke="#fff" stroke-width="2"/>  
-      </svg>  
-    </div>  
-
-    <div class="star-label">CHROME DREAMS // 001</div>  
-  </div>  
+<!-- HEAVEN//VOID ANGEL SCENES -->
+<div class="angel-world">
+<div class="angel-scene heaven">
+<div class="angel-heading"><small>SCENE 001 // ASCENSION</small><h2>BETWEEN<br>HEAVEN &amp; VOID.</h2></div>
+<svg class="angel-art" viewBox="0 0 500 430" role="img" aria-label="Stylized monochrome angel with outstretched wings">
+<defs><linearGradient id="marble" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff"/><stop offset=".35" stop-color="#aaa"/><stop offset=".6" stop-color="#eee"/><stop offset="1" stop-color="#555"/></linearGradient><linearGradient id="wing" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#555"/></linearGradient></defs>
+<ellipse cx="250" cy="370" rx="140" ry="18" fill="#fff" opacity=".12"/>
+<g fill="url(#wing)" stroke="#ddd" stroke-width="1"><path d="M226 190 Q140 65 35 90 Q95 100 130 155 Q60 120 20 145 Q100 165 155 220 Q90 185 65 215 Q150 250 215 260Z"/><path d="M274 190 Q360 65 465 90 Q405 100 370 155 Q440 120 480 145 Q400 165 345 220 Q410 185 435 215 Q350 250 285 260Z"/></g>
+<g fill="url(#marble)" stroke="#aaa" stroke-width="1.5"><circle cx="250" cy="113" r="29"/><path d="M231 145 L269 145 L291 228 L270 270 L230 270 L209 228Z"/><path d="M226 158 L181 196 L194 215 L234 187Z"/><path d="M274 158 L319 196 L306 215 L266 187Z"/><path d="M230 264 L208 345 L234 351 L252 282Z"/><path d="M270 264 L292 345 L266 351 L248 282Z"/></g>
+<path d="M214 90 Q250 44 286 90 M218 95 Q250 55 282 95" fill="none" stroke="#fff" stroke-width="3" opacity=".85"/><g fill="none" stroke="#fff" opacity=".6"><path d="M120 140 Q165 180 198 220"/><path d="M380 140 Q335 180 302 220"/><path d="M235 155 L250 230 L265 155"/></g></svg>
+<span class="angel-feather" style="top:30%;left:12%">✧</span><span class="angel-feather" style="top:40%;right:12%">✧</span>
+<div class="angel-caption"><span>THE FIRST ASCENSION</span><span>001 / 004</span></div></div>
+<div class="angel-scroll-note">↓ SCROLL TO DESCEND ↓</div>
+<div class="angel-scene cathedral">
+<div class="angel-heading"><small>SCENE 002 // SANCTUARY</small><h2>THE SILENCE<br>OF GOD.</h2></div>
+<svg class="angel-art" viewBox="0 0 500 430" role="img" aria-label="Gothic cathedral in black and white">
+<defs><linearGradient id="cathedralLight" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".8"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient></defs>
+<path d="M250 25 L110 210 L390 210Z" fill="url(#cathedralLight)" opacity=".22"/>
+<g fill="#181818" stroke="#bcbcbc" stroke-width="2"><path d="M45 400 L45 155 Q45 70 105 35 Q165 70 165 155 L165 400Z"/><path d="M335 400 L335 155 Q335 70 395 35 Q455 70 455 155 L455 400Z"/><path d="M170 400 L170 190 Q170 100 250 55 Q330 100 330 190 L330 400Z"/></g>
+<g fill="none" stroke="#eee" stroke-width="3"><path d="M80 400 L80 155 Q80 85 105 65 Q130 85 130 155 L130 400"/><path d="M370 400 L370 155 Q370 85 395 65 Q420 85 420 155 L420 400"/><path d="M200 400 L200 190 Q200 120 250 85 Q300 120 300 190 L300 400"/></g>
+<path d="M250 130 L250 350 M215 180 L285 180 M225 250 L275 250" stroke="#fff" stroke-width="2" opacity=".75"/><path d="M20 400 L20 385 L480 385 L480 400Z" fill="#ddd"/><path d="M40 350 L460 350 L460 357 L40 357Z" fill="#ddd" opacity=".3"/></svg>
+<div class="angel-caption"><span>NO PRAYERS ANSWERED</span><span>002 / 004</span></div></div>
+<div class="angel-scene fallen">
+<div class="angel-heading"><small>SCENE 003 // THE FALL</small><h2>BEAUTIFUL<br>RUIN.</h2></div>
+<svg class="angel-art" viewBox="0 0 500 430" role="img" aria-label="Fallen angel surrounded by broken wings">
+<defs><linearGradient id="fallenMarble" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff"/><stop offset=".5" stop-color="#888"/><stop offset="1" stop-color="#222"/></linearGradient></defs>
+<g fill="none" stroke="#ddd" stroke-width="2" opacity=".8"><path d="M235 180 Q145 65 35 120 Q95 125 140 175 Q85 155 45 195 Q120 185 200 250"/><path d="M265 180 Q355 65 465 120 Q405 125 360 175 Q415 155 455 195 Q380 185 300 250"/><path d="M245 190 L180 100 L200 160 L150 135"/><path d="M255 190 L320 100 L300 160 L350 135"/></g>
+<g fill="url(#fallenMarble)" stroke="#aaa" stroke-width="1.5"><circle cx="250" cy="130" r="25"/><path d="M230 160 L270 160 L290 245 L268 285 L232 285 L210 245Z"/><path d="M229 170 L175 205 L190 225 L237 198Z"/><path d="M271 170 L325 205 L310 225 L263 198Z"/><path d="M235 280 L205 340 L230 350 L250 300Z"/><path d="M265 280 L295 340 L270 350 L250 300Z"/></g>
+<g fill="#ddd" opacity=".75"><path d="M120 300 L145 315 L115 335Z"/><path d="M360 280 L385 300 L350 315Z"/><path d="M170 355 L190 365 L165 385Z"/><path d="M325 350 L350 360 L330 385Z"/></g><circle cx="250" cy="130" r="39" fill="none" stroke="#fff" opacity=".5"/></svg>
+<span class="angel-feather" style="top:34%;left:18%">✧</span><span class="angel-feather" style="top:44%;right:18%">✧</span>
+<div class="angel-caption"><span>EVEN ANGELS FALL</span><span>003 / 004</span></div></div>
+<div class="angel-scene void">
+<div class="angel-heading"><small>SCENE 004 // THE VOID</small><h2>WELCOME<br>TO THE END.</h2></div>
+<div class="void-sigil" aria-hidden="true">†　✧　†</div>
+<div class="angel-caption"><span>YOUR WORLD. YOUR RULES.</span><span>004 / 004</span></div></div>
 </div>
 
-  </div>    <div class="panel" style="margin-top:18px">  
-    <div class="panel-head">  
-      <span>DIRECTORY</span>  
-      <span>SELECT A DESTINATION</span>  
-    </div>  
-  </div>    <div class="grid">  
-    <a class="card" href="https://www.instagram.com/_.thatsonme/" target="_blank" rel="noopener noreferrer">  
-      <small>01 // SOCIAL</small>  
-      <h2>INSTAGRAM ↗</h2>  
-      <p>@_.thatsonme<br>Catch me outside the archive.</p>  
-    </a>  <a class="card" href="https://www.reddit.com/u/ec1psed/s/hQudMEiFJx" target="_blank" rel="noopener noreferrer">  
-  <small>02 // COMMUNITY</small>  
-  <h2>REDDIT ↗</h2>  
-  <p>Another corner of the internet.</p>  
-</a>  
-
-<a class="card" href="https://ig.me/m/_.thatsonme" target="_blank" rel="noopener noreferrer">  
-  <small>03 // CONTACT</small>  
-  <h2>MESSAGE ME ↗</h2>  
-  <p>Slide into the DMs.</p>  
-</a>
-
-  </div>    <div class="bottom">  
-    <section class="music-panel">  
-      <div class="section-title">NOW PLAYING // 001</div>  <div class="track">  
-    <div>  
-      <strong>vanished</strong><br>  
-      <small>OPEN IN SPOTIFY ↗</small>  
-    </div>  
-    <span>♫</span>  
-  </div>  
-
-  <a class="btn" href="https://open.spotify.com/track/1gM1Xu2spprbzVPTpTR9Uq?si=kXrEW5HiRtu4AUl_tgfoyw" target="_blank" rel="noopener noreferrer" style="margin-bottom:12px">OPEN TRACK ↗</a>  
-
-  <iframe  
-    class="spotify"  
-    title="vanished on Spotify"  
-    src="https://open.spotify.com/embed/track/1gM1Xu2spprbzVPTpTR9Uq?utm_source=generator"  
-    height="152"  
-    loading="lazy"  
-    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">  
-  </iframe>  
-
-  <p class="desc">Press play to listen. Spotify may require a tap.</p>  
-</section>  
-
-<section class="links-panel">  
-  <div class="section-title">QUICK ACCESS // 002</div>  
-
-  <div class="link-list">  
-    <a class="link-row" href="https://www.instagram.com/_.thatsonme/" target="_blank" rel="noopener noreferrer"><span>INSTAGRAM</span><span>↗</span></a>  
-    <a class="link-row" href="https://ig.me/m/_.thatsonme" target="_blank" rel="noopener noreferrer"><span>CONTACT</span><span>↗</span></a>  
-    <a class="link-row" href="https://www.reddit.com/u/ec1psed/s/hQudMEiFJx" target="_blank" rel="noopener noreferrer"><span>REDDIT</span><span>↗</span></a>  
-    <button class="link-row" data-view="clothing"><span>CLOTHING SHOWROOM</span><span>↗</span></button>  
-  </div>  
+<div class="panel" style="margin-top:18px"><div class="panel-head"><span>DIRECTORY</span><span>SELECT A DESTINATION</span></div></div>
+<div class="grid">
+<a class="card" href="https://www.instagram.com/_.thatsonme/" target="_blank" rel="noopener noreferrer"><small>01 // SOCIAL</small><h2>INSTAGRAM ↗</h2><p>@_.thatsonme<br>Catch me outside the archive.</p></a>
+<a class="card" href="https://www.reddit.com/u/ec1psed/s/hQudMEiFJx" target="_blank" rel="noopener noreferrer"><small>02 // COMMUNITY</small><h2>REDDIT ↗</h2><p>Another corner of the internet.</p></a>
+<a class="card" href="https://ig.me/m/_.thatsonme" target="_blank" rel="noopener noreferrer"><small>03 // CONTACT</small><h2>MESSAGE ME ↗</h2><p>Slide into the DMs.</p></a>
+</div>
+<div class="bottom">
+<section class="music-panel"><div class="section-title">NOW PLAYING // 001</div>
+<div class="track"><div><strong>vanished</strong><br><small>OPEN IN SPOTIFY ↗</small></div><span>♫</span></div>
+<a class="btn" href="https://open.spotify.com/track/1gM1Xu2spprbzVPTpTR9Uq?si=kXrEW5HiRtu4AUl_tgfoyw" target="_blank" rel="noopener noreferrer" style="margin-bottom:12px">OPEN TRACK ↗</a>
+<iframe class="spotify" title="vanished on Spotify" src="https://open.spotify.com/embed/track/1gM1Xu2spprbzVPTpTR9Uq?utm_source=generator" height="152" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+<p class="desc">Press play to listen. Spotify may require a tap.</p></section>
+<section class="links-panel"><div class="section-title">QUICK ACCESS // 002</div><div class="link-list">
+<a class="link-row" href="https://www.instagram.com/_.thatsonme/" target="_blank" rel="noopener noreferrer"><span>INSTAGRAM</span><span>↗</span></a>
+<a class="link-row" href="https://ig.me/m/_.thatsonme" target="_blank" rel="noopener noreferrer"><span>CONTACT</span><span>↗</span></a>
+<a class="link-row" href="https://www.reddit.com/u/ec1psed/s/hQudMEiFJx" target="_blank" rel="noopener noreferrer"><span>REDDIT</span><span>↗</span></a>
+<button class="link-row" data-view="clothing"><span>CLOTHING SHOWROOM</span><span>↗</span></button>
+</div></section></div>
 </section>
 
-  </div>    <div class="weather-location">  
-    <span class="weather-label">LOCAL FORECAST // </span>  
-    <a href="#" id="weather-link" rel="noopener noreferrer">finding your city...</a>  
-  </div>  
-</section>  <section id="clothing-section" hidden>  
-  <div class="panel" style="margin-top:18px">  
-    <div class="panel-head">  
-      <span>ARCHIVE 002 // GARMENTS</span>  
-      <span>NOT FOR EVERYONE</span>  
-    </div>  <div class="clothing-intro">  
-  <div class="eyebrow">THE STREETWEAR ARCHIVE</div>  
-  <h2>NO BASIC<br><span>FITS.</span></h2>  
-
-  <p class="desc">  
-    Dark streetwear. Oversized silhouettes.  
-    Pieces for people who don't dress to blend in.  
-  </p>  
-
-  <button class="btn" data-view="home">← BACK HOME</button>  
+<section id="clothing-section" hidden>
+<div class="panel" style="margin-top:18px"><div class="panel-head"><span>ARCHIVE 002 // GARMENTS</span><span>NOT FOR EVERYONE</span></div>
+<div class="clothing-intro"><div class="eyebrow">THE STREETWEAR ARCHIVE</div><h2>NO BASIC<br><span>FITS.</span></h2><p class="desc">Dark streetwear. Oversized silhouettes. Pieces for people who don't dress to blend in.</p><button class="btn" data-view="home">← BACK HOME</button></div></div>
+<div class="clothing-grid">
+<article class="clothing-card"><div class="clothing-image"><span>ITEM 001</span><img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&amp;fit=crop&amp;w=800&amp;q=80" alt="T-shirt" loading="lazy"></div><div class="clothing-info"><h2>VOID TEE</h2><p>Oversized fit // washed black</p><strong>YOU CAN’T AFFORD IT, PAL.</strong></div></article>
+<article class="clothing-card"><div class="clothing-image"><span>ITEM 002</span><img src="https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?auto=format&amp;fit=crop&amp;w=800&amp;q=80" alt="Streetwear clothing" loading="lazy"></div><div class="clothing-info"><h2>AFTER HOURS HOODIE</h2><p>Heavyweight // all-black</p><strong>GOT THE MONEY?</strong></div></article>
+<article class="clothing-card"><div class="clothing-image"><span>ITEM 003</span><img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&amp;fit=crop&amp;w=800&amp;q=80" alt="Streetwear fashion" loading="lazy"></div><div class="clothing-info"><h2>GLITCH UNIFORM</h2><p>Loose layers // night-shift energy</p><strong>YOUR BANK SAID NO.</strong></div></article>
+<article class="clothing-card"><div class="clothing-image"><span>ITEM 004</span><img src="https://images.unsplash.com/photo-1542272604-787c383553d5?auto=format&amp;fit=crop&amp;w=800&amp;q=80" alt="Denim jeans" loading="lazy"></div><div class="clothing-info"><h2>BAGGY DENIM</h2><p>Wide leg // low-slung shape</p><strong>TOO RICH FOR YOUR TASTE.</strong></div></article>
+<article class="clothing-card"><div class="clothing-image"><span>ITEM 005</span><img src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&amp;fit=crop&amp;w=800&amp;q=80" alt="Alternative fashion" loading="lazy"></div><div class="clothing-info"><h2>SHADOW SHELL</h2><p>Technical layers // cold chrome</p><strong>NOT FOR YOUR BUDGET.</strong></div></article>
+<article class="clothing-card"><div class="clothing-image"><span>ITEM 006</span><img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&amp;fit=crop&amp;w=800&amp;q=80" alt="Clothing collection" loading="lazy"></div><div class="clothing-info"><h2>STATIC SET</h2><p>Street uniform // zero apologies</p><strong>LOOKS EXPENSIVE. IS EXPENSIVE.</strong></div></article>
+<article class="clothing-card"><div class="clothing-image"><span>ITEM 007 // GOTHIC LUXURY</span><img src="chromehearts.jpg" alt="Chrome Hearts gothic streetwear" loading="lazy"></div><div class="clothing-info"><h2>CHROME HEARTS</h2><p>Gothic graphics // silver hardware // dark luxury</p><strong>MONEY TALKS. YOU DON’T.</strong></div></article>
+<article class="clothing-card"><div class="clothing-image"><span>ITEM 008 // ICED OUT</span><img src="Grillz.jpg" alt="Grillz" loading="lazy"></div><div class="clothing-info"><h2>ICY GRILLZ</h2><p>Silver shine // iced-out attitude</p><strong>SMILE LIKE YOU OWN THE CITY.</strong></div></article>
+<article class="clothing-card"><div class="clothing-image"><span>ITEM 009 // ACCESSORIES</span><img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?auto=format&amp;fit=crop&amp;w=800&amp;q=80" alt="Silver accessories inspiration" loading="lazy"></div><div class="clothing-info"><h2>SILVER RELICS</h2><p>Chrome accessories // cold metal</p><strong>YOU CAN’T AFFORD IT, PAL.</strong></div></article>
+</div>
+<div class="panel" style="margin-bottom:20px"><div class="panel-head"><span>END OF COLLECTION</span><span>ARCHIVE 002</span></div><div style="padding:20px"><h2 style="font-family:Orbitron,sans-serif">STAY RARE.</h2><p class="desc">Your style. Your rules. Your own little corner of the internet.</p><button class="btn" data-view="home">RETURN TO ARCHIVE ↗</button></div></div>
+</section>
+<footer><span>_THATSONME // PERSONAL ARCHIVE</span><span>MADE OF PIXELS &amp; BAD DECISIONS.</span></footer>
 </div>
 
-  </div>    <div class="clothing-grid">  <article class="clothing-card">  
-  <div class="clothing-image">  
-    <span>ITEM 001</span>  
-    <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=800&q=80" alt="T-shirt" loading="lazy">  
-  </div>  
-  <div class="clothing-info">  
-    <h2>VOID TEE</h2>  
-    <p>Oversized fit // washed black</p>  
-    <strong>NOT MADE FOR EVERYBODY.</strong>  
-  </div>  
-</article>  
+<script>
+/* NAVIGATION */
+const home=document.getElementById("home-section");
+const clothing=document.getElementById("clothing-section");
+function showView(view){
+ const isClothing=view==="clothing";
+ home.hidden=isClothing;clothing.hidden=!isClothing;
+ document.querySelectorAll(".nav-btn").forEach(button=>button.classList.toggle("active",button.dataset.view===view));
+ history.replaceState(null,"",isClothing?"#clothing":location.pathname);
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+document.querySelectorAll("[data-view]").forEach(button=>button.addEventListener("click",event=>{event.preventDefault();showView(button.dataset.view)}));
+if(location.hash==="#clothing")showView("clothing");
 
-<article class="clothing-card">  
-  <div class="clothing-image">  
-    <span>ITEM 002</span>  
-    <img src="https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?auto=format&fit=crop&w=800&q=80" alt="Streetwear clothing" loading="lazy">  
-  </div>  
-  <div class="clothing-info">  
-    <h2>AFTER HOURS HOODIE</h2>  
-    <p>Heavyweight // all-black</p>  
-    <strong>YOUR EX WOULD APPROVE.</strong>  
-  </div>  
-</article>  
+/* GYROSCOPE + DRAG + AUTO ROTATION */
+const star=document.getElementById("chromeStar");
+const gyroButton=document.getElementById("gyroButton");
+let gyroEnabled=false,dragging=false,lastX=0,lastY=0,dragX=0,dragY=0,tiltX=0,tiltY=0,autoX=0,autoY=0,lastFrame=0;
+function updateStar(){star.style.transform=`translate3d(${dragX}px,${dragY}px,0) rotateX(${tiltX+autoX}deg) rotateY(${tiltY+autoY}deg)`;}
+function rotateStar(time){if(!lastFrame)lastFrame=time;const dt=Math.min(time-lastFrame,40);lastFrame=time;if(!dragging&&!gyroEnabled){autoX=(autoX+dt*.008)%360;autoY=(autoY+dt*.018)%360;updateStar();}requestAnimationFrame(rotateStar)}
+requestAnimationFrame(rotateStar);
+async function enableGyro(){try{if(!("DeviceOrientationEvent" in window)){gyroButton.textContent="GYRO NOT SUPPORTED";return;}if(typeof DeviceOrientationEvent.requestPermission==="function"){const permission=await DeviceOrientationEvent.requestPermission();if(permission!=="granted"){gyroButton.textContent="PERMISSION DENIED";return;}}gyroEnabled=true;gyroButton.textContent="GYRO ACTIVE ✓";}catch(_){gyroButton.textContent="GYRO UNAVAILABLE";}}
+gyroButton.addEventListener("click",enableGyro);
+window.addEventListener("deviceorientation",event=>{if(!gyroEnabled||dragging)return;if(event.beta==null||event.gamma==null)return;tiltX=Math.max(-45,Math.min(45,event.beta-45));tiltY=Math.max(-45,Math.min(45,event.gamma));updateStar();});
+star.addEventListener("pointerdown",event=>{dragging=true;lastX=event.clientX;lastY=event.clientY;star.setPointerCapture(event.pointerId)});
+star.addEventListener("pointermove",event=>{if(!dragging)return;dragX=Math.max(-100,Math.min(100,dragX+event.clientX-lastX));dragY=Math.max(-100,Math.min(100,dragY+event.clientY-lastY));lastX=event.clientX;lastY=event.clientY;updateStar()});
+function stopDragging(){dragging=false}star.addEventListener("pointerup",stopDragging);star.addEventListener("pointercancel",stopDragging);star.addEventListener("lostpointercapture",stopDragging);
 
-<article class="clothing-card">  
-  <div class="clothing-image">  
-    <span>ITEM 003</span>  
-    <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=800&q=80" alt="Streetwear fashion" loading="lazy">  
-  </div>  
-  <div class="clothing-info">  
-    <h2>GLITCH UNIFORM</h2>  
-    <p>Loose layers // night-shift energy</p>  
-    <strong>TOO DIFFERENT TO FIT IN.</strong>  
-  </div>  
-</article>  
+/* SCROLL-REVEALED ANGEL SCENES */
+const angelScenes=document.querySelectorAll(".angel-scene");
+if("IntersectionObserver" in window){const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting)entry.target.classList.add("in-view");else entry.target.classList.remove("in-view")}),{threshold:.2});angelScenes.forEach(scene=>observer.observe(scene));}else{angelScenes.forEach(scene=>scene.classList.add("in-view"));}
 
-<article class="clothing-card">  
-  <div class="clothing-image">  
-    <span>ITEM 004</span>  
-    <img src="https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=800&q=80" alt="Denim jeans" loading="lazy">  
-  </div>  
-  <div class="clothing-info">  
-    <h2>BAGGY DENIM</h2>  
-    <p>Wide leg // low-slung shape</p>  
-    <strong>THE FIT SPEAKS FOR ITSELF.</strong>  
-  </div>  
-</article>  
-
-<article class="clothing-card">  
-  <div class="clothing-image">  
-    <span>ITEM 005</span>  
-    <img src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=800&q=80" alt="Alternative fashion" loading="lazy">  
-  </div>  
-  <div class="clothing-info">  
-    <h2>SHADOW SHELL</h2>  
-    <p>Technical layers // cold chrome</p>  
-    <strong>CAUGHT IN 4K. STILL DRIPPED OUT.</strong>  
-  </div>  
-</article>  
-
-<article class="clothing-card">  
-  <div class="clothing-image">  
-    <span>ITEM 006</span>  
-    <img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&w=800&q=80" alt="Clothing collection" loading="lazy">  
-  </div>  
-  <div class="clothing-info">  
-    <h2>STATIC SET</h2>  
-    <p>Street uniform // zero apologies</p>  
-    <strong>NO REFUNDS ON THE AURA.</strong>  
-  </div>  
-</article>  
-
-<article class="clothing-card">  
-  <div class="clothing-image">  
-    <span>ITEM 007 // GOTHIC LUXURY</span>  
-    <img src="chromehearts.jpg" alt="Chrome Hearts gothic streetwear" loading="lazy">  
-  </div>  
-  <div class="clothing-info">  
-    <h2>CHROME HEARTS</h2>  
-    <p>Gothic graphics // silver hardware // dark luxury</p>  
-    <strong>HEARTS COLD. METAL COLDER.</strong>  
-  </div>  
-</article>  
-
-<article class="clothing-card">  
-  <div class="clothing-image">  
-    <span>ITEM 008 // ICED OUT</span>  
-    <img src="Grillz.jpg" alt="Grillz" loading="lazy">  
-  </div>  
-  <div class="clothing-info">  
-    <h2>ICY GRILLZ</h2>  
-    <p>Silver shine // iced-out attitude</p>  
-    <strong>SMILE LIKE YOU OWN THE CITY.</strong>  
-  </div>  
-</article>  
-
-<article class="clothing-card">  
-  <div class="clothing-image">  
-    <span>ITEM 009 // ACCESSORIES</span>  
-    <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?auto=format&fit=crop&w=800&q=80" alt="Silver accessories inspiration" loading="lazy">  
-  </div>  
-  <div class="clothing-info">  
-    <h2>SILVER RELICS</h2>  
-    <p>Chrome accessories // cold metal</p>  
-    <strong>THE DETAILS MAKE THE DIFFERENCE.</strong>  
-  </div>  
-</article>
-
-  </div>    <div class="panel" style="margin-bottom:20px">  
-    <div class="panel-head">  
-      <span>END OF COLLECTION</span>  
-      <span>ARCHIVE 002</span>  
-    </div>  
-    <div style="padding:20px">  
-      <h2 style="font-family:Orbitron,sans-serif">STAY RARE.</h2>  
-      <p class="desc">Your style. Your rules. Your own little corner of the internet.</p>  
-      <button class="btn" data-view="home">RETURN TO ARCHIVE ↗</button>  
-    </div>  
-  </div>  
-</section>  <footer>  
-  <span>_THATSONME // PERSONAL ARCHIVE</span>  
-  <span>MADE OF PIXELS & BAD DECISIONS.</span>  
-</footer>  </div>  <script>  
-/* NAVIGATION */  
-  
-const home = document.getElementById("home-section");  
-const clothing = document.getElementById("clothing-section");  
-  
-function showView(view) {  
-  const isClothing = view === "clothing";  
-  
-  home.hidden = isClothing;  
-  clothing.hidden = !isClothing;  
-  
-  document.querySelectorAll(".nav-btn").forEach(button => {  
-    button.classList.toggle("active",button.dataset.view === view);  
-  });  
-  
-  history.replaceState(null,"",isClothing ? "#clothing" : location.pathname);  
-  window.scrollTo({top:0,behavior:"smooth"});  
-}  
-  
-document.querySelectorAll("[data-view]").forEach(button => {  
-  button.addEventListener("click",event => {  
-    event.preventDefault();  
-    showView(button.dataset.view);  
-  });  
-});  
-  
-if (location.hash === "#clothing") showView("clothing");  
-  
-  
-/* GYROSCOPE + DRAGGABLE STAR */  
-  
-const star = document.getElementById("chromeStar");  
-const gyroButton = document.getElementById("gyroButton");  
-  
-let gyroEnabled = false;  
-let dragging = false;  
-let lastX = 0;  
-let lastY = 0;  
-let dragX = 0;  
-let dragY = 0;  
-let tiltX = 0;  
-let tiltY = 0;  
-  
-function updateStar() {  
-  star.style.transform =  
-    `translate3d(${dragX}px,${dragY}px,0) rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;  
-}  
-  
-async function enableGyro() {  
-  try {  
-    if (!("DeviceOrientationEvent" in window)) {  
-      gyroButton.textContent = "GYRO NOT SUPPORTED";  
-      return;  
-    }  
-  
-    if (typeof DeviceOrientationEvent.requestPermission === "function") {  
-      const permission = await DeviceOrientationEvent.requestPermission();  
-  
-      if (permission !== "granted") {  
-        gyroButton.textContent = "PERMISSION DENIED";  
-        return;  
-      }  
-    }  
-  
-    gyroEnabled = true;  
-    gyroButton.textContent = "GYRO ACTIVE ✓";  
-  } catch (_) {  
-    gyroButton.textContent = "GYRO UNAVAILABLE";  
-  }  
-}  
-  
-gyroButton.addEventListener("click",enableGyro);  
-  
-window.addEventListener("deviceorientation",event => {  
-  if (!gyroEnabled || dragging) return;  
-  if (event.beta == null || event.gamma == null) return;  
-  
-  tiltX = Math.max(-45,Math.min(45,event.beta - 45));  
-  tiltY = Math.max(-45,Math.min(45,event.gamma));  
-  
-  updateStar();  
-});  
-  
-star.addEventListener("pointerdown",event => {  
-  dragging = true;  
-  lastX = event.clientX;  
-  lastY = event.clientY;  
-  star.setPointerCapture(event.pointerId);  
-});  
-  
-star.addEventListener("pointermove",event => {  
-  if (!dragging) return;  
-  
-  dragX = Math.max(-100,Math.min(100,dragX + event.clientX - lastX));  
-  dragY = Math.max(-100,Math.min(100,dragY + event.clientY - lastY));  
-  
-  lastX = event.clientX;  
-  lastY = event.clientY;  
-  
-  updateStar();  
-});  
-  
-function stopDragging() { dragging = false; }  
-  
-star.addEventListener("pointerup",stopDragging);  
-star.addEventListener("pointercancel",stopDragging);  
-star.addEventListener("lostpointercapture",stopDragging);  
-  
-  
-/* WEATHER SEARCH: APPROXIMATE CITY FROM IP */  
-  
-(async () => {  
-  const link = document.getElementById("weather-link");  
-  
-  try {  
-    const response = await fetch("https://ipwho.is/");  
-    const data = await response.json();  
-  
-    if (!data.success || !data.city) {  
-      link.textContent = "weather search unavailable";  
-      link.removeAttribute("href");  
-      return;  
-    }  
-  
-    const parts = [data.city,data.region,data.country]  
-      .filter(Boolean)  
-      .filter((value,index,array) => array.indexOf(value) === index);  
-  
-    const place = parts.join(", ");  
-  
-    link.textContent = `what's the weather in ${place}?`;  
-    link.href = "https://www.google.com/search?q=" +  
-      encodeURIComponent(`weather in ${place}`);  
-    link.target = "_blank";  
-    link.rel = "noopener noreferrer";  
-  } catch (_) {  
-    link.textContent = "weather search unavailable";  
-    link.removeAttribute("href");  
-  }  
-})();  
-  
-  
-/* RANDOM LIGHTNING */  
-  
-(() => {  
-  const canvas = document.getElementById("lightningCanvas");  
-  const ctx = canvas.getContext("2d");  
-  
-  const reducedMotion = window.matchMedia(  
-    "(prefers-reduced-motion: reduce)"  
-  ).matches;  
-  
-  let width = 0;  
-  let height = 0;  
-  let dpr = 1;  
-  let bolts = [];  
-  let flash = 0;  
-  let nextStrike = 2500;  
-  let lastTime = 0;  
-  
-  function resize() {  
-    dpr = Math.min(window.devicePixelRatio || 1,2);  
-    width = window.innerWidth;  
-    height = window.innerHeight;  
-  
-    canvas.width = Math.round(width*dpr);  
-    canvas.height = Math.round(height*dpr);  
-    canvas.style.width = width+"px";  
-    canvas.style.height = height+"px";  
-  
-    ctx.setTransform(dpr,0,0,dpr,0,0);  
-  }  
-  
-  function makeBolt() {  
-    const points = [];  
-    let x = Math.random()*width;  
-    let y = -10;  
-  
-    points.push({x,y});  
-  
-    const segments = 20 + Math.floor(Math.random()*12);  
-  
-    for (let i=0;i<segments;i++) {  
-      x += (Math.random()-.5)*55;  
-      y += height/segments;  
-      points.push({x,y});  
-    }  
-  
-    return points;  
-  }  
-  
-  function strike() {  
-    bolts = [makeBolt()];  
-  
-    if (Math.random() > .4) bolts.push(makeBolt());  
-  
-    flash = .25 + Math.random()*.25;  
-    nextStrike = 3500 + Math.random()*8500;  
-  }  
-  
-  function drawBolt(points,alpha,lineWidth) {  
-    if (points.length < 2) return;  
-  
-    ctx.beginPath();  
-    ctx.moveTo(points[0].x,points[0].y);  
-  
-    for (let i=1;i<points.length;i++) {  
-      ctx.lineTo(points[i].x,points[i].y);  
-    }  
-  
-    ctx.strokeStyle = `rgba(220,225,255,${alpha})`;  
-    ctx.lineWidth = lineWidth;  
-    ctx.shadowColor = "#aaaaff";  
-    ctx.shadowBlur = 20;  
-    ctx.stroke();  
-    ctx.shadowBlur = 0;  
-  }  
-  
-  function animate(time) {  
-    requestAnimationFrame(animate);  
-    ctx.clearRect(0,0,width,height);  
-  
-    if (reducedMotion || document.hidden) {  
-      bolts = [];  
-      flash = 0;  
-      lastTime = time;  
-      return;  
-    }  
-  
-    const delta = lastTime ? Math.min(time-lastTime,50) : 16;  
-    lastTime = time;  
-    nextStrike -= delta;  
-  
-    if (nextStrike <= 0) strike();  
-  
-    flash *= .86;  
-  
-    if (flash > .015) {  
-      ctx.fillStyle = `rgba(210,215,255,${flash*.12})`;  
-      ctx.fillRect(0,0,width,height);  
-    }  
-  
-    const alpha = Math.min(flash*4,.9);  
-  
-    bolts.forEach(points => {  
-      drawBolt(points,alpha,1.4);  
-      drawBolt(points,alpha*.3,4);  
-    });  
-  
-    if (flash < .01) bolts = [];  
-  }  
-  
-  resize();  
-  window.addEventListener("resize",resize);  
-  requestAnimationFrame(animate);  
-})();  
-</script>  </body>  
+/* RANDOM LIGHTNING */
+(()=>{
+ const canvas=document.getElementById("lightningCanvas"),ctx=canvas.getContext("2d");
+ const reducedMotion=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+ let width=0,height=0,dpr=1,bolts=[],flash=0,nextStrike=2500,lastTime=0;
+ function resize(){dpr=Math.min(window.devicePixelRatio||1,2);width=window.innerWidth;height=window.innerHeight;canvas.width=Math.round(width*dpr);canvas.height=Math.round(height*dpr);canvas.style.width=width+"px";canvas.style.height=height+"px";ctx.setTransform(dpr,0,0,dpr,0,0)}
+ function makeBolt(){const points=[];let x=Math.random()*width,y=-10;points.push({x,y});const segments=20+Math.floor(Math.random()*12);for(let i=0;i<segments;i++){x+=(Math.random()-.5)*55;y+=height/segments;points.push({x,y})}return points}
+ function strike(){bolts=[makeBolt()];if(Math.random()>.4)bolts.push(makeBolt());flash=.25+Math.random()*.25;nextStrike=3500+Math.random()*8500}
+ function drawBolt(points,alpha,lineWidth){if(points.length<2)return;ctx.beginPath();ctx.moveTo(points[0].x,points[0].y);for(let i=1;i<points.length;i++)ctx.lineTo(points[i].x,points[i].y);ctx.strokeStyle=`rgba(220,225,255,${alpha})`;ctx.lineWidth=lineWidth;ctx.shadowColor="#aaaaff";ctx.shadowBlur=20;ctx.stroke();ctx.shadowBlur=0}
+ function animate(time){requestAnimationFrame(animate);ctx.clearRect(0,0,width,height);if(reducedMotion||document.hidden){bolts=[];flash=0;lastTime=time;return}const delta=lastTime?Math.min(time-lastTime,50):16;lastTime=time;nextStrike-=delta;if(nextStrike<=0)strike();flash*=.86;if(flash>.015){ctx.fillStyle=`rgba(210,215,255,${flash*.12})`;ctx.fillRect(0,0,width,height)}const alpha=Math.min(flash*4,.9);bolts.forEach(points=>{drawBolt(points,alpha,1.4);drawBolt(points,alpha*.3,4)});if(flash<.01)bolts=[]}
+ resize();window.addEventListener("resize",resize);requestAnimationFrame(animate);
+})();
+</script>
+</body>
 </html>
-    
