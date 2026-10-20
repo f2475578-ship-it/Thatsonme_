@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#050505">
+<title>_thatsonme — personal archive</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#050505;--panel:#09090c;--text:#f0f0fa;--muted:#9999a8;--line:#393943;--silver:#e2e2f0}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:"Space Mono",monospace;overflow-x:hidden;text-shadow:0 0 3px #fff7,0 0 8px #c8c8ff45}
+body::before{content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;background:radial-gradient(ellipse at 50% 20%,#33334435,transparent 65%),repeating-linear-gradient(0deg,transparent 0 3px,#fff3 4px)}
+a{color:inherit;text-decoration:none}button{font:inherit}
+a:focus-visible,button:focus-visible{outline:2px solid white;outline-offset:4px}
+.wrap{position:relative;z-index:2;width:min(1050px,calc(100% - 30px));margin:auto}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:17px 0;border-bottom:1px solid var(--line)}
+.brand{font-family:Orbitron,sans-serif;font-size:18px;font-weight:900;letter-spacing:-1px;text-shadow:0 0 5px white,0 0 20px #aaaaff}
+.brand span{color:#bdbdce}nav{display:flex;gap:7px}
+.nav-btn,.btn{display:inline-flex;align-items:center;justify-content:center;padding:11px 13px;border:1px solid #51515f;background:#08080c;color:#eeeef8;font-size:10px;letter-spacing:1px;cursor:pointer;text-shadow:0 0 8px #ddd;transition:.2s}
+.nav-btn:hover,.nav-btn.active,.btn:hover{border-color:#fff;box-shadow:0 0 14px #aaaaff30}
+.btn.primary{color:#08080c;background:#e7e7ef}.btn.primary:hover{box-shadow:0 0 22px #ddd}
+.panel{border:1px solid var(--line);background:#09090ce8;position:relative;overflow:hidden}
+.panel-head{display:flex;justify-content:space-between;gap:10px;padding:12px 15px;border-bottom:1px solid var(--line);color:#aaaab9;font-size:9px;letter-spacing:1px}
+.hero{display:grid;grid-template-columns:1fr 1fr;gap:15px;padding:20px 0}
+.hero-copy{padding:22px;display:flex;flex-direction:column;justify-content:center}
+.eyebrow{color:#b4b4c5;font-size:10px;letter-spacing:3px;margin-bottom:18px}
+h1{margin:0 0 18px;font-family:Orbitron,sans-serif;font-size:clamp(38px,7vw,68px);line-height:1.1;letter-spacing:-2px;overflow-wrap:anywhere;text-shadow:0 0 6px #fff,0 0 20px #aaaaff90,0 0 45px #aaaaff35}
+h1 span{display:block;color:transparent;-webkit-text-stroke:1px #eeeefb;filter:drop-shadow(0 0 9px #aaaaff)}
+.desc{max-width:420px;color:#b1b1c0;font-size:11px;line-height:2}
+.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:20px}
+.scene{min-height:360px;position:relative;display:grid;place-items:center;perspective:900px;overflow:hidden;background:radial-gradient(ellipse,#55556b24,transparent 70%);touch-action:pan-y}
+.orbit{position:absolute;width:260px;height:90px;border:1px solid #c6c6e477;border-radius:50%;transform:rotate(-30deg);animation:orbitSpin 12s linear infinite;pointer-events:none}
+.orbit.two{width:290px;height:120px;transform:rotate(50deg);animation-duration:17s;animation-direction:reverse}
+.chrome-star{position:relative;z-index:2;width:145px;height:145px;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none;filter:drop-shadow(0 0 15px #bdbdff66);will-change:transform}
+.chrome-star:active{cursor:grabbing}.chrome-star svg{width:100%;height:100%;overflow:visible}
+.star-label{position:absolute;bottom:18px;color:#b4b4c3;font-size:9px;letter-spacing:3px}
+#gyroButton{position:absolute;z-index:5;top:12px;left:12px;padding:9px;font-size:9px}
+@keyframes orbitSpin{to{rotate:360deg}}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:12px 0 18px}
+.card{min-width:0;padding:17px;border:1px solid var(--line);background:#09090ce8;transition:.2s}
+.card:hover{transform:translateY(-3px);border-color:#eee;box-shadow:0 0 20px #aaaaff24}
+.card small{color:#aaaab8;font-size:9px;letter-spacing:1px}
+.card h2{margin:15px 0 8px;font:700 13px Orbitron,sans-serif;text-shadow:0 0 8px #aaaaff}
+.card p{color:#aaaab8;font-size:10px;line-height:1.8}
+.bottom{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0}
+.music-panel,.links-panel{min-width:0;padding:18px;border:1px solid var(--line);background:#09090cf0}
+.section-title{color:#b7b7c8;font-size:10px;letter-spacing:2px;margin-bottom:17px}
+.track{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:15px}
+.track strong{font:700 17px Orbitron,sans-serif;text-shadow:0 0 8px white,0 0 20px #aaaaff}.track small{color:#aaaab8;font-size:9px}
+.spotify{width:100%;display:block;border:0;border-radius:10px}
+.link-list{display:grid;gap:8px}
+.link-row{width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px;border:1px solid #30303a;background:#08080c;color:#eeeef7;font-size:10px;cursor:pointer;text-align:left;transition:.2s}
+.link-row:hover{border-color:#ddd;box-shadow:0 0 14px #aaaaff28}.link-row span:last-child{color:#b8b8ca}
+footer{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:20px 0 32px;border-top:1px solid var(--line);color:#aaaab8;font-size:9px}
+.clothing-intro{padding:25px 0 12px}
+.clothing-intro h2{margin:10px 0;font:900 clamp(35px,7vw,65px)/1.15 Orbitron,sans-serif;text-shadow:0 0 8px white,0 0 25px #aaaaff75}
+.clothing-intro h2 span{color:transparent;-webkit-text-stroke:1px white}
+.clothing-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px;margin:22px 0}
+.clothing-card{min-width:0;overflow:hidden;border:1px solid var(--line);background:#09090cf5;transition:.25s}
+.clothing-card:hover{transform:translateY(-4px);border-color:#ddd;box-shadow:0 0 20px #aaaaff22}
+.clothing-image{height:290px;position:relative;overflow:hidden;background:#111116}
+.clothing-image img{width:100%;height:100%;display:block;object-fit:cover;filter:grayscale(1) contrast(1.1);transition:transform .5s,filter .5s;animation:garmentFloat 5s ease-in-out infinite}
+.clothing-card:nth-child(2n) .clothing-image img{animation-delay:-2s}.clothing-card:nth-child(3n) .clothing-image img{animation-delay:-3.5s}
+.clothing-card:hover .clothing-image img{transform:scale(1.06);filter:grayscale(.5) contrast(1.1)}
+@keyframes garmentFloat{0%,100%{translate:0 0}50%{translate:0 -5px}}
+.clothing-image span{position:absolute;top:10px;left:10px;z-index:1;padding:6px;border:1px solid #777;background:#050506df;color:white;font-size:9px;letter-spacing:1px}
+.clothing-info{padding:13px}.clothing-info h2{font:700 12px Orbitron,sans-serif;text-shadow:0 0 8px #aaaaff}
+.clothing-info p{color:#aaaab8;font-size:9px;line-height:1.8}
+.clothing-info strong{display:block;margin-top:13px;padding-top:12px;border-top:1px solid #41414a;font-size:9px;line-height:1.8;text-shadow:0 0 5px white,0 0 16px #aaaaff90}
+.gothic-cross-bg{position:fixed;top:50%;left:50%;width:min(85vw,580px);pointer-events:none;z-index:0;opacity:.19;transform:translate(-50%,-50%);animation:gothicCrossRotate 55s linear infinite;filter:drop-shadow(0 0 8px #c5c5ff90) drop-shadow(0 0 22px #8888ff55)}
+.gothic-cross-bg svg{display:block;width:100%;height:auto}
+@keyframes gothicCrossRotate{from{transform:translate(-50%,-50%) rotate(0deg)}to{transform:translate(-50%,-50%) rotate(360deg)}}
+#lightningCanvas{position:fixed;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;opacity:.9;mix-blend-mode:screen}
+h2,h3,.brand,.section-title,.eyebrow,.star-label{ text-shadow:0 0 5px #fff,0 0 15px #b5b5ff90,0 0 30px #8585ff40}
+p,small,.desc,.card small{text-shadow:0 0 5px #bdbdff70}
+a,button{text-shadow:0 0 5px #fff9,0 0 12px #aaaaff75}
+::selection{color:#050505;background:#eeeefb}
+#home-section[hidden],#clothing-section[hidden]{display:none!important}
+
+/* HEAVEN//VOID REAL PHOTO SCENES */
+.angel-world{position:relative;isolation:isolate;margin:24px 0}
+.angel-scene{min-height:75vh;min-height:75svh;position:relative;display:grid;place-items:center;overflow:hidden;border:1px solid #45454b;background:#050505;margin:16px 0;scroll-margin-top:20px;opacity:.12;transform:scale(.985);transition:opacity .8s ease,transform 1s ease}
+.angel-scene.in-view{opacity:1;transform:scale(1)}
+.angel-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center;background:#050505;filter:grayscale(1) contrast(1.12) brightness(.72);transform:scale(1);transition:filter 1s ease,opacity .8s ease;opacity:0}
+.angel-scene.in-view .angel-photo{opacity:1;filter:grayscale(1) contrast(1.18) brightness(.78)}
+.photo-shade{position:absolute;inset:0;background:transparent;pointer-events:none}
+.angel-heading{position:absolute;z-index:3;top:22px;left:18px;right:18px}
+.angel-heading small{color:#ddd;letter-spacing:3px;font-size:9px}
+.angel-heading h2{margin:12px 0;font:900 clamp(26px,6vw,48px)/1.1 Orbitron,sans-serif;letter-spacing:-1px;color:#fff}
+.angel-caption{position:absolute;z-index:3;left:18px;right:18px;bottom:22px;display:flex;justify-content:space-between;gap:12px;color:#eee;font-size:9px;letter-spacing:2px}
+.angel-scroll-note{color:#aaa;text-align:center;font-size:9px;letter-spacing:3px;padding:10px}
+@media(max-width:720px){.hero{grid-template-columns:1fr}.hero-copy{padding:20px}.scene{min-height:320px}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.bottom{grid-template-columns:1fr}.clothing-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.clothing-image{height:230px}.clothing-info{padding:10px}.gothic-cross-bg{width:100vw;opacity:.15}.angel-scene{min-height:68vh;min-height:68svh}.angel-caption{font-size:8px;letter-spacing:1px}}
+@media(max-width:400px){.wrap{width:calc(100% - 22px)}.brand{font-size:15px}.status{display:none}.grid,.clothing-grid{grid-template-columns:1fr}.clothing-image{height:300px}h1{letter-spacing:-1px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.gothic-cross-bg,.orbit,.clothing-image img{animation:none!important}*,*::before,*::after{transition-duration:.01ms!important}}
+
+/* SHOWROOM SIDE NOTE */
+#shop-note{position:fixed;right:18px;top:50%;transform:translate(120%, -50%);width:min(300px,calc(100vw - 36px));z-index:9999;background:#080808;border:1px solid #aaa;padding:10px;box-shadow:0 0 28px #000;opacity:0;visibility:hidden;transition:transform .45s ease,opacity .35s ease,visibility .35s;display:grid;grid-template-columns:1fr;gap:8px}
+#shop-note.show{transform:translate(0,-50%);opacity:1;visibility:visible}
+#shop-note img{display:block;width:100%;max-height:280px;object-fit:cover;filter:grayscale(1) contrast(1.1)}
+#shop-note .shop-note-message{font:900 13px Orbitron,sans-serif;letter-spacing:1px;text-align:center;color:#f4f4f4;padding:8px 4px}
+#shop-note .shop-note-close{position:absolute;right:15px;top:15px;border:1px solid #fff;background:#050505;color:white;padding:5px 8px;font-size:10px;cursor:pointer}
+@media(max-width:480px){#shop-note{right:10px;width:min(260px,calc(100vw - 20px))}#shop-note img{max-height:220px}}
+
+</style>
+</head>
+<body>
+<div class="gothic-cross-bg" aria-hidden="true">
+<svg viewBox="0 0 300 420" xmlns="http://www.w3.org/2000/svg">
+<defs><linearGradient id="crossChrome" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#555560"/><stop offset="25%" stop-color="#ffffff"/><stop offset="45%" stop-color="#858591"/><stop offset="65%" stop-color="#f5f5ff"/><stop offset="100%" stop-color="#666675"/></linearGradient><filter id="crossGlow" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="4" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+<g fill="url(#crossChrome)" stroke="#eeeefc" stroke-width="1.5" stroke-linejoin="round" filter="url(#crossGlow)"><path d="M132 18 L150 2 L168 18 L163 43 L181 62 L169 84 L164 125 L206 102 L222 78 L238 91 L236 115 L265 124 L280 146 L255 151 L238 139 L219 156 L185 163 L185 204 L211 191 L225 205 L211 222 L185 228 L185 336 L202 360 L180 354 L150 405 L120 354 L98 360 L115 336 L115 228 L89 222 L75 205 L89 191 L115 204 L115 163 L81 156 L62 139 L45 151 L20 146 L35 124 L64 115 L62 91 L78 78 L94 102 L136 125 L131 84 L119 62 L137 43 Z"/><path d="M150 142 L168 171 L150 200 L132 171 Z" fill="#08080c" stroke="#fff" stroke-width="2"/><path d="M150 153 L160 171 L150 188 L140 171 Z" fill="none" stroke="#cfcfe8"/></g>
+</svg></div>
+<canvas id="lightningCanvas" aria-hidden="true"></canvas>
+
+<div class="wrap">
+<header>
+<a class="brand" href="#home" data-view="home">_<span>thatsonme</span></a>
+<nav aria-label="Main navigation"><button class="nav-btn active" data-view="home">HOME</button><button class="nav-btn" data-view="clothing">CLOTHING</button></nav>
+<div class="status">● ARCHIVE ONLINE</div>
+</header>
+
+<section id="home-section">
+<div class="panel" style="margin-top:18px">
+<div class="panel-head"><span>PERSONAL ARCHIVE // 001</span><span>EST. UNKNOWN</span></div>
+<div class="hero">
+<div class="hero-copy">
+<div class="eyebrow">† IN NOMINE NOCTIS †</div>
+<h1>_THAT'S<br><span>ON ME.</span></h1>
+<p class="desc">Just another face in the crowd. A personal archive of music, thoughts, digital fragments and everything in between.</p>
+<div class="actions"><a class="btn primary" href="https://www.instagram.com/_.thatsonme/" target="_blank" rel="noopener noreferrer">FIND ME ↗</a><button class="btn" data-view="clothing">ENTER SHOWROOM ↗</button></div>
+</div>
+<div class="scene">
+<button id="gyroButton" class="btn">ENABLE GYRO ↗</button><div class="orbit"></div><div class="orbit two"></div>
+<div class="chrome-star" id="chromeStar"><svg viewBox="0 0 200 200" aria-label="Chrome star"><defs><linearGradient id="chrome" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#555560"/><stop offset="20%" stop-color="#fff"/><stop offset="38%" stop-color="#777783"/><stop offset="54%" stop-color="#f8f8ff"/><stop offset="72%" stop-color="#666672"/><stop offset="100%" stop-color="#eee"/></linearGradient></defs><polygon points="100,5 124,70 195,75 141,120 158,192 100,151 42,192 59,120 5,75 76,70" fill="url(#chrome)" stroke="#fff" stroke-width="2"/></svg></div>
+<div class="star-label">CHROME DREAMS // 001</div>
+</div></div></div>
+
+<!-- HEAVEN//VOID: REAL PHOTO SCENES (no illustrated/SVG angels) -->
+<div class="angel-world" aria-label="Gothic angel photo gallery">
+  <section class="angel-scene photo-scene" data-scene="001">
+    <img class="angel-photo" src="angel-1.jpg" alt="Uploaded black-and-white Gothic photograph 1" loading="lazy">
+  </section>
+  <section class="angel-scene photo-scene" data-scene="002">
+    <img class="angel-photo" src="angel-2.jpg" alt="Uploaded black-and-white Gothic photograph 2" loading="lazy">
+  </section>
+  <section class="angel-scene photo-scene" data-scene="003">
+    <img class="angel-photo" src="angel-3.jpg" alt="Uploaded black-and-white Gothic photograph 3" loading="lazy">
+  </section>
+  <section class="angel-scene photo-scene final-scene" data-scene="004">
+    <img class="angel-photo" src="angel-4.jpg" alt="Uploaded black-and-white Gothic photograph 4" loading="lazy">
+  </section>
+</div>
+
+<div class="panel" style="margin-top:18px"><div class="panel-head"><span>DIRECTORY</span><span>SELECT A DESTINATION</span></div></div>
+<div class="grid">
+<a class="card" href="https://www.instagram.com/_.thatsonme/" target="_blank" rel="noopener noreferrer"><small>01 // SOCIAL</small><h2>INSTAGRAM ↗</h2><p>@_.thatsonme<br>Catch me outside the archive.</p></a>
+<a class="card" href="https://www.reddit.com/u/ec1psed/s/hQudMEiFJx" target="_blank" rel="noopener noreferrer"><small>02 // COMMUNITY</small><h2>REDDIT ↗</h2><p>Another corner of the internet.</p></a>
+<a class="card" href="https://ig.me/m/_.thatsonme" target="_blank" rel="noopener noreferrer"><small>03 // CONTACT</small><h2>MESSAGE ME ↗</h2><p>Slide into the DMs.</p></a>
+</div>
+<div class="bottom">
+<section class="music-panel"><div class="section-title">NOW PLAYING // 001</div>
+<div class="track"><div><strong>vanished</strong><br><small>OPEN IN SPOTIFY ↗</small></div><span>♫</span></div>
+<a class="btn" href="https://open.spotify.com/track/1gM1Xu2spprbzVPTpTR9Uq?si=kXrEW5HiRtu4AUl_tgfoyw" target="_blank" rel="noopener noreferrer" style="margin-bottom:12px">OPEN TRACK ↗</a>
+<iframe class="spotify" title="vanished on Spotify" src="https://open.spotify.com/embed/track/1gM1Xu2spprbzVPTpTR9Uq?utm_source=generator" height="152" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+<p class="desc">Press play to listen. Spotify may require a tap.</p></section>
+<section class="links-panel"><div class="section-title">QUICK ACCESS // 002</div><div class="link-list">
+<a class="link-row" href="https://www.instagram.com/_.thatsonme/" target="_blank" rel="noopener noreferrer"><span>INSTAGRAM</span><span>↗</span></a>
+<a class="link-row" href="https://ig.me/m/_.thatsonme" target="_blank" rel="noopener noreferrer"><span>CONTACT</span><span>↗</span></a>
+<a class="link-row" href="https://www.reddit.com/u/ec1psed/s/hQudMEiFJx" target="_blank" rel="noopener noreferrer"><span>REDDIT</span><span>↗</span></a>
+<button class="link-row" data-view="clothing"><span>CLOTHING SHOWROOM</span><span>↗</span></button>
+</div></section></div>
+</section>
+
+<section id="clothing-section" hidden>
+<div class="panel" style="margin-top:18px"><div class="panel-head"><span>ARCHIVE 002 // GARMENTS</span><span>NOT FOR EVERYONE</span></div>
+<div class="clothing-intro"><div class="eyebrow">THE STREETWEAR ARCHIVE</div><h2>NO BASIC<br><span>FITS.</span></h2><p class="desc">Dark streetwear. Oversized silhouettes. Pieces for people who don't dress to blend in.</p><button class="btn" data-view="home">← BACK HOME</button></div></div>
+<div class="clothing-grid">
+<article class="clothing-card"><div class="clothing-image"><span>ITEM 001</span><img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&amp;fit=crop&amp;w=800&amp;q=80" alt="T-shirt" loading="lazy"></div><div class="clothing-info"><h2>VOID TEE</h2><p>Oversized fit // washed black</p><strong>YOU CAN’T AFFORD IT, PAL.</strong></div></article>
+<article class="clothing-card"><div class="clothing-image"><span>ITEM 002</span><img src="https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?auto=format&amp;fit=crop&amp;w=800&amp;q=80" alt="Streetwear clothing" loading="lazy"></div><div class="clothing-info"><h2>AFTER HOURS HOODIE</h2><p>Heavyweight // all-black</p><strong>GOT THE MONEY?</strong></div></article>
+<article class="clothing-card"><div class="clothing-image"><span>ITEM 003</span><img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&amp;fit=crop&amp;w=800&amp;q=80" alt="Streetwear fashion" loading="lazy"></div><div class="clothing-info"><h2>GLITCH UNIFORM</h2><p>Loose layers // night-shift energy</p><strong>YOUR BANK SAID NO.</strong></div></article>
+<article class="clothing-card"><div class="clothing-image"><span>ITEM 004</span><img src="https://images.unsplash.com/photo-1542272604-787c383553d5?auto=format&amp;fit=crop&amp;w=800&amp;q=80" alt="Denim jeans" loading="lazy"></div><div class="clothing-info"><h2>BAGGY DENIM</h2><p>Wide leg // low-slung shape</p><strong>TOO RICH FOR YOUR TASTE.</strong></div></article>
+<article class="clothing-card"><div class="clothing-image"><span>ITEM 005</span><img src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&amp;fit=crop&amp;w=800&amp;q=80" alt="Alternative fashion" loading="lazy"></div><div class="clothing-info"><h2>SHADOW SHELL</h2><p>Technical layers // cold chrome</p><strong>NOT FOR YOUR BUDGET.</strong></div></article>
+<article class="clothing-card"><div class="clothing-image"><span>ITEM 006</span><img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&amp;fit=crop&amp;w=800&amp;q=80" alt="Clothing collection" loading="lazy"></div><div class="clothing-info"><h2>STATIC SET</h2><p>Street uniform // zero apologies</p><strong>LOOKS EXPENSIVE. IS EXPENSIVE.</strong></div></article>
+<article class="clothing-card"><div class="clothing-image"><span>ITEM 007 // GOTHIC LUXURY</span><img src="chromehearts.jpg" alt="Chrome Hearts gothic streetwear" loading="lazy"></div><div class="clothing-info"><h2>CHROME HEARTS</h2><p>Gothic graphics // silver hardware // dark luxury</p><strong>MONEY TALKS. YOU DON’T.</strong></div></article>
+<article class="clothing-card"><div class="clothing-image"><span>ITEM 008 // ICED OUT</span><img src="Grillz.jpg" alt="Grillz" loading="lazy"></div><div class="clothing-info"><h2>ICY GRILLZ</h2><p>Silver shine // iced-out attitude</p><strong>SMILE LIKE YOU OWN THE CITY.</strong></div></article>
+<article class="clothing-card"><div class="clothing-image"><span>ITEM 009 // ACCESSORIES</span><img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?auto=format&amp;fit=crop&amp;w=800&amp;q=80" alt="Silver accessories inspiration" loading="lazy"></div><div class="clothing-info"><h2>SILVER RELICS</h2><p>Chrome accessories // cold metal</p><strong>YOU CAN’T AFFORD IT, PAL.</strong></div></article>
+</div>
+<div class="panel" style="margin-bottom:20px"><div class="panel-head"><span>END OF COLLECTION</span><span>ARCHIVE 002</span></div><div style="padding:20px"><h2 style="font-family:Orbitron,sans-serif">STAY RARE.</h2><p class="desc">Your style. Your rules. Your own little corner of the internet.</p><button class="btn" data-view="home">RETURN TO ARCHIVE ↗</button></div></div>
+</section>
+<footer><span>_THATSONME // PERSONAL ARCHIVE</span><span>† CARPE NOCTEM †</span></footer>
+</div>
+
+
+<aside id="shop-note" role="status" aria-live="polite" aria-label="Showroom announcement">
+<button type="button" class="shop-note-close" aria-label="Close message">✕</button>
+<img src="angel-5.jpg" alt="Black and white photo of three horror characters skating together">
+<div class="shop-note-message">we dont sell shit yet</div>
+</aside>
+
+<script>
+/* NAVIGATION */
+const home=document.getElementById("home-section");
+const clothing=document.getElementById("clothing-section");
+function showView(view){
+ const isClothing=view==="clothing";
+ const shopNote=document.getElementById("shop-note");
+ if(isClothing){shopNote.classList.add("show");}else{shopNote.classList.remove("show");}
+ home.hidden=isClothing;clothing.hidden=!isClothing;
+ document.querySelectorAll(".nav-btn").forEach(button=>button.classList.toggle("active",button.dataset.view===view));
+ history.replaceState(null,"",isClothing?"#clothing":location.pathname);
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+document.querySelector(".shop-note-close").addEventListener("click",()=>document.getElementById("shop-note").classList.remove("show"));
+document.querySelectorAll("[data-view]").forEach(button=>button.addEventListener("click",event=>{event.preventDefault();showView(button.dataset.view)}));
+if(location.hash==="#clothing")showView("clothing");
+
+/* GYROSCOPE + DRAG + AUTO ROTATION */
+const star=document.getElementById("chromeStar");
+const gyroButton=document.getElementById("gyroButton");
+let gyroEnabled=false,dragging=false,lastX=0,lastY=0,dragX=0,dragY=0,tiltX=0,tiltY=0,autoX=0,autoY=0,lastFrame=0;
+function updateStar(){star.style.transform=`translate3d(${dragX}px,${dragY}px,0) rotateX(${tiltX+autoX}deg) rotateY(${tiltY+autoY}deg)`;}
+function rotateStar(time){if(!lastFrame)lastFrame=time;const dt=Math.min(time-lastFrame,40);lastFrame=time;if(!dragging&&!gyroEnabled){autoX=(autoX+dt*.008)%360;autoY=(autoY+dt*.018)%360;updateStar();}requestAnimationFrame(rotateStar)}
+requestAnimationFrame(rotateStar);
+async function enableGyro(){try{if(!("DeviceOrientationEvent" in window)){gyroButton.textContent="GYRO NOT SUPPORTED";return;}if(typeof DeviceOrientationEvent.requestPermission==="function"){const permission=await DeviceOrientationEvent.requestPermission();if(permission!=="granted"){gyroButton.textContent="PERMISSION DENIED";return;}}gyroEnabled=true;gyroButton.textContent="GYRO ACTIVE ✓";}catch(_){gyroButton.textContent="GYRO UNAVAILABLE";}}
+gyroButton.addEventListener("click",enableGyro);
+window.addEventListener("deviceorientation",event=>{if(!gyroEnabled||dragging)return;if(event.beta==null||event.gamma==null)return;tiltX=Math.max(-45,Math.min(45,event.beta-45));tiltY=Math.max(-45,Math.min(45,event.gamma));updateStar();});
+star.addEventListener("pointerdown",event=>{dragging=true;lastX=event.clientX;lastY=event.clientY;star.setPointerCapture(event.pointerId)});
+star.addEventListener("pointermove",event=>{if(!dragging)return;dragX=Math.max(-100,Math.min(100,dragX+event.clientX-lastX));dragY=Math.max(-100,Math.min(100,dragY+event.clientY-lastY));lastX=event.clientX;lastY=event.clientY;updateStar()});
+function stopDragging(){dragging=false}star.addEventListener("pointerup",stopDragging);star.addEventListener("pointercancel",stopDragging);star.addEventListener("lostpointercapture",stopDragging);
+
+/* SCROLL-REVEALED REAL PHOTO SCENES */
+const angelScenes=document.querySelectorAll(".photo-scene");
+if("IntersectionObserver" in window){
+ const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{
+   entry.target.classList.toggle("in-view",entry.isIntersecting);
+ }),{threshold:0.28});
+ angelScenes.forEach(scene=>observer.observe(scene));
+}else{angelScenes.forEach(scene=>scene.classList.add("in-view"));}
+
+/* RANDOM LIGHTNING */
+(()=>{
+ const canvas=document.getElementById("lightningCanvas"),ctx=canvas.getContext("2d");
+ const reducedMotion=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+ let width=0,height=0,dpr=1,bolts=[],flash=0,nextStrike=2500,lastTime=0;
+ function resize(){dpr=Math.min(window.devicePixelRatio||1,2);width=window.innerWidth;height=window.innerHeight;canvas.width=Math.round(width*dpr);canvas.height=Math.round(height*dpr);canvas.style.width=width+"px";canvas.style.height=height+"px";ctx.setTransform(dpr,0,0,dpr,0,0)}
+ function makeBolt(){const points=[];let x=Math.random()*width,y=-10;points.push({x,y});const segments=20+Math.floor(Math.random()*12);for(let i=0;i<segments;i++){x+=(Math.random()-.5)*55;y+=height/segments;points.push({x,y})}return points}
+ function strike(){bolts=[makeBolt()];if(Math.random()>.4)bolts.push(makeBolt());flash=.25+Math.random()*.25;nextStrike=3500+Math.random()*8500}
+ function drawBolt(points,alpha,lineWidth){if(points.length<2)return;ctx.beginPath();ctx.moveTo(points[0].x,points[0].y);for(let i=1;i<points.length;i++)ctx.lineTo(points[i].x,points[i].y);ctx.strokeStyle=`rgba(220,225,255,${alpha})`;ctx.lineWidth=lineWidth;ctx.shadowColor="#aaaaff";ctx.shadowBlur=20;ctx.stroke();ctx.shadowBlur=0}
+ function animate(time){requestAnimationFrame(animate);ctx.clearRect(0,0,width,height);if(reducedMotion||document.hidden){bolts=[];flash=0;lastTime=time;return}const delta=lastTime?Math.min(time-lastTime,50):16;lastTime=time;nextStrike-=delta;if(nextStrike<=0)strike();flash*=.86;if(flash>.015){ctx.fillStyle=`rgba(210,215,255,${flash*.12})`;ctx.fillRect(0,0,width,height)}const alpha=Math.min(flash*4,.9);bolts.forEach(points=>{drawBolt(points,alpha,1.4);drawBolt(points,alpha*.3,4)});if(flash<.01)bolts=[]}
+ resize();window.addEventListener("resize",resize);requestAnimationFrame(animate);
+})();
+</script>
+</body>
+</html>
